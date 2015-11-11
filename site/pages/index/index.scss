@@ -1,0 +1,34 @@
+// Home
+
+body,
+html
+{
+    width: 100%;
+    height: 100%;
+
+    background-color: $white;
+
+    @extend %flex-center-all;
+}
+
+.loading
+{
+    transition: all 1s ease-in-out;
+    animation: blink 1s infinite;
+}
+
+@-webkit-keyframes blink
+{
+    0%
+    {
+        opacity: 1;
+    }
+    50%
+    {
+        opacity: 0;
+    }
+    100%
+    {
+        opacity: 1;
+    }
+}

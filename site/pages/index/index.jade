@@ -1,0 +1,12 @@
+include ../../common-components/head/head.jade
+
+doctype html
+html
+	+head( 'WikiSonnets' )
+	body
+		header
+			| WikiSonnets
+		.input-field
+			input#poem-subject( type='text' )
+			input( type='submit' id='get-poem' )
+		ul.poem
