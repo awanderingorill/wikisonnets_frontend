@@ -14,7 +14,8 @@ $( document ).ready( function(  ){
 		$( '.poem' ).html( '<div class="loading">'+ 'Fetching poem' + '</div>' );
 
 		// Hit the API
-		$.getJSON( 'http://wikisonnet-dev2.elasticbeanstalk.com/api/v1/compose/' + poemSubject, function( data ){
+		//$.getJSON( 'http://wikisonnet-dev2.elasticbeanstalk.com/api/v1/compose/' + poemSubject, function( data ){
+		$.post( 'http://localhost/api/v2/pages/' + poemSubject + '/poems', function( data ){
 
 			// Set some variables
 			var poem = data.poem;
