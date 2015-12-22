@@ -15,25 +15,39 @@ $( document ).ready( function(  ){
 
 		// Hit the API
 		//$.getJSON( 'http://wikisonnet-dev2.elasticbeanstalk.com/api/v1/compose/' + poemSubject, function( data ){
-		$.post( 'http://localhost/api/v2/pages/' + poemSubject + '/poems', function( data ){
+		$.ajax({
+			url: 'http://localhost/api/v2/pages/' + poemSubject + '/poems',
+			method: 'POST',
+			xhrFields: {
+				withCredentials: true
+			},
+			success: function( data ){
+				if (data.complete) {
+					renderPoem(data);
+				}
+				else {
+					setTimeout(getPoem.bind(null, data.id), 1000);
+				}
+			}
+		});
+
+	} );
+} );
+
+function getPoem(poemId) {
+	$.ajax({
+		url: 'http://localhost/api/v2/poems/' + poemId, 
+		method: 'GET',
+		xhrFields: {
+			withCredentials: true
+		},
+		success: function(data) {
 			if (data.complete) {
 				renderPoem(data);
 			}
 			else {
 				setTimeout(getPoem.bind(null, data.id), 1000);
 			}
-		} );
-
-	} );
-} );
-
-function getPoem(poemId) {
-	$.get('http://localhost/api/v2/poems/' + poemId, function(data) {
-		if (data.complete) {
-			renderPoem(data);
-		}
-		else {
-			setTimeout(getPoem.bind(null, data.id), 1000);
 		}
 	});
 }
