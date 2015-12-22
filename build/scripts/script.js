@@ -14,39 +14,20 @@ $( document ).ready( function(  ){
 		$( '.poem' ).html( '<div class="loading">'+ 'Fetching poem' + '</div>' );
 
 		// Hit the API
-		//$.getJSON( 'http://wikisonnet-dev2.elasticbeanstalk.com/api/v1/compose/' + poemSubject, function( data ){
-		$.post( 'http://localhost/api/v2/pages/' + poemSubject + '/poems', function( data ){
-			if (data.complete) {
-				renderPoem(data);
-			}
-			else {
-				setTimeout(getPoem.bind(null, data.id), 1000);
-			}
+		$.getJSON( 'http://wikisonnet-dev2.elasticbeanstalk.com/api/v1/compose/' + poemSubject, function( data ){
+
+			// Set some variables
+			var poem = data.poem;
+			var poemHtml = '';
+
+			// Pick the first line from each set of possible lines
+			$.each( poem, function( key, val ) {
+				poemHtml = poemHtml.concat( '<li>' + poem[key][0] + '</li>' );
+			} );
+
+			// Add poem to the page
+			$( '.poem' ).html( poemHtml );
 		} );
 
 	} );
 } );
-
-function getPoem(poemId) {
-	$.get('http://localhost/api/v2/poems/' + poemId, function(data) {
-		if (data.complete) {
-			renderPoem(data);
-		}
-		else {
-			setTimeout(getPoem.bind(null, data.id), 1000);
-		}
-	});
-}
-
-function renderPoem(poemJson) {
-	var poem = poemJson.lines;
-	var poemHtml = '';
-
-	// Pick the first line from each set of possible lines
-	$.each( poem, function( index, value ) {
-		poemHtml = poemHtml.concat( '<li>' + value.text + '</li>' );
-	} );
-
-	// Add poem to the page
-	$( '.poem' ).html( poemHtml );
-}
