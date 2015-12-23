@@ -16,8 +16,9 @@ $( document ).ready( function(  ){
 		// Hit the API
 		//$.getJSON( 'http://wikisonnet-dev2.elasticbeanstalk.com/api/v1/compose/' + poemSubject, function( data ){
 		$.ajax({
-			url: 'http://localhost/api/v2/pages/' + poemSubject + '/poems',
+			url: 'http://localhost/api/v2/poems',
 			method: 'POST',
+			data: {'poemTitle': poemSubject},
 			xhrFields: {
 				withCredentials: true
 			},
@@ -32,6 +33,7 @@ $( document ).ready( function(  ){
 		});
 
 	} );
+
 } );
 
 function getPoem(poemId) {
