@@ -1,0 +1,28 @@
+{
+  "name": "WikiSonnet-Frontend",
+  "description": "The frontend application for interacting with the WikiSonnet API",
+  "main": "site/scripts.js",
+  "authors": [
+    "Cassie Tarakajian",
+    "Sam Tarakajian",
+    "Ana Giraldo-Wingler"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "sonnets"
+  ],
+  "homepage": "https://github.com/awanderingorill/wikisonnets_frontend",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "jquery": "~2.1.4",
+    "jquery-ui": "~1.11.4"
+  }
+}

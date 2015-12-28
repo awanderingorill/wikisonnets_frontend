@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/RyanWarner/jade-sass-seed",
   "devDependencies": {
+    "browserify": "^12.0.1",
+    "browserify-shim": "^3.8.11",
     "del": "^1.1.1",
     "express": "^4.13.3",
     "gulp": "^3.8.11",
@@ -42,11 +44,26 @@
     "gulp-uglify": "^1.1.0",
     "gulp-util": "^3.0.4",
     "imagemin-pngquant": "^4.0.0",
+    "main-bower-files": "^2.11.0",
     "path": "^0.12.7",
     "require-dir": "^0.3.0",
-    "run-sequence": "^1.0.2"
+    "run-sequence": "^1.0.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
     "jade": "^1.11.0"
+  },
+  "browser": {
+    "jquery": "./site/scripts/lib/jquery.js",
+    "jquery-ui": "./site/scripts/lib/jquery-ui.js"
+  },
+  "browserify-shim": {
+    "jquery": "$"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
   }
 }

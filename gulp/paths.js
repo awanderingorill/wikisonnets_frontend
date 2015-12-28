@@ -28,6 +28,7 @@ module.exports =
 		{
 			source: root + '/site/scripts/**/*.js',
 			main: root + '/site/scripts/main.js',
+			lib_destination: root + '/site/scripts/lib',
 			destination: destination + 'scripts'
 		},
 		images:
