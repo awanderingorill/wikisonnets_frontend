@@ -12,7 +12,10 @@ var path      = require( '../../paths.js' );
 var error     = require( '../../error-handler.js' );
 
 
-
+gulp.task( 'vendor-css', function( ) {
+	return gulp.src("./bower_components/jquery-ui/themes/base/jquery-ui.min.css")
+		.pipe(gulp.dest("./build"));
+});
 
 gulp.task( 'csscomb', function (  )
 {
@@ -30,7 +33,7 @@ gulp.task( 'scss-lint', [ 'csscomb' ], function(  )
 		.on( 'error', error.handler );
 } );
 
-gulp.task( 'sass', [ 'scss-lint' ], function(  )
+gulp.task( 'sass', [ 'scss-lint', 'vendor-css' ], function(  )
 {
 	return gulp.src( path.to.sass.main )
 		//.pipe( cache( 'sass' ) )

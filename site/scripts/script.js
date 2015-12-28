@@ -41,16 +41,13 @@ $( document ).ready( function(  ){
 		minLength: 3,
 		source: function(request, response) {
 			$.ajax({
-				url: "https://en.wikipedia.org/w/api.php",
+				url: "/search",
 				type: 'GET',
 				data: {
-					action: 'opensearch',
-					limit: '10',
-					format: 'json',
-					search: $('#poem-subject').val()
+					q: $('#poem-subject').val()
 				},
 				success: function(results) {
-					response(results[1])
+					response(results)
 				}
 			});
 		}
