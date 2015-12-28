@@ -14,14 +14,13 @@ gulp.task( 'default', function(  )
 	runSequence(
 		'clean',
 		[
-			'jade', 
 			'sass',
 			'scripts',
 			'images',
 			'favicon'
 		],
 		'watch',
-		'connect'
+		'start'
 	);
 } );
 
