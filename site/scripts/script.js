@@ -26,10 +26,8 @@ $( document ).ready( function(  ){
 				withCredentials: true
 			},
 			success: function( data ){
-				if (data.complete) {
-					renderPoem(data);
-				}
-				else {
+				renderPoem(data);
+				if (!data.complete) {
 					setTimeout(getPoem.bind(null, data.id), 1000);
 				}
 			}
@@ -57,16 +55,14 @@ $( document ).ready( function(  ){
 
 function getPoem(poemId) {
 	$.ajax({
-		url: 'http://localhost/api/v2/poems/' + poemId, 
+		url: 'http://localhost/api/v2/poems/' + poemId,
 		method: 'GET',
 		xhrFields: {
 			withCredentials: true
 		},
 		success: function(data) {
-			if (data.complete) {
-				renderPoem(data);
-			}
-			else {
+			renderPoem(data);
+			if (!data.complete) {
 				setTimeout(getPoem.bind(null, data.id), 1000);
 			}
 		}
@@ -77,11 +73,17 @@ function renderPoem(poemJson) {
 	var poem = poemJson.lines;
 	var poemHtml = '';
 
-	// Pick the first line from each set of possible lines
-	$.each( poem, function( index, value ) {
-		poemHtml = poemHtml.concat( '<li>' + value.text + '</li>' );
-	} );
+	if (poem) {
 
-	// Add poem to the page
-	$( '.poem' ).html( poemHtml );
+		// Pick the first line from each set of possible lines
+		$.each( poem, function( index, value ) {
+			if (value.page_id == 0)
+				poemHtml = poemHtml.concat( '<li>' + "----------------" + '</li>' );
+			else
+				poemHtml = poemHtml.concat( '<li>' + value.text + '</li>' );
+		} );
+
+		// Add poem to the page
+		$( '.poem' ).html( poemHtml );
+	}
 }
