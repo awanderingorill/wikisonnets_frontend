@@ -1,7 +1,10 @@
 var express = require('express');
 var path = require('path');
-var app = express();
 var request = require('request');
+var cookieParser = require('cookie-parser');
+
+var app = express();
+app.use(cookieParser());
 
 app.set('views', path.join(__dirname, 'site/pages'));
 app.set('view engine', 'jade');
@@ -26,6 +29,21 @@ app.get('/search', function (req, res) {
 	function(err, response, body) {
 			if(err) { console.log(err); return; }
 			res.json(JSON.parse(response.body)[1]);
+	});
+});
+
+app.get('/poems/:poem_id', function(req, res) {
+	var jar = request.jar();
+	var cookie = request.cookie("session="+req.cookies["session"]);
+	jar.setCookie(cookie, 'http://localhost:3000');
+	request({
+		url: "http://localhost/api/v2/poems/" + req.params['poem_id'],
+		type: 'GET',
+		jar: jar
+	},
+	function(err, response, body) {
+		if(err) { console.log(err); return; }
+		res.json(body);
 	});
 });
 
