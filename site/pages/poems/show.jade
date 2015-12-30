@@ -1,0 +1,11 @@
+include ../../common-components/head/head.jade
+
+doctype html
+html
+	+head( 'WikiSonnets' )
+	body
+		header
+			| WikiSonnets
+		ul.poem
+			each value in lines
+				li= value.text

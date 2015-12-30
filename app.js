@@ -41,9 +41,11 @@ app.get('/poems/:poem_id', function(req, res) {
 		type: 'GET',
 		jar: jar
 	},
-	function(err, response, body) {
+	function(err, response) {
 		if(err) { console.log(err); return; }
-		res.json(body);
+		var body = JSON.parse(response.body);
+		console.log(response.body);
+		res.render('poems/show', {lines: body.lines});
 	});
 });
 
