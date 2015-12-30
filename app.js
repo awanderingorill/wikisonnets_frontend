@@ -37,7 +37,7 @@ app.get('/poems/:poem_id', function(req, res) {
 	var cookie = request.cookie("session="+req.cookies["session"]);
 	jar.setCookie(cookie, 'http://localhost:3000');
 	request({
-		url: "http://localhost/api/v2/poems/" + req.params['poem_id'],
+		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'],
 		type: 'GET',
 		jar: jar
 	},
