@@ -1,8 +1,5 @@
 'use strict';
 
-require('jquery');
-require('jquery-ui');
-
 $( document ).ready( function(  ){
 
 	$( '#get-poem' ).click( function(  ){

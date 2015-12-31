@@ -12,6 +12,7 @@ var mainBowerFiles = require('main-bower-files');
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
+var uglify = require('gulp-uglify');
 
 
 // Scripts.
@@ -22,28 +23,45 @@ gulp.task( 'bower', function( ) {
         .pipe(gulp.dest( path.to.scripts.lib_destination ))
 });
 
-gulp.task( 'browserify', function() {
+var libs = [
+	path.to.scripts.lib_destination + '/jquery.js',
+	path.to.scripts.lib_destination + '/jquery-ui.js'
+];
+gulp.task( 'vendor', function() {
 	var b = browserify({
-    entries: './site/scripts/script.js',
+    entries: libs,
     debug: true
   });
 
   return b.bundle()
-  	.pipe(source('main.js'))
+  	.pipe(source('vendor.js'))
   	.pipe(buffer())
+  	.pipe(uglify())
   	.pipe(gulp.dest('build/scripts/'));
 });
 
+// gulp.task( 'browserify', function() {
+// 	var b = browserify({
+//     entries: './site/scripts/script.js',
+//     debug: true
+//   });
+
+//   return b.bundle()
+//   	.pipe(source('main.js'))
+//   	.pipe(buffer())
+//   	.pipe(gulp.dest('build/scripts/'));
+// });
+
 gulp.task( 'eslint', function(  )
 {
-	return gulp.src( path.to.scripts.source )
+	return gulp.src( [path.to.scripts.source, "!"+path.to.scripts.lib_source] )
 		.pipe( eslint(  ) )
 		.pipe( eslint.format(  ) );
 } );
 
-gulp.task( 'scripts', [ 'bower', 'browserify', 'eslint' ], function(  )
+gulp.task( 'scripts', [ 'bower', 'vendor' ], function(  )
 {
-	return gulp.src( path.to.scripts.source )
+	return gulp.src( [path.to.scripts.source, "!"+path.to.scripts.lib_source] )
 		.pipe( gulp.dest( path.to.scripts.destination ) )
 		.pipe( connect.reload(  ) );
 } );

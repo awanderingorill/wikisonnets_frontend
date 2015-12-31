@@ -27,6 +27,7 @@ module.exports =
 		scripts:
 		{
 			source: root + '/site/scripts/**/*.js',
+			lib_source: root + '/site/scripts/lib/**/*.js',
 			main: root + '/site/scripts/main.js',
 			lib_destination: root + '/site/scripts/lib',
 			destination: destination + 'scripts'
