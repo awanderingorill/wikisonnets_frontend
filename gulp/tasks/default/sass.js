@@ -1,12 +1,13 @@
 var gulp      = require( 'gulp' );
 var gutil     = require( 'gulp-util' );
-var connect   = require( 'gulp-connect' );
 
 var cache = require( 'gulp-cached' );
 var sass      = require( 'gulp-sass' );
 var prefix    = require( 'gulp-autoprefixer' );
 var scsslint  = require( 'gulp-scss-lint' );
 var csscomb   = require( 'gulp-csscomb' );
+var gutil 		= require( 'gulp-util' );
+var nano 			= require('gulp-cssnano');
 
 var path      = require( '../../paths.js' );
 var error     = require( '../../error-handler.js' );
@@ -33,7 +34,7 @@ gulp.task( 'scss-lint', [ 'csscomb' ], function(  )
 		.on( 'error', error.handler );
 } );
 
-gulp.task( 'sass', [ 'scss-lint', 'vendor-css' ], function(  )
+gulp.task( 'sass', [ 'vendor-css' ], function(  )
 {
 	return gulp.src( path.to.sass.main )
 		//.pipe( cache( 'sass' ) )
@@ -41,6 +42,6 @@ gulp.task( 'sass', [ 'scss-lint', 'vendor-css' ], function(  )
 		.on( 'error', error.handler )
 		.pipe( prefix( 'last 2 versions', { cascade: true } ) )
 		.on( 'error', error.handler )
-		.pipe( gulp.dest( path.to.sass.destination ) )
-		.pipe( connect.reload(  ) );
+		.pipe(gutil.env.production ? nano() : gutil.noop())	
+		.pipe( gulp.dest( path.to.sass.destination ) );
 } );

@@ -36,7 +36,7 @@ gulp.task( 'vendor', function() {
   return b.bundle()
   	.pipe(source('vendor.js'))
   	.pipe(buffer())
-  	.pipe(uglify())
+  	.pipe(gutil.env.production ? uglify() : gutil.noop())
   	.pipe(gulp.dest('build/scripts/'));
 });
 
@@ -62,7 +62,7 @@ gulp.task( 'eslint', function(  )
 gulp.task( 'scripts', [ 'bower', 'vendor' ], function(  )
 {
 	return gulp.src( [path.to.scripts.source, "!"+path.to.scripts.lib_source] )
-		.pipe( gulp.dest( path.to.scripts.destination ) )
-		.pipe( connect.reload(  ) );
+		.pipe(gutil.env.production ? uglify() : gutil.noop())
+		.pipe( gulp.dest( path.to.scripts.destination ) );
 } );
 

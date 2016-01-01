@@ -1,22 +1,19 @@
 {
-  "name": "jade-sass-seed",
+  "name": "WikiSonnets-Frontend",
   "version": "0.1.0",
-  "description": "Starting point for Jade & SAss projects.",
+  "description": "",
   "main": "gulpfile.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/RyanWarner/jade-sass-seed.git"
+    "url": "https://github.com/awanderingorill/wikisonnets_frontend.git"
   },
   "keywords": [
-    "jade",
-    "sass"
+    "sonnets",
+    "generative writing"
   ],
-  "author": "Ryan Warner",
+  "author": "Cassie Tarakajian",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/RyanWarner/jade-sass-seed/issues"
-  },
-  "homepage": "https://github.com/RyanWarner/jade-sass-seed",
+  "homepage": "https://wikison.net",
   "devDependencies": {
     "browserify": "^12.0.1",
     "browserify-shim": "^3.8.11",
@@ -29,12 +26,12 @@
     "gulp-concat": "^2.5.2",
     "gulp-connect": "^2.2.0",
     "gulp-csscomb": "^3.0.3",
+    "gulp-cssnano": "^2.0.0",
     "gulp-eslint": "^0.7.0",
     "gulp-flatten": "0.0.4",
     "gulp-imagemin": "^2.2.1",
     "gulp-jade": "^1.0.0",
     "gulp-livereload": "^3.8.1",
-    "gulp-minify-css": "^1.0.0",
     "gulp-minify-html": "^1.0.1",
     "gulp-nodemon": "^2.0.4",
     "gulp-notify": "^2.2.0",
@@ -54,21 +51,22 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "jade": "^1.11.0",
-    "async-each": "~1.0.0",
     "anymatch": "~1.3.0",
+    "async-each": "~1.0.0",
+    "browserslist": "~1.0.1",
+    "clone": "~1.0.2",
     "glob-parent": "~2.0.0",
-    "is-glob": "~2.0.1",
-    "path-is-absolute": "~1.0.0",
-    "readdirp": "~2.0.0",
-    "is-binary-path": "~1.0.1",
     "is": "~3.1.0",
+    "is-binary-path": "~1.0.1",
+    "is-glob": "~2.0.1",
+    "jade": "^1.11.0",
     "map-stream": "0.0.6",
     "node-sass": "~3.4.2",
-    "clone": "~1.0.2",
-    "vinyl-sourcemaps-apply": "~0.2.1",
-    "browserslist": "~1.0.1",
-    "num2fraction": "~1.2.2"
+    "num2fraction": "~1.2.2",
+    "path-is-absolute": "~1.0.0",
+    "pm2": "^0.15.10",
+    "readdirp": "~2.0.0",
+    "vinyl-sourcemaps-apply": "~0.2.1"
   },
   "browser": {
     "jquery": "./site/scripts/lib/jquery.js",
