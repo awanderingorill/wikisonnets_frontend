@@ -1,17 +1,21 @@
-# jade-sass-seed ![Mineral](http://rywar.com/github-images/mineral.svg)
+# WikiSonnet Front-End Website
 
-Opinionated seed for simple websites that don't use a framework and use minimal JavaScript.
-
-Work in progress!
-
+A web application for interacting with the [WikiSonnet API](https://github.com/starakaj/wikisonnet). 
 
 
 ## Local Setup
 
 1. `gem install scss-lint`
-1. `npm install`
-2. `npm install -g gulp`
+2. `npm install`
+3. `npm install -g gulp`
+4. `bower install`
 3. `gulp`
+
+## Production Setup
+2. `npm install`
+3. `npm install -g gulp`
+4. `bower install`
+3. `gulp --production`
 
 
 
