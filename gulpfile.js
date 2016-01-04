@@ -17,7 +17,8 @@ gulp.task( 'default', function(  )
 			'sass',
 			'scripts',
 			'images',
-			'favicon'
+			'favicon', 
+			'inject'
 		],
 		'watch',
 		'start'

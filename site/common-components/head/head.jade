@@ -2,8 +2,16 @@ mixin head( title )
 	head
 		meta( name='viewport', content='width=device-width' initial-scale='1' )
 		title #{ title }
-		link( rel='stylesheet', href='/jquery-ui.min.css' )
-		link( rel='stylesheet', href='/main.css' )
+		//- vendor:css
+		link(rel="stylesheet", href="/jquery-ui.min.css")
+		//- endinject
+		//- main:css
+		link(rel="stylesheet", href="/main.css")
+		//- endinject
 		link( rel='icon', type='image/png', href='/favicon.png' )
-		script( src='/scripts/vendor.js' )
-		script( src='/scripts/script.js' )
+		//- vendor:js
+		script(src="/scripts/vendor.js")
+		//- endinject
+		//- main:js
+		script(src="/scripts/script.js")
+		//- endinject
