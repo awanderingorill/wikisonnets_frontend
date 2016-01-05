@@ -2,14 +2,13 @@
 
 *
 {
-    position: relative;
-
-    display: flex;
+    //position: relative;
+    //display: flex;
 
     box-sizing: border-box;
 
-    flex-flow: column;
-    flex-shrink: 0;
+    // flex-flow: column;
+    // flex-shrink: 0;
 }
 
 script,
@@ -48,4 +47,8 @@ h5
 p
 {
     margin: 0;
+}
+
+input {
+    border: none;
 }

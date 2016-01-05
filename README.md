@@ -12,15 +12,19 @@ A web application for interacting with the [WikiSonnet API](https://github.com/s
 3. `gulp`
 
 ## Production Setup
-2. `npm install`
-3. `npm install -g gulp`
-4. `bower install`
-3. `gulp --production`
+1. `npm install`
+2. `npm install -g gulp`
+3. `bower install`
+4. `gulp --production`
+5. `npm install -g pm2`
+6. `pm2 app.js`
+
 
 
 
 ## Stack
 
+- Node and Express
 - [Jade](http://jade-lang.com/) as HTML preprocessor.
 - [Sass](http://sass-lang.com/) as CSS preprocessor.
 - [Gulp](http://gulpjs.com/) as streaming build system.

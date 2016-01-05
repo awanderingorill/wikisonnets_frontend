@@ -2,11 +2,19 @@ include ../../common-components/head/head.jade
 
 doctype html
 html
-	+head( 'WikiSonnets' )
+	+head( 'WikiSonnet' )
 	body
-		header
-			| WikiSonnets
-		.input-field
-			input#poem-subject( type='text' )
-			input( type='submit' id='get-poem' )
-		ul.poem
+		nav.index-nav
+			ul.index-nav__items
+				li About
+		header.index-header
+			h1.index__logo
+				| Wiki
+				br 
+				| Sonnet
+		section.index-poem
+			form.index-poem__form
+				input#poem-subject.index-poem__title( type='text' placeholder='Choose a starting page' )
+				//input( type='submit' id='get-poem' )
+
+			#poem-lines.index-poem__lines

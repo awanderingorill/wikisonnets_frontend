@@ -8,7 +8,7 @@ html
 
     background-color: $white;
 
-    @extend %flex-center-all;
+    //@extend %flex-center-all;
 }
 
 .loading
@@ -31,4 +31,47 @@ html
     {
         opacity: 1;
     }
+}
+
+.index-nav {
+    padding: #{36 / $base-font-size}em;
+}
+
+.index-nav__items {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.index-header {
+    width: #{700 / $base-font-size}rem;
+    margin: 0 auto;
+}
+
+.index__logo {
+    text-transform: uppercase;
+    font-family: monospace;
+}
+
+.index-poem {
+    width: #{700 / $base-font-size}rem;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.index-poem__title {
+    font-size: #{34 / $base-font-size}em;
+    font-family: monospace;
+    width: #{460 / $base-font-size}rem;
+}
+
+.index-poem__form {
+    padding-top: #{150 / $base-font-size}rem;
+    padding-bottom: #{50 / $base-font-size}rem;
+    width: 100%;
+}
+
+.index-poem__lines {
+    display: inline-block;
+
 }
