@@ -22,7 +22,7 @@ module.exports =
 		{
 			source: root + '/site/**/*.scss',
 			main: root + '/site/main.scss',
-			destination: destination
+			destination: destination + 'styles'
 		},
 		scripts:
 		{

@@ -15,7 +15,7 @@ var error     = require( '../../error-handler.js' );
 
 gulp.task( 'vendor-css', function( ) {
 	return gulp.src("./bower_components/jquery-ui/themes/base/jquery-ui.min.css")
-		.pipe(gulp.dest("./build"));
+		.pipe(gulp.dest("./build/styles/"));
 });
 
 gulp.task( 'csscomb', function (  )
