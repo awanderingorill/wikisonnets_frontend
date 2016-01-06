@@ -49,7 +49,7 @@ html
 
 .index__logo {
     text-transform: uppercase;
-    font-family: monospace;
+    font-family: "Andale Mono", monospace;
 }
 
 .index-poem {
@@ -61,7 +61,7 @@ html
 
 .index-poem__title {
     font-size: #{34 / $base-font-size}em;
-    font-family: monospace;
+    font-family: "Andale Mono", monospace;
     width: #{460 / $base-font-size}rem;
 }
 
@@ -76,10 +76,14 @@ html
     width: 50%;
 }
 
-.index-poem__tooltip {
+.index-poem__tooltip-container {
     width: 50%;
+}
+
+.index-poem__tooltip {
     padding-left: #{20 / $base-font-size}rem;
     border-left: 1px solid $black;
+    font-size: 0.75em;
 }
 
 

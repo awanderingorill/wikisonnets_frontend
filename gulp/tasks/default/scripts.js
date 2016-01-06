@@ -40,18 +40,6 @@ gulp.task( 'vendor', function() {
   	.pipe(gulp.dest('build/scripts/'));
 });
 
-// gulp.task( 'browserify', function() {
-// 	var b = browserify({
-//     entries: './site/scripts/script.js',
-//     debug: true
-//   });
-
-//   return b.bundle()
-//   	.pipe(source('main.js'))
-//   	.pipe(buffer())
-//   	.pipe(gulp.dest('build/scripts/'));
-// });
-
 gulp.task( 'eslint', function(  )
 {
 	return gulp.src( [path.to.scripts.source, "!"+path.to.scripts.lib_source] )
