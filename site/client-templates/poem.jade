@@ -1,5 +1,10 @@
-each line in poem
+each line, index in poem
 	if line.page_id == 0
 		p= "----------------"
 	else
+		if index === 5 || index === 10
+			p(class="index-poem__line--#{index}")= line.text
+		else
 			p= line.text
+	if index !== 0 && (index + 1) % 4 === 0
+		br

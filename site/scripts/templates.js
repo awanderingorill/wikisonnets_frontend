@@ -14,23 +14,37 @@ templatizer["poem"] = function tmpl_poem(locals) {
         (function() {
             var $$obj = poem;
             if ("number" == typeof $$obj.length) {
-                for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
-                    var line = $$obj[$index];
+                for (var index = 0, $$l = $$obj.length; index < $$l; index++) {
+                    var line = $$obj[index];
                     if (line.page_id == 0) {
                         buf.push("<p>" + jade.escape(null == (jade_interp = "----------------") ? "" : jade_interp) + "</p>");
                     } else {
-                        buf.push("<p>" + jade.escape(null == (jade_interp = line.text) ? "" : jade_interp) + "</p>");
+                        if (index === 5 || index === 10) {
+                            buf.push("<p" + jade.cls([ "index-poem__line--" + index + "" ], [ true ]) + ">" + jade.escape(null == (jade_interp = line.text) ? "" : jade_interp) + "</p>");
+                        } else {
+                            buf.push("<p>" + jade.escape(null == (jade_interp = line.text) ? "" : jade_interp) + "</p>");
+                        }
+                    }
+                    if (index !== 0 && (index + 1) % 4 === 0) {
+                        buf.push("<br>");
                     }
                 }
             } else {
                 var $$l = 0;
-                for (var $index in $$obj) {
+                for (var index in $$obj) {
                     $$l++;
-                    var line = $$obj[$index];
+                    var line = $$obj[index];
                     if (line.page_id == 0) {
                         buf.push("<p>" + jade.escape(null == (jade_interp = "----------------") ? "" : jade_interp) + "</p>");
                     } else {
-                        buf.push("<p>" + jade.escape(null == (jade_interp = line.text) ? "" : jade_interp) + "</p>");
+                        if (index === 5 || index === 10) {
+                            buf.push("<p" + jade.cls([ "index-poem__line--" + index + "" ], [ true ]) + ">" + jade.escape(null == (jade_interp = line.text) ? "" : jade_interp) + "</p>");
+                        } else {
+                            buf.push("<p>" + jade.escape(null == (jade_interp = line.text) ? "" : jade_interp) + "</p>");
+                        }
+                    }
+                    if (index !== 0 && (index + 1) % 4 === 0) {
+                        buf.push("<br>");
                     }
                 }
             }

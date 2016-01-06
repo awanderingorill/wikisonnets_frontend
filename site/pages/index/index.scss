@@ -81,3 +81,22 @@ html
     padding-left: #{20 / $base-font-size}rem;
     border-left: 1px solid $black;
 }
+
+
+@mixin line-number($number) {
+    position: relative;
+    &:before {
+        content: $number;
+        position: absolute;
+        left: #{-25 / $base-font-size}em;
+        font-size: 0.75em;
+    }
+}
+
+.index-poem__line--5{
+    @include line-number("5");
+}
+
+.index-poem__line--10{
+    @include line-number("10");
+}

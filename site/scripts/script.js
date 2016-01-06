@@ -100,19 +100,8 @@ function getPoem(poemId) {
 
 function renderPoem(poemJson) {
 	var poem = poemJson.lines;
-	var poemHtml = '';
 
 	if (poem) {
-
-		// Pick the first line from each set of possible lines
-		// $.each( poem, function( index, value ) {
-		// 	if (value.page_id == 0)
-		// 		poemHtml = poemHtml.concat( '<p>' + "----------------" + '</p>' );
-		// 	else
-		// 		poemHtml = poemHtml.concat( '<p>' + value.text + '</p>' );
-		// } );
-
-		// Add poem to the page
 		$( '#poem-lines' ).html( templates.poem({poem: poem}) );
 	}
 }
