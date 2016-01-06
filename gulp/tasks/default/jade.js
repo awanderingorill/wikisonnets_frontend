@@ -2,6 +2,7 @@ var gulp    = require( 'gulp' );
 var flatten = require( 'gulp-flatten' );
 var connect = require( 'gulp-connect' );
 var jade    = require( 'gulp-jade' );
+var templatizer = require( 'templatizer' );
 
 var path    = require( '../../paths.js' );
 var error   = require( '../../error-handler.js' );
@@ -20,3 +21,9 @@ gulp.task( 'jade', function(  )
 		.pipe( gulp.dest( path.to.jade.destination ) )
 		.pipe( connect.reload(  ) );
 } );
+
+gulp.task( 'jade-client', function() {
+	templatizer('./site/client-templates', 
+							'./site/scripts/templates.js', 
+							{ jade : { doctype: 'html' } })
+});

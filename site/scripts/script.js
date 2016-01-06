@@ -1,5 +1,7 @@
 'use strict';
 
+var templates = require("./templates.js");
+
 $.fn.textWidth = function(text, font) {
     if (!$.fn.textWidth.fakeEl) $.fn.textWidth.fakeEl =      $('<span>').hide().appendTo(document.body).css("white-space", "pre");
     $.fn.textWidth.fakeEl.text(text || this.val() || this.text()).css('font', font || this.css('font'));
@@ -103,14 +105,14 @@ function renderPoem(poemJson) {
 	if (poem) {
 
 		// Pick the first line from each set of possible lines
-		$.each( poem, function( index, value ) {
-			if (value.page_id == 0)
-				poemHtml = poemHtml.concat( '<p>' + "----------------" + '</p>' );
-			else
-				poemHtml = poemHtml.concat( '<p>' + value.text + '</p>' );
-		} );
+		// $.each( poem, function( index, value ) {
+		// 	if (value.page_id == 0)
+		// 		poemHtml = poemHtml.concat( '<p>' + "----------------" + '</p>' );
+		// 	else
+		// 		poemHtml = poemHtml.concat( '<p>' + value.text + '</p>' );
+		// } );
 
 		// Add poem to the page
-		$( '#poem-lines' ).html( poemHtml );
+		$( '#poem-lines' ).html( templates.poem({poem: poem}) );
 	}
 }

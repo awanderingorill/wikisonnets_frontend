@@ -13,13 +13,14 @@ gulp.task( 'default', function(  )
 {
 	runSequence(
 		'clean',
+		'jade-client',
 		[
 			'sass',
 			'scripts',
 			'images',
-			'favicon', 
-			'inject'
+			'favicon'
 		],
+		'inject',
 		'watch',
 		'start'
 	);

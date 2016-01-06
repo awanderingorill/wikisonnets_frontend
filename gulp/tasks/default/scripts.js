@@ -61,7 +61,14 @@ gulp.task( 'eslint', function(  )
 
 gulp.task( 'scripts', [ 'bower', 'vendor' ], function(  )
 {
-	return gulp.src( [path.to.scripts.source, "!"+path.to.scripts.lib_source] )
+	var b = browserify({
+    entries: './site/scripts/script.js',
+    debug: true
+  });
+
+	return b.bundle()
+		.pipe(source('main.js'))
+		.pipe(buffer())
 		.pipe(gutil.env.production ? uglify() : gutil.noop())
 		.pipe( gulp.dest( path.to.scripts.destination ) );
 } );
