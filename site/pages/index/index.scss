@@ -66,7 +66,7 @@ html
 }
 
 .index-poem__form {
-    padding-top: #{150 / $base-font-size}rem;
+    padding-top: #{50 / $base-font-size}rem;
     padding-bottom: #{50 / $base-font-size}rem;
     width: 100%;
 }
@@ -103,4 +103,8 @@ html
 
 .index-poem__line--10{
     @include line-number("10");
+}
+
+.ui-menu {
+    font-family: "Andale Mono", monospace;
 }

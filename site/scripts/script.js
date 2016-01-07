@@ -34,7 +34,8 @@ $( document ).ready( function(  ){
 	}, 1));
 
 	$('#poem-subject').autocomplete({
-		minLength: 3,
+		minLength: 1,
+		delay: 50,
 		source: function(request, response) {
 			$.ajax({
 				url: "/search",
