@@ -24,6 +24,11 @@ var txtwiki = (function(){
 
 		parsed = stripWhitespace(parsed);
 
+		//final stuff
+		parsed = parsed.replace(/\}\}/g, "");
+		parsed = parsed.replace(/\<\/ref\>/g, "");
+		parsed = parsed.replace(/\<br\/\>/g, "");
+
 		return parsed;
 	}
 
@@ -33,6 +38,9 @@ var txtwiki = (function(){
 			var posEnd = content.indexOf(end, pos);
 			if (posEnd == -1)
 				posEnd = content.length;
+			// if (content.slice(pos, pos+5) =="quote") {
+			// 	console.log(content.slice(pos, pos+10));
+			// }
 			return {text: content.slice(pos, posEnd), pos: posEnd + end.length};
 		}
 		return {text: null, pos: pos};
@@ -53,17 +61,30 @@ var txtwiki = (function(){
 				}
 			}
 			pos += 2;
-
+			
 			var args = link.split("|");
 			if (args.length == 1)
 				return {text: args[0], pos: pos};
 			else {
-				if (args[0].slice(0, 5) == "File:")
+				if (args[0].slice(0, 5) == "File:" || args[0].slice(0, 6) == "Image:") {
 					return {text: "", pos: pos}
+				}
 				return {text: args[1], pos: pos};
 			}
 		}
 		return {text: null, pos: pos};
+	}
+
+	function parseExternalLink(content, pos) {
+		var posEnd = pos + 1;
+		while (content[posEnd] != "]") {
+			posEnd++;
+		}
+		var middle = content.slice(pos+1, posEnd);
+		var words = middle.split(" ");
+		words.shift();
+		words = words.join(" ");
+		return {text: words, pos: posEnd+1};
 	}
 
 	function parseRef(content, pos){
@@ -134,6 +155,12 @@ var txtwiki = (function(){
 
 			if (content[pos] == "["){
 				out = parseLink(content, pos);
+				if (out.text != null){
+					pos = out.pos;
+					parsed += out.text;
+					continue;
+				}
+				out = parseExternalLink(content, pos);
 				if (out.text != null){
 					pos = out.pos;
 					parsed += out.text;
@@ -231,6 +258,9 @@ var txtwiki = (function(){
 		for (var i = 0; i < blocks.length; i++){
 			if (blocks[i].match(/^\s*$/)){
 				parsed += "\n\n";
+			}
+			else if (blocks[i].match(/^\*/)) {
+				parsed[i] += blocks[i].replace(/^\*/, "") + "\n";
 			}
 			else if (blocks[i].match(/^==+.+==+$/)) {
 				blocks[i] = blocks[i].replace(/^==+/, "");
