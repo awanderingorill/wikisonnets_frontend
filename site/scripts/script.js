@@ -2,6 +2,8 @@
 
 var templates = require("./templates.js");
 
+var currentPoem = null;
+
 $.fn.textWidth = function(text, font) {
     if (!$.fn.textWidth.fakeEl) $.fn.textWidth.fakeEl =      $('<span>').hide().appendTo(document.body).css("white-space", "pre");
     $.fn.textWidth.fakeEl.text(text || this.val() || this.text()).css('font', font || this.css('font'));
@@ -52,6 +54,7 @@ $( document ).ready( function(  ){
 			// Grab subject from input field
 			var poemSubject = $( '#poem-subject' ).val(  );
 			$('#poem-subject').blur();
+			currentPoem = null;
 
 			// Set poem variable
 			var poem = '';
@@ -71,6 +74,7 @@ $( document ).ready( function(  ){
 				},
 				success: function( data ){
 					renderPoem(data);
+					currentPoem = data;
 					if (!data.complete) {
 						setTimeout(getPoem.bind(null, data.id), 1000);
 					}
@@ -106,3 +110,28 @@ function renderPoem(poemJson) {
 		$( '#poem-lines' ).html( templates.poem({poem: poem}) );
 	}
 }
+
+function getTooltips(poemJson) {
+	if (!currentPoem.lines && poemJson.lines) {
+    currentPoem.lines = poemJson.lines;
+    currentPoem.lines.forEach(function(line, index, lines) {
+	    if (line.page_id) {
+  	    //grab context
+  	    //make request to backend api? 
+   		}
+  	});
+  }
+  else if (currentPoem.lines && poemJson.lines) {
+    currentPoem.lines.forEach(function(line, index, lines) {
+	    //if tooltip does not exist and
+	    if (poemJson.lines[index].page_id !== 0) {
+        currentPoem.lines[index] = poemJson.lines[index];
+        //grab context
+      }
+    });
+  }
+}
+
+//grab context
+//get wikipedia url
+//response.query[<page_id>].revisions[0][*]
