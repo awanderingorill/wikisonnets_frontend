@@ -37,7 +37,7 @@ $( document ).ready( function(  ){
 
 	$('#poem-subject').autocomplete({
 		minLength: 1,
-		delay: 50,
+		delay: 100,
 		source: function(request, response) {
 			$.ajax({
 				url: "/search",
@@ -78,6 +78,11 @@ $( document ).ready( function(  ){
 					if (!data.complete) {
 						setTimeout(getPoem.bind(null, data.id), 1000);
 					}
+					else {
+						$.get("/poems/" + data.id + "?tooltips", function(completedPoem) {
+							//do stuff with tooltip
+						});
+					}
 				}
 			});
 
@@ -99,6 +104,11 @@ function getPoem(poemId) {
 			if (!data.complete) {
 				setTimeout(getPoem.bind(null, data.id), 1000);
 			}
+			else {
+				$.get("/poems/" + data.id + "?tooltips", function(completedPoem) {
+					//do stuff with tooltip
+				});
+			}
 		}
 	});
 }
@@ -110,28 +120,3 @@ function renderPoem(poemJson) {
 		$( '#poem-lines' ).html( templates.poem({poem: poem}) );
 	}
 }
-
-function getTooltips(poemJson) {
-	if (!currentPoem.lines && poemJson.lines) {
-    currentPoem.lines = poemJson.lines;
-    currentPoem.lines.forEach(function(line, index, lines) {
-	    if (line.page_id) {
-  	    //grab context
-  	    //make request to backend api? 
-   		}
-  	});
-  }
-  else if (currentPoem.lines && poemJson.lines) {
-    currentPoem.lines.forEach(function(line, index, lines) {
-	    //if tooltip does not exist and
-	    if (poemJson.lines[index].page_id !== 0) {
-        currentPoem.lines[index] = poemJson.lines[index];
-        //grab context
-      }
-    });
-  }
-}
-
-//grab context
-//get wikipedia url
-//response.query[<page_id>].revisions[0][*]
