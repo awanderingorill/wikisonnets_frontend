@@ -65,14 +65,18 @@ templatizer["tooltips"] = function tmpl_tooltips(locals) {
             if ("number" == typeof $$obj.length) {
                 for (var index = 0, $$l = $$obj.length; index < $$l; index++) {
                     var line = $$obj[index];
-                    buf.push('<p class="index-poem__tooltip">' + jade.escape(null == (jade_interp = line.tooltip.snippet) ? "" : jade_interp) + "</p>");
+                    var startIndex = line.tooltip.snippet.indexOf(line.text);
+                    var endIndex = startIndex + line.text.length;
+                    buf.push('<p class="index-poem__tooltip">' + jade.escape(null == (jade_interp = line.tooltip.snippet.slice(0, startIndex)) ? "" : jade_interp) + '<span class="index-poem__tooltip-line">' + jade.escape(null == (jade_interp = line.tooltip.snippet.slice(startIndex, endIndex)) ? "" : jade_interp) + "</span>" + jade.escape(null == (jade_interp = line.tooltip.snippet.slice(endIndex)) ? "" : jade_interp) + " (<a" + jade.attr("href", "" + line.tooltip.url + "", true, true) + ' target="_blank">source</a>)</p>');
                 }
             } else {
                 var $$l = 0;
                 for (var index in $$obj) {
                     $$l++;
                     var line = $$obj[index];
-                    buf.push('<p class="index-poem__tooltip">' + jade.escape(null == (jade_interp = line.tooltip.snippet) ? "" : jade_interp) + "</p>");
+                    var startIndex = line.tooltip.snippet.indexOf(line.text);
+                    var endIndex = startIndex + line.text.length;
+                    buf.push('<p class="index-poem__tooltip">' + jade.escape(null == (jade_interp = line.tooltip.snippet.slice(0, startIndex)) ? "" : jade_interp) + '<span class="index-poem__tooltip-line">' + jade.escape(null == (jade_interp = line.tooltip.snippet.slice(startIndex, endIndex)) ? "" : jade_interp) + "</span>" + jade.escape(null == (jade_interp = line.tooltip.snippet.slice(endIndex)) ? "" : jade_interp) + " (<a" + jade.attr("href", "" + line.tooltip.url + "", true, true) + ' target="_blank">source</a>)</p>');
                 }
             }
         }).call(this);

@@ -105,12 +105,24 @@ html
     @include line-number("10");
 }
 
+.index-poem__line, [class^="index-poem__line--"] {
+    cursor: pointer;
+    &:hover {
+        background-color: #f9ec67;
+    }
+}
+
 .ui-menu {
     font-family: "Andale Mono", monospace;
 }
 
 .index-poem__tooltip {
     display: none;
+}
+
+.index-poem__tooltip-line {
+    // display: inline-block;
+    background-color: #f9ec67;
 }
 
 

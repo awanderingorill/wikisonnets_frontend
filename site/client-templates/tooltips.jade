@@ -1,2 +1,9 @@
 each line, index in poem
-	p(class="index-poem__tooltip")= line.tooltip.snippet
+	- var startIndex = line.tooltip.snippet.indexOf(line.text);
+	- var endIndex = startIndex + line.text.length;
+	p(class="index-poem__tooltip")= line.tooltip.snippet.slice(0, startIndex) 
+		span(class="index-poem__tooltip-line")= line.tooltip.snippet.slice(startIndex, endIndex)
+		= line.tooltip.snippet.slice(endIndex)
+		|  (
+		a(href="#{line.tooltip.url}" target="_blank")| source
+		| )
