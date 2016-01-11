@@ -67,7 +67,7 @@ app.get('/poems/:poem_id', function(req, res) {
 					},				
 					function(err, wikiResponse) {
 						var body = JSON.parse(wikiResponse.body);
-						console.log(body.query.pages[line.page_id.toString()].title);
+						//console.log(body.query.pages[line.page_id.toString()].title);
 						var wikitext = body.query.pages[line.page_id.toString()].revisions[0]["*"];
 						var parsed = wtf_wikipedia.plaintext(wikitext);
 						var start = parsed.indexOf(line.text);
