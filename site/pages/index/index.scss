@@ -108,3 +108,17 @@ html
 .ui-menu {
     font-family: "Andale Mono", monospace;
 }
+
+.index-poem__tooltip {
+    display: none;
+}
+
+
+// @for $i from 1 through 14 {
+//     [class^="index-poem__line"]:nth-of-type(#{$i}):hover  {
+//          & ~ .index-poem__tooltip:nth-of-type($1) {
+//             display: inline-block;
+//         }
+//     }
+// }
+    

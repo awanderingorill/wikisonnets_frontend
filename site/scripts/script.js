@@ -60,7 +60,7 @@ $( document ).ready( function(  ){
 			var poem = '';
 
 			// Throbber
-			$( '.poem' ).html( '<div class="loading">'+ 'Fetching poem' + '</div>' );
+			$( '#poem-lines' ).html( '<div class="loading">'+ 'Fetching poem' + '</div>' );
 
 			// Hit the API
 			//$.getJSON( 'http://wikisonnet-dev2.elasticbeanstalk.com/api/v1/compose/' + poemSubject, function( data ){
@@ -80,13 +80,19 @@ $( document ).ready( function(  ){
 					}
 					else {
 						$.get("/poems/" + data.id + "?tooltips", function(completedPoem) {
-							//do stuff with tooltip
+							$( '#poem-tooltips' ).html( templates.tooltips({poem: completedPoem.lines}) );
 						});
 					}
 				}
 			});
 
 		}
+	});
+
+	$('.index-poem__lines').on('mouseenter', '.index-poem__line, [class^="index-poem__line--"]', function() {
+		var index = $(this).index("p") + 1;
+		$(".index-poem__tooltip").css("display", "none");
+		$(".index-poem__tooltip:nth-of-type("+index+")").css("display", "inline-block");
 	});
 
 } );
@@ -106,7 +112,7 @@ function getPoem(poemId) {
 			}
 			else {
 				$.get("/poems/" + data.id + "?tooltips", function(completedPoem) {
-					//do stuff with tooltip
+					$( '#poem-tooltips' ).html( templates.tooltips({poem: completedPoem.lines}) );
 				});
 			}
 		}
