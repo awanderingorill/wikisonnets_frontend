@@ -1,11 +1,10 @@
 each line, index in poem
 	- var startIndex = line.tooltip.snippet.indexOf(line.text);
-	- console.log(startIndex);
 	- var endIndex = startIndex + line.text.length;
-	- console.log(endIndex);
-	p(class="index-poem__tooltip")= line.tooltip.snippet.slice(0, startIndex) 
+	p(class="index-poem__tooltip")= "'..."  + line.tooltip.snippet.slice(0, startIndex) 
 		span(class="index-poem__tooltip-line")= line.tooltip.snippet.slice(startIndex, endIndex)
 		= line.tooltip.snippet.slice(endIndex)
-		|  (
-		a(href="#{line.tooltip.url}" target="_blank")| source
-		| )
+		|...' 
+		span(class="index-poem__tooltip-citation")| —"
+			a(href="#{line.tooltip.url}" target="_blank")= line.tooltip.title
+			| "

@@ -89,8 +89,8 @@ $( document ).ready( function(  ){
 		}
 	});
 
-	$('.index-poem__lines').on('mouseenter', '.index-poem__line, [class^="index-poem__line--"]', function() {
-		var index = $(this).index("p") + 1;
+	$('.index-poem__lines').on('mouseenter', '.index-poem__line-content', function() {
+		var index = $(this).parent().index("p") + 1;
 		$(".index-poem__tooltip").css("display", "none");
 		$(".index-poem__tooltip:nth-of-type("+index+")").css("display", "inline-block");
 	});

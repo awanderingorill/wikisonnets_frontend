@@ -105,10 +105,11 @@ html
     @include line-number("10");
 }
 
-.index-poem__line, [class^="index-poem__line--"] {
+.index-poem__line-content {
     cursor: pointer;
+    //display: inline-block;
     &:hover {
-        background-color: #f9ec67;
+        background-color: $highlight-text-color;
     }
 }
 
@@ -122,7 +123,12 @@ html
 
 .index-poem__tooltip-line {
     // display: inline-block;
-    background-color: #f9ec67;
+    background-color:$highlight-text-color;
+}
+
+.index-poem__tooltip-citation {
+    display: block;
+    text-align: right;
 }
 
 
