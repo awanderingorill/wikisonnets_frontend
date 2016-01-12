@@ -51,7 +51,12 @@ app.get('/pages/:page_id', function(req, res) {
 	function(error, imageResponse) {
 		var body = JSON.parse(imageResponse.body);
 		var key = Object.keys(body.query.pages)[0]
-		var imageUrl = body.query.pages[key].thumbnail.source;
+		if (body.query.pages[key].thumbnail) {
+			var imageUrl = body.query.pages[key].thumbnail.source;
+		}
+		else {
+			var imageUrl = "";
+		}
 		res.json({page_id: page_id, imageUrl: imageUrl});
 	});
 });

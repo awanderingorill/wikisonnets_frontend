@@ -51,6 +51,7 @@ $( document ).ready( function(  ){
 		},
 		select: function( event, ui ) {
 			// Grab subject from input field
+			resetPoem();
 			var poemSubject = $( '#poem-subject' ).val(  );
 			$('#poem-subject').blur();
 
@@ -131,4 +132,10 @@ function renderPoem(poemJson) {
 	if (poem) {
 		$( '#poem-lines' ).html( templates.poem({poem: poem}) );
 	}
+}
+
+function resetPoem() {
+	$( '#poem-lines' ).html("");
+	$( '#poem-tooltips' ).html("");
+	$(".index-poem__image").css("display", "none");
 }
