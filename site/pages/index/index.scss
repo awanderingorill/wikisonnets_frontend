@@ -64,12 +64,14 @@ html
     font-size: #{34 / $base-font-size}em;
     font-family: "Andale Mono", monospace;
     width: #{460 / $base-font-size}rem;
+    background-color: transparent;
 }
 
 .index-poem__form {
     padding-top: #{100 / $base-font-size}rem;
     padding-bottom: #{50 / $base-font-size}rem;
     width: 100%;
+    z-index: 2;
 }
 
 .index-poem__lines {
