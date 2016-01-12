@@ -57,6 +57,7 @@ html
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    position: relative;
 }
 
 .index-poem__title {
@@ -66,7 +67,7 @@ html
 }
 
 .index-poem__form {
-    padding-top: #{50 / $base-font-size}rem;
+    padding-top: #{100 / $base-font-size}rem;
     padding-bottom: #{50 / $base-font-size}rem;
     width: 100%;
 }
@@ -129,6 +130,18 @@ html
 .index-poem__tooltip-citation {
     display: block;
     text-align: right;
+}
+
+.index-poem__image-container {
+    position: absolute;
+    top: 0;
+    left: 40%;
+    opacity: 0.23;
+}
+
+.index-poem__image {
+    height: #{150 / $base-font-size}em;
+    display: none;
 }
 
 

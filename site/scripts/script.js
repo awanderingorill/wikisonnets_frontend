@@ -2,8 +2,6 @@
 
 var templates = require("./templates.js");
 
-var currentPoem = null;
-
 $.fn.textWidth = function(text, font) {
     if (!$.fn.textWidth.fakeEl) $.fn.textWidth.fakeEl =      $('<span>').hide().appendTo(document.body).css("white-space", "pre");
     $.fn.textWidth.fakeEl.text(text || this.val() || this.text()).css('font', font || this.css('font'));
@@ -27,7 +25,8 @@ $( document ).ready( function(  ){
 	$("#poem-subject").keydown(throttle(function() {
 		var padding = 30;
 		if ($(this).val().length === 0) {
-			$(this).css("width", "460px");
+			//ummm probably fix this at some point
+			$(this).css("width", "613px");
 		}
 		else {
 			var valWidth = ($(this).textWidth() + padding) + 'px';
@@ -54,7 +53,6 @@ $( document ).ready( function(  ){
 			// Grab subject from input field
 			var poemSubject = $( '#poem-subject' ).val(  );
 			$('#poem-subject').blur();
-			currentPoem = null;
 
 			// Set poem variable
 			var poem = '';
@@ -74,7 +72,7 @@ $( document ).ready( function(  ){
 				},
 				success: function( data ){
 					renderPoem(data);
-					currentPoem = data;
+					renderPoemImage(data.starting_page);
 					if (!data.complete) {
 						setTimeout(getPoem.bind(null, data.id), 1000);
 					}
@@ -116,6 +114,14 @@ function getPoem(poemId) {
 				});
 			}
 		}
+	});
+}
+
+//data.starting_page
+function renderPoemImage(pageId) {
+	$.get('/pages/' + pageId, function(data) {
+		$(".index-poem__image").attr("src", data.imageUrl);
+		$(".index-poem__image").css("display", "block");
 	});
 }
 

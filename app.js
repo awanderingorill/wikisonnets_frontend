@@ -34,6 +34,28 @@ app.get('/search', function (req, res) {
 	});
 });
 
+//gets information about a page
+app.get('/pages/:page_id', function(req, res) {
+	var page_id = req.params['page_id'];
+	request({
+		url: "https://en.wikipedia.org/w/api.php",
+		type: 'GET',
+		qs: {
+			action: "query",
+			format: "json",
+			pageids: page_id,
+			prop: "pageimages",
+			pithumbsize: 150
+		}
+	}, 
+	function(error, imageResponse) {
+		var body = JSON.parse(imageResponse.body);
+		var key = Object.keys(body.query.pages)[0]
+		var imageUrl = body.query.pages[key].thumbnail.source;
+		res.json({page_id: page_id, imageUrl: imageUrl});
+	});
+});
+
 app.get('/poems/:poem_id', function(req, res) {
 	if (req.xhr) {
 		var jar = request.jar();
