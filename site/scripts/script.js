@@ -23,7 +23,7 @@ function throttle(f, delay){
 $( document ).ready( function(  ){
 	
 	$("#poem-subject").keydown(throttle(function() {
-		var padding = 30;
+		var padding = 40;
 		if ($(this).val().length === 0) {
 			//ummm probably fix this at some point
 			$(this).css("width", "613px");
@@ -92,6 +92,11 @@ $( document ).ready( function(  ){
 		var index = $(this).parent().index("p") + 1;
 		$(".index-poem__tooltip").css("display", "none");
 		$(".index-poem__tooltip:nth-of-type("+index+")").css("display", "inline-block");
+	});
+
+	$(".index-poem__image").load(function() {
+		var width = $(this).width();
+		$(this).css("margin-left", "-" + Math.floor(width/2) + "px")
 	});
 
 } );

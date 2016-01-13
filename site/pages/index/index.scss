@@ -34,7 +34,7 @@ html
 }
 
 .index-nav {
-    padding: #{36 / $base-font-size}em;
+    padding: #{30 / $base-font-size}em;
 }
 
 .index-nav__items {
@@ -65,6 +65,7 @@ html
     font-family: "Andale Mono", monospace;
     width: #{460 / $base-font-size}rem;
     background-color: transparent;
+    padding-left: #{6.4 / $base-font-size}rem;
 }
 
 .index-poem__form {
@@ -118,7 +119,15 @@ html
 
 .ui-menu {
     font-family: "Andale Mono", monospace;
+    .ui-menu-item {
+        padding-left: #{6.4 / $base-font-size}rem;
+    }
 }
+
+.ui-widget {
+    font-size: #{22 / $base-font-size}em;
+}
+
 
 .index-poem__tooltip {
     display: none;
@@ -137,7 +146,7 @@ html
 .index-poem__image-container {
     position: absolute;
     top: 0;
-    left: 40%;
+    left: 50%;
     opacity: 0.23;
 }
 
