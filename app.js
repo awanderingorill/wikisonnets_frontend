@@ -4,9 +4,16 @@ var request = require('request');
 var cookieParser = require('cookie-parser');
 var async = require('async');
 var htmlToText = require('html-to-text');
+var bodyParser = require('body-parser');
 
 var app = express();
 app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+})); 
+app.use(express.json());
+app.use(express.urlencoded());
 
 app.set('views', path.join(__dirname, 'site/pages'));
 app.set('view engine', 'jade');
@@ -60,6 +67,78 @@ app.get('/pages/:page_id', function(req, res) {
 		res.json({page_id: page_id, imageUrl: imageUrl});
 	});
 });
+
+app.post('/poems', function(req, res) {
+	var jar = request.jar();
+	var cookie = request.cookie("session="+req.cookies["session"]);
+	jar.setCookie(cookie, 'http://localhost:3000');
+
+	request({
+		url: "http://localhost:8000/api/v2/poems",
+		type: 'POST',
+		jar: jar,
+		form: {
+			poemTitle: req.body.poemTitle;
+		}
+	},
+	function(err, poemResponse) {
+		var body = JSON.parse(poemResponse.body);
+		async.each(body.lines, function(line, callback) {
+			fetchTooltip(line, function() {
+				callback();
+			});
+		},
+		function(err) {
+			res.json(body);
+		});
+	});
+});
+
+function fetchTooltip(line, callback) {
+	request({
+		url: "https://en.wikipedia.org/w/api.php",
+		type: 'GET',
+		qs: {
+			action: "parse",
+			format: "json",
+			pageid: line.page_id,
+			prop: "text"
+		}
+	},
+	function(err, wikiResponse) {
+		var body = JSON.parse(wikiResponse.body);
+		var htmlText = body.parse.text["*"];
+		var parsed = htmlToText.fromString(htmlText, {wordwrap: null});
+		parsed = parsed.replace(/\[\/wiki\/.*?\]/g, "");
+		parsed = parsed.replace(/\[\/\/upload.*?\]/g, "");
+		parsed = parsed.replace(/\[\/\/en.*?\]/g, "");
+		parsed = parsed.replace(/\[\s\d*?\s\]/g, "");
+		parsed = parsed.replace(/\[\sEDIT.*?\s\]/g, "");
+		parsed = parsed.replace(/\[http\:\/\/.*?\]/g, "");
+		parsed = parsed.replace(/\[\#.*?\]/g, "");
+		parsed = parsed.replace(/ +\./g, ".");
+		parsed = parsed.replace(/ +\,/g, ",");
+		parsed = parsed.replace(/  +/g, " ");
+		var start = parsed.indexOf(line.text);
+		line.tooltip = {};
+		if (start != -1) {
+			//only want to do this if it doesn't pass the beginning or end
+			var snippet = parsed.substring(start-225, start + 225).split(" ");
+			if (start > 225) {
+				snippet.shift();
+			}
+			snippet.pop();
+			snippet = snippet.join(" ");
+			line.tooltip.snippet = snippet;
+		}
+		else {
+			line.tooltip.snippet = "";
+		}
+		line.tooltip.title = body.parse.title;
+		line.tooltip.url = "https://en.wikipedia.org/wiki/" + line.tooltip.title.replace(" ", "_");
+		callback();	
+	});			
+}
 
 app.get('/poems/:poem_id', function(req, res) {
 	if (req.xhr) {

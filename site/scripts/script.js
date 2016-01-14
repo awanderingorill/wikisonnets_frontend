@@ -61,8 +61,15 @@ $( document ).ready( function(  ){
 			// Throbber
 			$( '#poem-lines' ).html( '<div class="loading">'+ 'Fetching poem' + '</div>' );
 
-			// Hit the API
-			//$.getJSON( 'http://wikisonnet-dev2.elasticbeanstalk.com/api/v1/compose/' + poemSubject, function( data ){
+			$.post("/poems", {'poemTitle': poemSubject}, function(data) {
+				renderPoem(data);
+				renderPoemImage(data.starting_page);
+				//renderTooltips
+				if (!data.complete) {
+					setTimeout(getPoem.bind(null, data.id), 1000);
+				}
+			});
+
 			var hostname = window.location.hostname;
 			$.ajax({
 				url: 'http://' + hostname + ':8000/api/v2/poems',
@@ -136,6 +143,13 @@ function renderPoem(poemJson) {
 
 	if (poem) {
 		$( '#poem-lines' ).html( templates.poem({poem: poem}) );
+	}
+}
+
+function renderTooltips(poemJson) {
+	var poem = poemJson.lines;
+	if (poem) {
+		$( '#poem-tooltips' ).html( templates.tooltips({poem: poem}) );
 	}
 }
 
