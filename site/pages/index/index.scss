@@ -88,6 +88,8 @@ html
     padding-left: #{20 / $base-font-size}rem;
     border-left: 1px solid $black;
     font-size: 0.75em;
+    display: none;
+    white-space: pre-wrap;
 }
 
 
@@ -126,11 +128,6 @@ html
 
 .ui-widget {
     font-size: #{22 / $base-font-size}em;
-}
-
-
-.index-poem__tooltip {
-    display: none;
 }
 
 .index-poem__tooltip-line {

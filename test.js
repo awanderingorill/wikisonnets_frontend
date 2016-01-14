@@ -1,45 +1,56 @@
 var request = require("request");
-//var txtwiki = require("./site/scripts/txtwiki.js")
-var wtf_wikipedia = require("wtf_wikipedia")
 var fs = require('fs');
+// var cheerio = require("cheerio")
+var htmlToText = require("html-to-text");
+// var wtf_wikipedia = require("wtf_wikipedia");
+// var wikifetch = require("wikifetch");
 
-// request({
-// 	url: "https://en.wikipedia.org/w/api.php",
-// 	type: 'GET',
-// 	qs: {
-// 		action: "query",
-// 		format: "json",
-// 		pageids: 9273854,
-// 		prop: "revisions",
-// 		rvprop: "content",
-// 		indexpageids: true,
-// 		redirects: true,
-// 		// rvexpandtemplates: true
-// 	},
-// },
-// function(err, response) {
-// 	var body = JSON.parse(response.body);
-// 	var wikitext = body.query.pages["9273854"].revisions[0]["*"];
+request({
+	url: "https://en.wikipedia.org/w/api.php",
+	type: 'GET',
+	qs: {
+		action: "parse",
+		format: "json",
+		pageid: 534366,
+		prop: "text"
+	},
+},
+function(err, response) {
+	var body = JSON.parse(response.body);
+	var htmlText = body.parse.text["*"];
+
+	//$ = cheerio.load(htmlText);
+	//var parsed = $("*").text();
+	var parsed = htmlToText.fromString(htmlText, {wordwrap: null});
+	parsed = parsed.replace(/\[\/wiki\/.*?\]/g, "");
+	parsed = parsed.replace(/\[\/\/upload.*?\]/g, "");
+	parsed = parsed.replace(/\[\/\/en.*?\]/g, "");
+	parsed = parsed.replace(/\[\s\d*?\s\]/g, "");
+	parsed = parsed.replace(/\[\sEDIT.*?\s\]/g, "");
+	parsed = parsed.replace(/\[\#.*?\]/g, "");
+	parsed = parsed.replace(/ +\./g, ".");
+	parsed = parsed.replace(/ +\,/g, ",");
+	parsed = parsed.replace(/  +/g, " ");
+
 	
-// 	var parsed = txtwiki.parseWikitext(wikitext);
-// 	//var parsed = wtf_wikipedia.plaintext(wikitext);
-// 	console.log(parsed);
-// 	//console.log(wikitext);
+	
 
-// 	// var index = parsed.indexOf("The Clinton camp continued to suggest");
-// 	// console.log(parsed.substring(index-100, index+100));
-// 	//console.log(body.query.pages["9273854"].title)
+	fs.writeFile("obama.txt", parsed, function(err) {
+    if(err) {
+        return console.log(err);
+    }
 
-// 	fs.writeFile("barackobama3.txt", wikitext, function(err) {
-//     if(err) {
-//         return console.log(err);
-//     }
+    console.log("The file was saved!");
+	}); 
+});
 
-//     console.log("The file was saved!");
-// 	}); 
+// wtf_wikipedia.from_api("2824759", "en", function(markup) {
+// 	var obj = wtf_wikipedia.parse(markup);
+// 	console.log(JSON.stringify(obj));
 // });
 
-wtf_wikipedia.from_api("List of Japanese snacks", "en", function(markup){
-	var text= wtf_wikipedia.plaintext(markup);
-	console.log(text);
-});
+// var w = new wikifetch.WikiFetch();
+// var article;
+// w.fetch("List_of_Japanese_snacks", function(err, parsedArticle) {
+// 	article = parsedArticle;
+// });

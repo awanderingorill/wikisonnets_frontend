@@ -2,8 +2,8 @@ var express = require('express');
 var path = require('path');
 var request = require('request');
 var cookieParser = require('cookie-parser');
-var wtf_wikipedia = require('wtf_wikipedia');
 var async = require('async');
+var htmlToText = require('html-to-text');
 
 var app = express();
 app.use(cookieParser());
@@ -76,27 +76,30 @@ app.get('/poems/:poem_id', function(req, res) {
 			if (req.query.tooltips !== undefined) {
 				//iterate through all of the lines and get the tooltipz
 				var body = JSON.parse(response.body);
-				//could use async parallel for this
 				async.each(body.lines, function(line, callback) {
 					request({
 						url: "https://en.wikipedia.org/w/api.php",
 						type: 'GET',
 						qs: {
-							action: "query",
+							action: "parse",
 							format: "json",
-							pageids: line.page_id,
-							prop: "revisions",
-							rvprop: "content",
-							indexpageids: true,
-							redirects: true,
-							// rvexpandtemplates: true
+							pageid: line.page_id,
+							prop: "text"
 						}
 					},				
 					function(err, wikiResponse) {
 						var body = JSON.parse(wikiResponse.body);
-						//console.log(body.query.pages[line.page_id.toString()].title);
-						var wikitext = body.query.pages[line.page_id.toString()].revisions[0]["*"];
-						var parsed = wtf_wikipedia.plaintext(wikitext);
+						var htmlText = body.parse.text["*"];
+						var parsed = htmlToText.fromString(htmlText, {wordwrap: null});
+						parsed = parsed.replace(/\[\/wiki\/.*?\]/g, "");
+						parsed = parsed.replace(/\[\/\/upload.*?\]/g, "");
+						parsed = parsed.replace(/\[\/\/en.*?\]/g, "");
+						parsed = parsed.replace(/\[\s\d*?\s\]/g, "");
+						parsed = parsed.replace(/\[\sEDIT.*?\s\]/g, "");
+						parsed = parsed.replace(/\[\#.*?\]/g, "");
+						parsed = parsed.replace(/ +\./g, ".");
+						parsed = parsed.replace(/ +\,/g, ",");
+						parsed = parsed.replace(/  +/g, " ");
 						var start = parsed.indexOf(line.text);
 						line.tooltip = {};
 						if (start != -1) {
@@ -112,7 +115,7 @@ app.get('/poems/:poem_id', function(req, res) {
 						else {
 							line.tooltip.snippet = "";
 						}
-						line.tooltip.title = body.query.pages[line.page_id.toString()].title;
+						line.tooltip.title = body.parse.title;
 						line.tooltip.url = "https://en.wikipedia.org/wiki/" + line.tooltip.title.replace(" ", "_");
 						callback();
 					});
