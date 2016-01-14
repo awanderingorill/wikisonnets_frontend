@@ -96,6 +96,7 @@ app.get('/poems/:poem_id', function(req, res) {
 						parsed = parsed.replace(/\[\/\/en.*?\]/g, "");
 						parsed = parsed.replace(/\[\s\d*?\s\]/g, "");
 						parsed = parsed.replace(/\[\sEDIT.*?\s\]/g, "");
+						parsed = parsed.replace(/\[http\:\/\/.*?\]/g, "");
 						parsed = parsed.replace(/\[\#.*?\]/g, "");
 						parsed = parsed.replace(/ +\./g, ".");
 						parsed = parsed.replace(/ +\,/g, ",");

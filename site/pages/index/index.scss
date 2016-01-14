@@ -61,7 +61,7 @@ html
 }
 
 .index-poem__title {
-    font-size: #{34 / $base-font-size}em;
+    font-size: #{34 / $base-font-size}rem;
     font-family: "Andale Mono", monospace;
     width: #{460 / $base-font-size}rem;
     background-color: transparent;
@@ -98,7 +98,7 @@ html
     &:before {
         content: $number;
         position: absolute;
-        left: #{-25 / $base-font-size}em;
+        left: #{-25 / $base-font-size}rem;
         font-size: 0.75em;
     }
 }
@@ -127,7 +127,7 @@ html
 }
 
 .ui-widget {
-    font-size: #{22 / $base-font-size}em;
+    font-size: #{22 / $base-font-size}rem;
 }
 
 .index-poem__tooltip-line {
@@ -148,7 +148,7 @@ html
 }
 
 .index-poem__image {
-    height: #{150 / $base-font-size}em;
+    height: #{150 / $base-font-size}rem;
     display: none;
 }
 
