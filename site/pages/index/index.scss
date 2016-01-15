@@ -152,12 +152,7 @@ html
     display: none;
 }
 
-
-// @for $i from 1 through 14 {
-//     [class^="index-poem__line"]:nth-of-type(#{$i}):hover  {
-//          & ~ .index-poem__tooltip:nth-of-type($1) {
-//             display: inline-block;
-//         }
-//     }
-// }
+.index-footer {
+    height: #{(60 + $base-font-size)/$base-font-size}rem;
+}
     
