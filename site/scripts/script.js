@@ -118,7 +118,16 @@ function renderPoem(poemJson) {
 function renderTooltips(poemJson) {
 	var poem = poemJson.lines;
 	if (poem) {
-		$( '#poem-tooltips' ).html( templates.tooltips({poem: poem}) );
+		if (!$( '#poem-tooltips' ).html()) {
+			$( '#poem-tooltips' ).html( templates.tooltips({poem: poem}) );
+		}
+		else {
+			$(".index-poem__tooltip").each(function(index, element) {
+				if (!$(element).html()) {
+					$(element).replaceWith(templates.tooltip({line: poem[index]}));
+				}
+			});
+		}
 	}
 }
 
