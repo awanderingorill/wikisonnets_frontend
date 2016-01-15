@@ -12,8 +12,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 })); 
-app.use(express.json());
-app.use(express.urlencoded());
 
 app.set('views', path.join(__dirname, 'site/pages'));
 app.set('view engine', 'jade');
@@ -27,7 +25,7 @@ app.get('/', function (req, res) {
 app.get('/search', function (req, res) {
 	request({
 		url: "https://en.wikipedia.org/w/api.php",
-		type: 'GET',
+		method: 'GET',
 		qs: {
 			action: 'opensearch',	
 			limit: '10',
@@ -46,7 +44,7 @@ app.get('/pages/:page_id', function(req, res) {
 	var page_id = req.params['page_id'];
 	request({
 		url: "https://en.wikipedia.org/w/api.php",
-		type: 'GET',
+		method: 'GET',
 		qs: {
 			action: "query",
 			format: "json",
@@ -75,10 +73,10 @@ app.post('/poems', function(req, res) {
 
 	request({
 		url: "http://localhost:8000/api/v2/poems",
-		type: 'POST',
+		method: 'POST',
 		jar: jar,
 		form: {
-			poemTitle: req.body.poemTitle;
+			poemTitle: req.body.poemTitle
 		}
 	},
 	function(err, poemResponse) {
@@ -95,133 +93,107 @@ app.post('/poems', function(req, res) {
 });
 
 function fetchTooltip(line, callback) {
-	request({
-		url: "https://en.wikipedia.org/w/api.php",
-		type: 'GET',
-		qs: {
-			action: "parse",
-			format: "json",
-			pageid: line.page_id,
-			prop: "text"
-		}
-	},
-	function(err, wikiResponse) {
-		var body = JSON.parse(wikiResponse.body);
-		var htmlText = body.parse.text["*"];
-		var parsed = htmlToText.fromString(htmlText, {wordwrap: null});
-		parsed = parsed.replace(/\[\/wiki\/.*?\]/g, "");
-		parsed = parsed.replace(/\[\/\/upload.*?\]/g, "");
-		parsed = parsed.replace(/\[\/\/en.*?\]/g, "");
-		parsed = parsed.replace(/\[\s\d*?\s\]/g, "");
-		parsed = parsed.replace(/\[\sEDIT.*?\s\]/g, "");
-		parsed = parsed.replace(/\[http\:\/\/.*?\]/g, "");
-		parsed = parsed.replace(/\[\#.*?\]/g, "");
-		parsed = parsed.replace(/ +\./g, ".");
-		parsed = parsed.replace(/ +\,/g, ",");
-		parsed = parsed.replace(/  +/g, " ");
-		var start = parsed.indexOf(line.text);
-		line.tooltip = {};
-		if (start != -1) {
-			//only want to do this if it doesn't pass the beginning or end
-			var snippet = parsed.substring(start-225, start + 225).split(" ");
-			if (start > 225) {
-				snippet.shift();
+	if (parseInt(line.page_id) !== 0) {
+		request({
+			url: "https://en.wikipedia.org/w/api.php",
+			method: 'GET',
+			qs: {
+				action: "parse",
+				format: "json",
+				pageid: line.page_id,
+				prop: "text"
 			}
-			snippet.pop();
-			snippet = snippet.join(" ");
-			line.tooltip.snippet = snippet;
-		}
-		else {
-			line.tooltip.snippet = "";
-		}
-		line.tooltip.title = body.parse.title;
-		line.tooltip.url = "https://en.wikipedia.org/wiki/" + line.tooltip.title.replace(" ", "_");
-		callback();	
-	});			
+		},
+		function(err, wikiResponse) {
+			var body = JSON.parse(wikiResponse.body);
+			var htmlText = body.parse.text["*"];
+			var parsed = htmlToText.fromString(htmlText, {wordwrap: null});
+			parsed = parsed.replace(/\[\/wiki\/.*?\]/g, "");
+			parsed = parsed.replace(/\[\/\/upload.*?\]/g, "");
+			parsed = parsed.replace(/\[\/\/en.*?\]/g, "");
+			parsed = parsed.replace(/\[\s\d*?\s\]/g, "");
+			parsed = parsed.replace(/\[\sEDIT.*?\s\]/g, "");
+			parsed = parsed.replace(/\[http\:\/\/.*?\]/g, "");
+			parsed = parsed.replace(/\[\#.*?\]/g, "");
+			parsed = parsed.replace(/ +\./g, ".");
+			parsed = parsed.replace(/ +\,/g, ",");
+			parsed = parsed.replace(/  +/g, " ");
+			var start = parsed.indexOf(line.text);
+			line.tooltip = {};
+			if (start != -1) {
+				//only want to do this if it doesn't pass the beginning or end
+				var snippet = parsed.substring(start-225, start + 225).split(" ");
+				if (start > 225) {
+					snippet.shift();
+				}
+				snippet.pop();
+				snippet = snippet.join(" ");
+				line.tooltip.snippet = snippet;
+			}
+			else {
+				line.tooltip.snippet = "";
+			}
+			line.tooltip.title = body.parse.title;
+			line.tooltip.url = "https://en.wikipedia.org/wiki/" + line.tooltip.title.replace(" ", "_");
+			callback();	
+		});		
+	} 
+	else {
+		line.tooltip = {};
+		line.tooltip.snippet = "";
+		line.tooltip.url = "";
+		line.tooltip.title = "";
+		callback();
+	}	
 }
 
-app.get('/poems/:poem_id', function(req, res) {
-	if (req.xhr) {
-		var jar = request.jar();
-		var cookie = request.cookie("session="+req.cookies["session"]);
-		jar.setCookie(cookie, 'http://localhost:3000');
-		request({
-			url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'],
-			type: 'GET',
-			jar: jar
-		},
-		function(err, response) {
-			//check for tooltip query string param
-			if (req.query.tooltips !== undefined) {
-				//iterate through all of the lines and get the tooltipz
-				var body = JSON.parse(response.body);
-				async.each(body.lines, function(line, callback) {
-					request({
-						url: "https://en.wikipedia.org/w/api.php",
-						type: 'GET',
-						qs: {
-							action: "parse",
-							format: "json",
-							pageid: line.page_id,
-							prop: "text"
-						}
-					},				
-					function(err, wikiResponse) {
-						var body = JSON.parse(wikiResponse.body);
-						var htmlText = body.parse.text["*"];
-						var parsed = htmlToText.fromString(htmlText, {wordwrap: null});
-						parsed = parsed.replace(/\[\/wiki\/.*?\]/g, "");
-						parsed = parsed.replace(/\[\/\/upload.*?\]/g, "");
-						parsed = parsed.replace(/\[\/\/en.*?\]/g, "");
-						parsed = parsed.replace(/\[\s\d*?\s\]/g, "");
-						parsed = parsed.replace(/\[\sEDIT.*?\s\]/g, "");
-						parsed = parsed.replace(/\[http\:\/\/.*?\]/g, "");
-						parsed = parsed.replace(/\[\#.*?\]/g, "");
-						parsed = parsed.replace(/ +\./g, ".");
-						parsed = parsed.replace(/ +\,/g, ",");
-						parsed = parsed.replace(/  +/g, " ");
-						var start = parsed.indexOf(line.text);
-						line.tooltip = {};
-						if (start != -1) {
-							//only want to do this if it doesn't pass the beginning or end
-							var snippet = parsed.substring(start-225, start + 225).split(" ");
-							if (start > 225) {
-								snippet.shift();
-							}
-							snippet.pop();
-							snippet = snippet.join(" ");
-							line.tooltip.snippet = snippet;
-						}
-						else {
-							line.tooltip.snippet = "";
-						}
-						line.tooltip.title = body.parse.title;
-						line.tooltip.url = "https://en.wikipedia.org/wiki/" + line.tooltip.title.replace(" ", "_");
-						callback();
-					});
-				},
-				function(err) {
-					res.json(body);
-				});	
+app.post('/poems/:poem_id', function(req, res) {
+	var oldPoem = req.body.poem;
+	var jar = request.jar();
+	var cookie = request.cookie("session="+req.cookies["session"]);
+	jar.setCookie(cookie, 'http://localhost:3000');
+
+	request({
+		url: "http://localhost:8000/api/v2/poems/" + req.params["poem_id"],
+		method: 'GET',
+		jar: jar
+	},
+	function(err, poemResponse) {
+		var body = JSON.parse(poemResponse.body);
+		//combine body with old poem;
+		async.forEachOf(body.lines, function(line, index, callback) {
+			if (oldPoem.lines && parseInt(oldPoem.lines[index].page_id) !== 0) {
+				line.tooltip = oldPoem.lines[index].tooltip;
+				callback();
 			}
-		});
-	}
-	else {
-		var jar = request.jar();
-		var cookie = request.cookie("session="+req.cookies["session"]);
-		jar.setCookie(cookie, 'http://localhost:3000');
-		request({
-			url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'],
-			type: 'GET',
-			jar: jar
+			else {
+				fetchTooltip(line, function() {
+					callback();
+				});
+			}
 		},
-		function(err, response) {
-			if(err) { console.log(err); return; }
-			var body = JSON.parse(response.body);
-			console.log(response.body);
-			res.render('poems/show', {lines: body.lines});
+		function(err) {
+			res.json(body);
 		});
-	}
+	});
+
+});
+
+app.get('/poems/:poem_id', function(req, res) {
+	var jar = request.jar();
+	var cookie = request.cookie("session="+req.cookies["session"]);
+	jar.setCookie(cookie, 'http://localhost:3000');
+	request({
+		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'],
+		type: 'GET',
+		jar: jar
+	},
+	function(err, response) {
+		if(err) { console.log(err); return; }
+		var body = JSON.parse(response.body);
+		console.log(response.body);
+		res.render('poems/show', {lines: body.lines});
+	});
 });
 
 var server = app.listen(3000, function () {

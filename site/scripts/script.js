@@ -1,6 +1,7 @@
 'use strict';
 
 var templates = require("./templates.js");
+var currentPoem = null;
 
 $.fn.textWidth = function(text, font) {
     if (!$.fn.textWidth.fakeEl) $.fn.textWidth.fakeEl =      $('<span>').hide().appendTo(document.body).css("white-space", "pre");
@@ -57,6 +58,7 @@ $( document ).ready( function(  ){
 
 			// Set poem variable
 			var poem = '';
+			currentPoem = null;
 
 			// Throbber
 			$( '#poem-lines' ).html( '<div class="loading">'+ 'Fetching poem' + '</div>' );
@@ -64,34 +66,12 @@ $( document ).ready( function(  ){
 			$.post("/poems", {'poemTitle': poemSubject}, function(data) {
 				renderPoem(data);
 				renderPoemImage(data.starting_page);
-				//renderTooltips
+				renderTooltips(data);
+				currentPoem = data;
 				if (!data.complete) {
-					setTimeout(getPoem.bind(null, data.id), 1000);
+					setTimeout(getPoem, 1000);
 				}
 			});
-
-			var hostname = window.location.hostname;
-			$.ajax({
-				url: 'http://' + hostname + ':8000/api/v2/poems',
-				method: 'POST',
-				data: {'poemTitle': poemSubject},
-				xhrFields: {
-					withCredentials: true
-				},
-				success: function( data ){
-					renderPoem(data);
-					renderPoemImage(data.starting_page);
-					if (!data.complete) {
-						setTimeout(getPoem.bind(null, data.id), 1000);
-					}
-					else {
-						$.get("/poems/" + data.id + "?tooltips", function(completedPoem) {
-							$( '#poem-tooltips' ).html( templates.tooltips({poem: completedPoem.lines}) );
-						});
-					}
-				}
-			});
-
 		}
 	});
 
@@ -108,24 +88,13 @@ $( document ).ready( function(  ){
 
 } );
 
-function getPoem(poemId) {
-	var hostname = window.location.hostname;
-	$.ajax({
-		url: 'http://' + hostname + ':8000/api/v2/poems/' + poemId,
-		method: 'GET',
-		xhrFields: {
-			withCredentials: true
-		},
-		success: function(data) {
-			renderPoem(data);
-			if (!data.complete) {
-				setTimeout(getPoem.bind(null, data.id), 1000);
-			}
-			else {
-				$.get("/poems/" + data.id + "?tooltips", function(completedPoem) {
-					$( '#poem-tooltips' ).html( templates.tooltips({poem: completedPoem.lines}) );
-				});
-			}
+function getPoem() {
+	$.post('/poems/' + currentPoem.id, {poem: currentPoem}, function(data) {
+		renderPoem(data);
+		renderTooltips(data);
+		currentPoem = data;
+		if (!data.complete) {
+			setTimeout(getPoem, 1000);
 		}
 	});
 }
