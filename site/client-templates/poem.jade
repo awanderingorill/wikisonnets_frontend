@@ -3,8 +3,8 @@ each line, index in poem
 		p(class="index-poem__line")
 			span(class="index-poem__line-content")= "----------------"
 	else
-		if index === 5 || index === 10
-			p(class="index-poem__line--#{index}")
+		if index === 4 || index === 9
+			p(class="index-poem__line--#{index+1}")
 				span(class="index-poem__line-content")= line.text
 		else
 			p(class="index-poem__line")

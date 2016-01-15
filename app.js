@@ -118,6 +118,7 @@ function fetchTooltip(line, callback) {
 			parsed = parsed.replace(/ +\./g, ".");
 			parsed = parsed.replace(/ +\,/g, ",");
 			parsed = parsed.replace(/  +/g, " ");
+			parsed = parsed.replace(/\n\n\n+/g, "\n\n");
 			var start = parsed.indexOf(line.text);
 			line.tooltip = {};
 			if (start != -1) {
