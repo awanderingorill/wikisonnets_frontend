@@ -68,8 +68,10 @@ app.get('/pages/:page_id', function(req, res) {
 
 app.post('/poems', function(req, res) {
 	var jar = request.jar();
-	var cookie = request.cookie("session="+req.cookies["session"]);
-	jar.setCookie(cookie, 'http://localhost:3000');
+	if (req.cookies["session"]) {
+		var cookie = request.cookie("session="+req.cookies["session"]);
+		jar.setCookie(cookie, 'http://localhost:3000');
+	}
 
 	request({
 		url: "http://localhost:8000/api/v2/poems",
@@ -80,6 +82,10 @@ app.post('/poems', function(req, res) {
 		}
 	},
 	function(err, poemResponse) {
+		if (!req.cookies["session"]) {
+			var cookies = jar.getCookies('http://localhost:3000');
+			res.cookie(cookies[0]);
+		}
 		var body = JSON.parse(poemResponse.body);
 		async.each(body.lines, function(line, callback) {
 			fetchTooltip(line, function() {
@@ -95,8 +101,10 @@ app.post('/poems', function(req, res) {
 app.post('/poems/:poem_id', function(req, res) {
 	var oldPoem = req.body.poem;
 	var jar = request.jar();
-	var cookie = request.cookie("session="+req.cookies["session"]);
-	jar.setCookie(cookie, 'http://localhost:3000');
+	if (req.cookies["session"]) {
+		var cookie = request.cookie("session="+req.cookies["session"]);
+		jar.setCookie(cookie, 'http://localhost:3000');
+	}
 
 	request({
 		url: "http://localhost:8000/api/v2/poems/" + req.params["poem_id"],
@@ -104,6 +112,10 @@ app.post('/poems/:poem_id', function(req, res) {
 		jar: jar
 	},
 	function(err, poemResponse) {
+		if (!req.cookies["session"]) {
+			var cookies = jar.getCookies('http://localhost:3000');
+			res.cookie(cookies[0]);
+		}
 		var body = JSON.parse(poemResponse.body);
 		//combine body with old poem;
 		async.forEachOf(body.lines, function(line, index, callback) {
@@ -126,8 +138,11 @@ app.post('/poems/:poem_id', function(req, res) {
 
 app.get('/poems/:poem_id', function(req, res) {
 	var jar = request.jar();
-	var cookie = request.cookie("session="+req.cookies["session"]);
-	jar.setCookie(cookie, 'http://localhost:3000');
+	if (req.cookies["session"]) {
+		var cookie = request.cookie("session="+req.cookies["session"]);
+		jar.setCookie(cookie, 'http://localhost:3000');
+	}
+
 	request({
 		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'],
 		type: 'GET',
@@ -135,6 +150,10 @@ app.get('/poems/:poem_id', function(req, res) {
 	},
 	function(err, response) {
 		if(err) { console.log(err); return; }
+		if (!req.cookies["session"]) {
+			var cookies = jar.getCookies('http://localhost:3000');
+			res.cookie(cookies[0]);
+		}
 		var body = JSON.parse(response.body);
 		async.parallel([
 			function(cb) {
