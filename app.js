@@ -92,6 +92,98 @@ app.post('/poems', function(req, res) {
 	});
 });
 
+app.post('/poems/:poem_id', function(req, res) {
+	var oldPoem = req.body.poem;
+	var jar = request.jar();
+	var cookie = request.cookie("session="+req.cookies["session"]);
+	jar.setCookie(cookie, 'http://localhost:3000');
+
+	request({
+		url: "http://localhost:8000/api/v2/poems/" + req.params["poem_id"],
+		method: 'GET',
+		jar: jar
+	},
+	function(err, poemResponse) {
+		var body = JSON.parse(poemResponse.body);
+		//combine body with old poem;
+		async.forEachOf(body.lines, function(line, index, callback) {
+			if (oldPoem.lines && parseInt(oldPoem.lines[index].page_id) !== 0) {
+				line.tooltip = oldPoem.lines[index].tooltip;
+				callback();
+			}
+			else {
+				fetchTooltip(line, function() {
+					callback();
+				});
+			}
+		},
+		function(err) {
+			res.json(body);
+		});
+	});
+
+});
+
+app.get('/poems/:poem_id', function(req, res) {
+	var jar = request.jar();
+	var cookie = request.cookie("session="+req.cookies["session"]);
+	jar.setCookie(cookie, 'http://localhost:3000');
+	request({
+		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'],
+		type: 'GET',
+		jar: jar
+	},
+	function(err, response) {
+		if(err) { console.log(err); return; }
+		var body = JSON.parse(response.body);
+		async.parallel([
+			function(cb) {
+				fetchPoemImage(body, cb);
+			},
+			function(cb) {
+				async.forEachOf(body.lines, function(line, index, callback) {
+					fetchTooltip(line, function() {
+						callback();
+					});
+				},
+				function(err) {
+					cb();
+				});
+			}
+		],
+		function(err) {
+			res.render('poems/show', {poem: body});
+		});
+	});
+});
+
+function fetchPoemImage(poem, callback) {
+	var page_id = poem.starting_page;
+	request({
+		url: "https://en.wikipedia.org/w/api.php",
+		method: 'GET',
+		qs: {
+			action: "query",
+			format: "json",
+			pageids: page_id,
+			prop: "pageimages",
+			pithumbsize: 150
+		}
+	}, 
+	function(error, imageResponse) {
+		var body = JSON.parse(imageResponse.body);
+		var key = Object.keys(body.query.pages)[0]
+		if (body.query.pages[key].thumbnail) {
+			var imageUrl = body.query.pages[key].thumbnail.source;
+		}
+		else {
+			var imageUrl = "";
+		}
+		poem.imageUrl = imageUrl;
+		callback();
+	});
+}
+
 function fetchTooltip(line, callback) {
 	if (parseInt(line.page_id) !== 0) {
 		request({
@@ -147,55 +239,6 @@ function fetchTooltip(line, callback) {
 		callback();
 	}	
 }
-
-app.post('/poems/:poem_id', function(req, res) {
-	var oldPoem = req.body.poem;
-	var jar = request.jar();
-	var cookie = request.cookie("session="+req.cookies["session"]);
-	jar.setCookie(cookie, 'http://localhost:3000');
-
-	request({
-		url: "http://localhost:8000/api/v2/poems/" + req.params["poem_id"],
-		method: 'GET',
-		jar: jar
-	},
-	function(err, poemResponse) {
-		var body = JSON.parse(poemResponse.body);
-		//combine body with old poem;
-		async.forEachOf(body.lines, function(line, index, callback) {
-			if (oldPoem.lines && parseInt(oldPoem.lines[index].page_id) !== 0) {
-				line.tooltip = oldPoem.lines[index].tooltip;
-				callback();
-			}
-			else {
-				fetchTooltip(line, function() {
-					callback();
-				});
-			}
-		},
-		function(err) {
-			res.json(body);
-		});
-	});
-
-});
-
-app.get('/poems/:poem_id', function(req, res) {
-	var jar = request.jar();
-	var cookie = request.cookie("session="+req.cookies["session"]);
-	jar.setCookie(cookie, 'http://localhost:3000');
-	request({
-		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'],
-		type: 'GET',
-		jar: jar
-	},
-	function(err, response) {
-		if(err) { console.log(err); return; }
-		var body = JSON.parse(response.body);
-		console.log(response.body);
-		res.render('poems/show', {lines: body.lines});
-	});
-});
 
 var server = app.listen(3000, function () {
   var host = server.address().address;

@@ -149,10 +149,13 @@ html
 
 .index-poem__image {
     height: #{150 / $base-font-size}rem;
-    display: none;
 }
 
 .index-footer {
     height: #{(60 + $base-font-size)/$base-font-size}rem;
+}
+
+.hidden {
+    display: none;
 }
     

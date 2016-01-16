@@ -2,10 +2,25 @@ include ../../common-components/head/head.jade
 
 doctype html
 html
-	+head( 'WikiSonnets' )
+	+head( 'WikiSonnet' )
 	body
-		header
-			| WikiSonnets
-		ul.poem
-			each value in lines
-				li= value.text
+		nav.index-nav
+			ul.index-nav__items
+				li 
+					a About
+		header.index-header
+			h1.index__logo
+				| Wiki
+				br 
+				| Sonnet
+		section.index-poem
+			.index-poem__image-container
+				img.index-poem__image(src="#{poem.imageUrl}")
+			.index-poem__form
+				input#poem-subject.index-poem__title( type='text' placeholder='Choose a starting page' autocomplete='off' value="#{poem.title}")
+				//input( type='submit' id='get-poem' )
+			#poem-lines.index-poem__lines
+				include ../../client-templates/poem.jade
+			#poem-tooltips.index-poem__tooltip-container
+				include ../../client-templates/tooltips.jade
+		footer.index-footer

@@ -103,28 +103,25 @@ function getPoem() {
 function renderPoemImage(pageId) {
 	$.get('/pages/' + pageId, function(data) {
 		$(".index-poem__image").attr("src", data.imageUrl);
-		$(".index-poem__image").css("display", "block");
+		$(".index-poem__image").removeClass("hidden");
 	});
 }
 
 function renderPoem(poemJson) {
-	var poem = poemJson.lines;
-
-	if (poem) {
-		$( '#poem-lines' ).html( templates.poem({poem: poem}) );
+	if (poemJson.lines) {
+		$( '#poem-lines' ).html( templates.poem({poem: poemJson}) );
 	}
 }
 
 function renderTooltips(poemJson) {
-	var poem = poemJson.lines;
-	if (poem) {
+	if (poemJson.lines) {
 		if (!$( '#poem-tooltips' ).html()) {
-			$( '#poem-tooltips' ).html( templates.tooltips({poem: poem}) );
+			$( '#poem-tooltips' ).html( templates.tooltips({poem: poemJson}) );
 		}
 		else {
 			$(".index-poem__tooltip").each(function(index, element) {
 				if (!$(element).html()) {
-					$(element).replaceWith(templates.tooltip({line: poem[index]}));
+					$(element).replaceWith(templates.tooltip({line: poemJson.lines[index]}));
 				}
 			});
 		}
@@ -134,5 +131,5 @@ function renderTooltips(poemJson) {
 function resetPoem() {
 	$( '#poem-lines' ).html("");
 	$( '#poem-tooltips' ).html("");
-	$(".index-poem__image").css("display", "none");
+	$(".index-poem__image").addClass("hidden");
 }
