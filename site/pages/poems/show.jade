@@ -19,6 +19,8 @@ html
 			.index-poem__form
 				input#poem-subject.index-poem__title( type='text' placeholder='Choose a starting page' autocomplete='off' value="#{poem.title}")
 				//input( type='submit' id='get-poem' )
+			#poem-lauds.index-poem__lauds
+				include ../../client-templates/laud.jade
 			#poem-lines.index-poem__lines
 				include ../../client-templates/poem.jade
 			#poem-tooltips.index-poem__tooltip-container

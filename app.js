@@ -178,6 +178,28 @@ app.get('/poems/:poem_id', function(req, res) {
 	});
 });
 
+app.post('/poems/:poem_id/lauds', function(req, res) {
+	var jar = request.jar();
+	if (req.cookies["session"]) {
+		var cookie = request.cookie("session="+req.cookies["session"]);
+		jar.setCookie(cookie, 'http://localhost:3000');
+	}
+
+	request({
+		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'] + "/lauds",
+		type: 'GET',
+		jar: jar
+	},
+	function(err, response) {
+		if (!req.cookies["session"]) {
+			var cookies = jar.getCookies('http://localhost:3000');
+			res.cookie(cookies[0]);
+		}	
+		res.json(response.body);
+	});
+
+});
+
 function fetchPoemImage(poem, callback) {
 	var page_id = poem.starting_page;
 	request({
