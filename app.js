@@ -145,7 +145,7 @@ app.get('/poems/:poem_id', function(req, res) {
 
 	request({
 		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'],
-		type: 'GET',
+		method: 'GET',
 		jar: jar
 	},
 	function(err, response) {
@@ -185,7 +185,7 @@ app.post('/poems/:poem_id/lauds', function(req, res) {
 
 	request({
 		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'] + "/lauds",
-		type: 'GET',
+		method: 'POST',
 		jar: jar
 	},
 	function(err, response) {
@@ -193,7 +193,29 @@ app.post('/poems/:poem_id/lauds', function(req, res) {
 			var cookies = jar.getCookies('http://localhost:3000');
 			res.cookie(cookies[0]);
 		}	
-		res.json(response.body);
+		res.json(JSON.parse(response.body));
+	});
+
+});
+
+app.delete('/poems/:poem_id/lauds', function(req, res) {
+	var jar = request.jar();
+	if (req.cookies["session"]) {
+		var cookie = request.cookie("session="+req.cookies["session"]);
+		jar.setCookie(cookie, 'http://localhost:3000');
+	}
+
+	request({
+		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'] + "/lauds",
+		method: 'DELETE',
+		jar: jar
+	},
+	function(err, response) {
+		if (!req.cookies["session"]) {
+			var cookies = jar.getCookies('http://localhost:3000');
+			res.cookie(cookies[0]);
+		}	
+		res.json(JSON.parse(response.body));
 	});
 
 });
