@@ -256,7 +256,8 @@ function fetchTooltip(line, callback) {
 				action: "parse",
 				format: "json",
 				pageid: line.page_id,
-				prop: "text"
+				prop: "text",
+				oldid: line.revision || 1
 			}
 		},
 		function(err, wikiResponse) {

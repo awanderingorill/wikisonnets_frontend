@@ -4,6 +4,18 @@ var templatizer = {};
 
 
 
+// laud.jade compiled template
+templatizer["laud"] = function tmpl_laud(locals) {
+    var buf = [];
+    var jade_mixins = {};
+    var jade_interp;
+    var locals_for_with = locals || {};
+    (function(poem) {
+        buf.push("<span>" + jade.escape(null == (jade_interp = poem.lauds + " Lauds") ? "" : jade_interp) + '</span><button id="laud-button"' + jade.attr("data-lauded", "" + (poem.lauded_by_session ? true : false) + "", true, true) + ' class="index-poem__laud">' + jade.escape(null == (jade_interp = poem.lauded_by_session ? "Unlaud" : "Laud") ? "" : jade_interp) + "</button>");
+    }).call(this, "poem" in locals_for_with ? locals_for_with.poem : typeof poem !== "undefined" ? poem : undefined);
+    return buf.join("");
+};
+
 // poem.jade compiled template
 templatizer["poem"] = function tmpl_poem(locals) {
     var buf = [];
@@ -50,18 +62,6 @@ templatizer["poem"] = function tmpl_poem(locals) {
             }
         }).call(this);
     }).call(this, "poem" in locals_for_with ? locals_for_with.poem : typeof poem !== "undefined" ? poem : undefined, "undefined" in locals_for_with ? locals_for_with.undefined : typeof undefined !== "undefined" ? undefined : undefined);
-    return buf.join("");
-};
-
-// laud.jade compiled template
-templatizer["laud"] = function tmpl_laud(locals) {
-    var buf = [];
-    var jade_mixins = {};
-    var jade_interp;
-    var locals_for_with = locals || {};
-    (function(poem) {
-        buf.push("<span>" + jade.escape(null == (jade_interp = poem.lauds + " Lauds") ? "" : jade_interp) + '</span><button id="laud-button"' + jade.attr("data-lauded", "" + (poem.lauded_by_session ? true : false) + "", true, true) + ' class="index-poem__laud">' + jade.escape(null == (jade_interp = poem.lauded_by_session ? "Unlaud" : "Laud") ? "" : jade_interp) + "</button>");
-    }).call(this, "poem" in locals_for_with ? locals_for_with.poem : typeof poem !== "undefined" ? poem : undefined);
     return buf.join("");
 };
 
