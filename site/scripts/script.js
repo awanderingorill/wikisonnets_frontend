@@ -86,6 +86,12 @@ $( document ).ready( function(  ){
 		$(this).css("margin-left", "-" + Math.floor(width/2) + "px")
 	});
 
+	$("#laud-button").on("click", function() {
+		$.post("/poems/" + currentPoem.id + "/lauds", function(data) {
+			//if successful, update poem to true
+		});
+	});
+
 } );
 
 function getPoem() {
