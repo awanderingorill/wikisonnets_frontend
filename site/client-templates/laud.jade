@@ -1,2 +1,3 @@
 span= poem.lauds + " Lauds"
-button.index-poem__laud#laud-button Laud
+button.index-poem__laud#laud-button(data-lauded="#{poem.lauded_by_session ? true : false}")
+	= poem.lauded_by_session ? "Unlaud" : "Laud"

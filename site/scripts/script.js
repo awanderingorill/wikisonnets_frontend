@@ -22,6 +22,9 @@ function throttle(f, delay){
 }
 
 $( document ).ready( function(  ){
+	if (!currentPoem) {
+		currentPoem = {id: parseInt(window.location.pathname.split("/").slice(-1)[0])};
+	}
 	
 	$("#poem-subject").keydown(throttle(function() {
 		var padding = 40;
@@ -86,10 +89,24 @@ $( document ).ready( function(  ){
 		$(this).css("margin-left", "-" + Math.floor(width/2) + "px")
 	});
 
-	$("#laud-button").on("click", function() {
-		$.post("/poems/" + currentPoem.id + "/lauds", function(data) {
-			//if successful, update poem to true
-		});
+	$("#poem-lauds").on("click", "#laud-button", function() {
+		// if haven't lauded yet, put data element or something
+		if (!$(this).data("lauded")) {
+			$.post("/poems/" + currentPoem.id + "/lauds", function(data) {
+				//if successful, update poem to true
+				$("#poem-lauds").html( templates.laud({poem: data}));
+			});
+		}
+		else { 
+			$.ajax({
+			  url: "/poems/" + currentPoem.id + "/lauds",
+			    type: 'DELETE',
+			    success: function(data) {
+			        // rerender laud part
+		        $("#poem-lauds").html( templates.laud({poem: data}));
+			    }
+			});
+		}
 	});
 
 } );
