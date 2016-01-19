@@ -82,6 +82,7 @@ app.post('/poems', function(req, res) {
 		}
 	},
 	function(err, poemResponse) {
+		if (err) {console.log(err); return;}
 		if (!req.cookies["session"]) {
 			var cookies = jar.getCookies('http://localhost:3000');
 			res.cookie(cookies[0]);
@@ -112,6 +113,7 @@ app.post('/poems/:poem_id', function(req, res) {
 		jar: jar
 	},
 	function(err, poemResponse) {
+		if (err) {console.log(err); return; }
 		if (!req.cookies["session"]) {
 			var cookies = jar.getCookies('http://localhost:3000');
 			res.cookie(cookies[0]);
