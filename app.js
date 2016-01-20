@@ -219,6 +219,14 @@ function fetchTooltip(line, callback) {
 		},
 		function(err, wikiResponse) {
 			var body = JSON.parse(wikiResponse.body);
+			if (body.error) {
+				line.tooltip = {};
+				line.tooltip.snippet = "";
+				line.tooltip.url = "";
+				line.tooltip.title = "";
+				callback();
+				return;
+			}
 			var htmlText = body.parse.text["*"];
 			var parsed = htmlToText.fromString(htmlText, {wordwrap: null});
 			parsed = parsed.replace(/\[\/wiki\/.*?\]/g, "");
