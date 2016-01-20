@@ -250,6 +250,7 @@ function fetchPoemImage(poem, callback) {
 }
 
 function fetchTooltip(line, callback) {
+	console.log(line);
 	if (parseInt(line.page_id) !== 0) {
 		request({
 			url: "https://en.wikipedia.org/w/api.php",
