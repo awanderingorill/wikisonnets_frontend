@@ -26,17 +26,17 @@ $( document ).ready( function(  ){
 		currentPoem = {id: parseInt(window.location.pathname.split("/").slice(-1)[0])};
 	}
 	
-	$("#poem-subject").keydown(throttle(function() {
-		var padding = 40;
-		if ($(this).val().length === 0) {
-			//ummm probably fix this at some point
-			$(this).css("width", "613px");
-		}
-		else {
-			var valWidth = ($(this).textWidth() + padding) + 'px';
-			$(this).css("width", valWidth);
-		}
-	}, 1));
+	// $("#poem-subject").keydown(throttle(function() {
+	// 	var padding = 40;
+	// 	if ($(this).val().length === 0) {
+	// 		//ummm probably fix this at some point
+	// 		$(this).css("width", "613px");
+	// 	}
+	// 	else {
+	// 		var valWidth = ($(this).textWidth() + padding) + 'px';
+	// 		$(this).css("width", valWidth);
+	// 	}
+	// }, 1));
 
 	$('#poem-subject').autocomplete({
 		minLength: 1,

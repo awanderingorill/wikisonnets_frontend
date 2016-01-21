@@ -11,6 +11,11 @@ html
     //@extend %flex-center-all;
 }
 
+body {
+    padding-left: #{30 / $base-font-size}rem;
+    padding-right: #{30 / $base-font-size}rem;
+}
+
 .loading
 {
     transition: all 1s ease-in-out;
@@ -49,7 +54,7 @@ html
 .index-header {
     margin: 0 auto;
     width: 100%;
-    padding: #{15 / $base-font-size}rem;
+    padding-top: #{30 / $base-font-size}rem;
     @include breakpoint('iphone-portrait') {
         width: #{740 / $base-font-size}rem;
         padding: 0;
@@ -59,12 +64,16 @@ html
 .index__logo {
     text-transform: uppercase;
     font-family: "Andale Mono", monospace;
+    font-size: #{64 / $base-font-size}rem;
+    @include breakpoint('iphone-portrait') {
+        font-size: #{72 / $base-font-size}rem;
+    }
 }
 
 .index-poem {
     width: 100%;
-    padding-left: #{15 / $base-font-size}rem;
-    padding-right: #{15 / $base-font-size}rem;
+    // padding-left: #{30 / $base-font-size}rem;
+    // padding-right: #{30 / $base-font-size}rem;
     @include breakpoint('iphone-portrait') {
         width: #{740 / $base-font-size}rem;
         padding: 0;
@@ -76,7 +85,7 @@ html
 }
 
 .index-poem__title {
-    font-size: #{25 / $base-font-size}rem;
+    font-size: #{18 / $base-font-size}rem;
     font-family: "Andale Mono", monospace;
     width: 100%;
     background-color: transparent;
@@ -124,19 +133,22 @@ html
 @mixin line-number($number) {
     position: relative;
     &:before {
-        content: $number;
+        content: "#{$number}";
         position: absolute;
-        left: #{-25 / $base-font-size}rem;
+        left: #{(-10 -$number) / $base-font-size}rem;
         font-size: 0.75em;
+        @include breakpoint('iphone-portrait') {
+            left: #{(-20 -$number) / $base-font-size}rem;
+        }
     }
 }
 
 .index-poem__line--5{
-    @include line-number("5");
+    @include line-number(5);
 }
 
 .index-poem__line--10{
-    @include line-number("10");
+    @include line-number(10);
 }
 
 .index-poem__line-content {
@@ -155,7 +167,7 @@ html
 }
 
 .ui-widget {
-    font-size: #{22 / $base-font-size}rem;
+    font-size: #{18 / $base-font-size}rem;
 }
 
 .index-poem__tooltip-line {

@@ -4,24 +4,6 @@ var templatizer = {};
 
 
 
-// tooltip.jade compiled template
-templatizer["tooltip"] = function tmpl_tooltip(locals) {
-    var buf = [];
-    var jade_mixins = {};
-    var jade_interp;
-    var locals_for_with = locals || {};
-    (function(line) {
-        var startIndex = line.tooltip.snippet.indexOf(line.text);
-        var endIndex = startIndex + line.text.length;
-        if (line.tooltip.title) {
-            buf.push('<p class="index-poem__tooltip">' + jade.escape(null == (jade_interp = "'..." + line.tooltip.snippet.slice(0, startIndex)) ? "" : jade_interp) + '<span class="index-poem__tooltip-line">' + jade.escape(null == (jade_interp = line.tooltip.snippet.slice(startIndex, endIndex)) ? "" : jade_interp) + "</span>" + jade.escape(null == (jade_interp = line.tooltip.snippet.slice(endIndex)) ? "" : jade_interp) + '...\' <span class="index-poem__tooltip-citation">—"<a' + jade.attr("href", "" + line.tooltip.url + "", true, true) + ' target="_blank">' + jade.escape(null == (jade_interp = line.tooltip.title) ? "" : jade_interp) + '</a>"</span></p>');
-        } else {
-            buf.push('<p class="index-poem__tooltip"></p>');
-        }
-    }).call(this, "line" in locals_for_with ? locals_for_with.line : typeof line !== "undefined" ? line : undefined);
-    return buf.join("");
-};
-
 // laud.jade compiled template
 templatizer["laud"] = function tmpl_laud(locals) {
     var buf = [];
@@ -80,6 +62,24 @@ templatizer["poem"] = function tmpl_poem(locals) {
             }
         }).call(this);
     }).call(this, "poem" in locals_for_with ? locals_for_with.poem : typeof poem !== "undefined" ? poem : undefined, "undefined" in locals_for_with ? locals_for_with.undefined : typeof undefined !== "undefined" ? undefined : undefined);
+    return buf.join("");
+};
+
+// tooltip.jade compiled template
+templatizer["tooltip"] = function tmpl_tooltip(locals) {
+    var buf = [];
+    var jade_mixins = {};
+    var jade_interp;
+    var locals_for_with = locals || {};
+    (function(line) {
+        var startIndex = line.tooltip.snippet.indexOf(line.text);
+        var endIndex = startIndex + line.text.length;
+        if (line.tooltip.title) {
+            buf.push('<p class="index-poem__tooltip">' + jade.escape(null == (jade_interp = "'..." + line.tooltip.snippet.slice(0, startIndex)) ? "" : jade_interp) + '<span class="index-poem__tooltip-line">' + jade.escape(null == (jade_interp = line.tooltip.snippet.slice(startIndex, endIndex)) ? "" : jade_interp) + "</span>" + jade.escape(null == (jade_interp = line.tooltip.snippet.slice(endIndex)) ? "" : jade_interp) + '...\' <span class="index-poem__tooltip-citation">—"<a' + jade.attr("href", "" + line.tooltip.url + "", true, true) + ' target="_blank">' + jade.escape(null == (jade_interp = line.tooltip.title) ? "" : jade_interp) + '</a>"</span></p>');
+        } else {
+            buf.push('<p class="index-poem__tooltip"></p>');
+        }
+    }).call(this, "line" in locals_for_with ? locals_for_with.line : typeof line !== "undefined" ? line : undefined);
     return buf.join("");
 };
 
