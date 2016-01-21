@@ -34,7 +34,11 @@ html
 }
 
 .index-nav {
-    padding: #{30 / $base-font-size}em;
+    display: none;
+    @include breakpoint('iphone-portrait') {
+        display: block;
+        padding: #{30 / $base-font-size}em;
+    }
 }
 
 .index-nav__items {
@@ -43,8 +47,13 @@ html
 }
 
 .index-header {
-    width: #{740 / $base-font-size}rem;
     margin: 0 auto;
+    width: 100%;
+    padding: #{15 / $base-font-size}rem;
+    @include breakpoint('iphone-portrait') {
+        width: #{740 / $base-font-size}rem;
+        padding: 0;
+    }
 }
 
 .index__logo {
@@ -53,7 +62,13 @@ html
 }
 
 .index-poem {
-    width: #{740 / $base-font-size}rem;
+    width: 100%;
+    padding-left: #{15 / $base-font-size}rem;
+    padding-right: #{15 / $base-font-size}rem;
+    @include breakpoint('iphone-portrait') {
+        width: #{740 / $base-font-size}rem;
+        padding: 0;
+    }
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
@@ -61,27 +76,40 @@ html
 }
 
 .index-poem__title {
-    font-size: #{34 / $base-font-size}rem;
+    font-size: #{25 / $base-font-size}rem;
     font-family: "Andale Mono", monospace;
-    width: #{460 / $base-font-size}rem;
+    width: 100%;
     background-color: transparent;
     padding-left: #{6.4 / $base-font-size}rem;
+    @include breakpoint('iphone-portrait') {
+        width: #{460 / $base-font-size}rem;
+        font-size: #{34 / $base-font-size}rem;
+    }
 }
 
 .index-poem__form {
-    padding-top: #{100 / $base-font-size}rem;
+    padding-top: #{50 / $base-font-size}rem;
     padding-bottom: #{50 / $base-font-size}rem;
     width: 100%;
     z-index: 2;
+    @include breakpoint('iphone-portrait') {
+        padding-top: #{100 / $base-font-size}rem;
+    }
 }
 
 .index-poem__lines {
     display: inline-block;
-    width: 50%;
+    width: 100%;
+    @include breakpoint('iphone-portrait') {
+        width: 50%;
+    }
 }
 
 .index-poem__tooltip-container {
-    width: 50%;
+    width: 100%;
+    @include breakpoint('iphone-portrait') {
+        width: 50%;
+    }
 }
 
 .index-poem__tooltip {
