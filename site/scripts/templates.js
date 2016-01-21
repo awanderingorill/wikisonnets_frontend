@@ -4,18 +4,6 @@ var templatizer = {};
 
 
 
-// laud.jade compiled template
-templatizer["laud"] = function tmpl_laud(locals) {
-    var buf = [];
-    var jade_mixins = {};
-    var jade_interp;
-    var locals_for_with = locals || {};
-    (function(poem) {
-        buf.push("<span>" + jade.escape(null == (jade_interp = poem.lauds + " Lauds") ? "" : jade_interp) + '</span><button id="laud-button"' + jade.attr("data-lauded", "" + (poem.lauded_by_session ? true : false) + "", true, true) + ' class="index-poem__laud">' + jade.escape(null == (jade_interp = poem.lauded_by_session ? "Unlaud" : "Laud") ? "" : jade_interp) + "</button>");
-    }).call(this, "poem" in locals_for_with ? locals_for_with.poem : typeof poem !== "undefined" ? poem : undefined);
-    return buf.join("");
-};
-
 // tooltip.jade compiled template
 templatizer["tooltip"] = function tmpl_tooltip(locals) {
     var buf = [];
@@ -31,6 +19,18 @@ templatizer["tooltip"] = function tmpl_tooltip(locals) {
             buf.push('<p class="index-poem__tooltip"></p>');
         }
     }).call(this, "line" in locals_for_with ? locals_for_with.line : typeof line !== "undefined" ? line : undefined);
+    return buf.join("");
+};
+
+// laud.jade compiled template
+templatizer["laud"] = function tmpl_laud(locals) {
+    var buf = [];
+    var jade_mixins = {};
+    var jade_interp;
+    var locals_for_with = locals || {};
+    (function(poem) {
+        buf.push("<span>" + jade.escape(null == (jade_interp = poem.lauds + " Lauds") ? "" : jade_interp) + '</span><button id="laud-button"' + jade.attr("data-lauded", "" + (poem.lauded_by_session ? true : false) + "", true, true) + ' class="index-poem__laud">' + jade.escape(null == (jade_interp = poem.lauded_by_session ? "Unlaud" : "Laud") ? "" : jade_interp) + "</button>");
+    }).call(this, "poem" in locals_for_with ? locals_for_with.poem : typeof poem !== "undefined" ? poem : undefined);
     return buf.join("");
 };
 

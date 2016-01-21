@@ -177,6 +177,10 @@ html
 
 .index-poem__image {
     height: #{150 / $base-font-size}rem;
+    display: none;
+    @include breakpoint('iphone-portrait') {
+        display: inline;
+    }
 }
 
 .index-footer {
