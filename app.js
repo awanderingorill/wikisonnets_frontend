@@ -13,10 +13,12 @@ app.use(bodyParser.urlencoded({
   extended: true
 })); 
 
-app.set('views', path.join(__dirname, 'site/pages'));
+// app.set('views', path.join(__dirname, 'site/pages'));
+app.set('views', path.join(__dirname, './src'));
 app.set('view engine', 'jade');
 
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/', function (req, res) {
   res.render('index');

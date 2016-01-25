@@ -15,7 +15,8 @@ var error     = require( '../../error-handler.js' );
 
 gulp.task( 'vendor-css', function( ) {
 	return gulp.src("./bower_components/jquery-ui/themes/base/jquery-ui.min.css")
-		.pipe(gulp.dest("./build/styles/"));
+		// .pipe(gulp.dest("./build/styles/"));
+		.pipe(gulp.dest("./dist/styles/"));
 });
 
 gulp.task( 'csscomb', function (  )
@@ -43,5 +44,6 @@ gulp.task( 'sass', [ 'vendor-css' ], function(  )
 		.pipe( prefix( 'last 2 versions', { cascade: true } ) )
 		.on( 'error', error.handler )
 		.pipe(gutil.env.production ? nano() : gutil.noop())	
-		.pipe( gulp.dest( path.to.sass.destination ) );
+		// .pipe( gulp.dest( path.to.sass.destination ) );
+		.pipe( gulp.dest( './dist/styles/' ) );
 } );

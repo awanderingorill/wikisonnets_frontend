@@ -11,3 +11,13 @@ gulp.task('inject', function() {
 		.pipe(inject(gulp.src('styles/main.css', {read: false, cwd: "./build"}), {name: 'main'}))
 		.pipe(gulp.dest('./site/common-components/head/'));
 });
+
+gulp.task('angular-inject', function() {
+	var target = gulp.src('./src/index.jade');
+
+	target
+		.pipe(inject(gulp.src('scripts/angular-main.js', {read: false, cwd: "./dist"}), {name: 'main'}))
+		.pipe(inject(gulp.src('styles/jquery-ui.min.css', {read: false, cwd: "./dist"}), {name: 'vendor'}))
+		.pipe(inject(gulp.src('styles/main.css', {read: false, cwd: "./dist"}), {name: 'main'}))
+		.pipe(gulp.dest('./src/'));
+});

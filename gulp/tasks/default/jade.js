@@ -3,6 +3,7 @@ var flatten = require( 'gulp-flatten' );
 var connect = require( 'gulp-connect' );
 var jade    = require( 'gulp-jade' );
 var templatizer = require( 'templatizer' );
+var cache   = require( 'gulp-cached' );
 
 var path    = require( '../../paths.js' );
 var error   = require( '../../error-handler.js' );
@@ -27,3 +28,12 @@ gulp.task( 'jade-client', function() {
 							'./site/scripts/templates.js', 
 							{ jade : { doctype: 'html' } })
 });
+
+gulp.task( 'angular-jade', function( )
+{
+	return gulp.src( './src/**/*.jade' )
+		.pipe( cache( 'jade' ) )
+		.pipe( jade( { pretty: true } ) )
+		.on( 'error', error.handler )
+		.pipe( gulp.dest( './dist' ) );
+} );

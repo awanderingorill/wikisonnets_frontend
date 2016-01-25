@@ -1,0 +1,63 @@
+// Global styles.
+
+::selection
+{
+    background-color: #f9ec67;
+}
+
+::placeholder
+{
+    color: #aea9a9;
+}
+
+body,
+html
+{
+    font-family: "SimSun", serif;
+
+    color: $black;
+    background-color: $white;
+    font-size: 16px;
+}
+
+h1
+{
+    font-size: 4.5rem;
+}
+
+p
+{
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+a
+{
+    color: #0f6ad4;
+
+    &:hover
+    {
+        color: #5da8ff;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    &:active
+    {
+        color: #0e62c2;
+    }
+
+    &:visited
+    {
+        color: #e79952;
+    }
+}
+
+input
+{
+    box-sizing: border-box;
+    &[type='text'] {
+        border-bottom: 1px solid $black;
+        outline: none;
+    }
+}
