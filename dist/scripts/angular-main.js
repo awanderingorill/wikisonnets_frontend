@@ -34189,7 +34189,7 @@ main.config( ['$stateProvider', function( $stateProvider )
 		url: '/',
 		views:
 		{
-			homepage:
+			main:
 			{
 				templateUrl: 'components/main/main_template.html',
 				controller: 'MainController as main'
