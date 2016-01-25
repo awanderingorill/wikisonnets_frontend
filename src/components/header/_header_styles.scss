@@ -1,0 +1,29 @@
+.header {
+	padding: #{30 / $base-font-size}em;
+  width: 100%;
+}
+
+.nav {
+    display: none;
+    @include breakpoint('iphone-portrait') {
+        display: block;
+    }
+}
+
+.nav__items {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logo {
+	text-transform: uppercase;
+  font-family: "Andale Mono", monospace;
+  font-size: #{64 / $base-font-size}rem;
+  width: 100%;
+  margin: 0 auto;
+	@include breakpoint('iphone-portrait') {
+		font-size: #{72 / $base-font-size}rem;
+	  width: #{740 / $base-font-size}rem;
+	  padding: 0;
+	}
+}

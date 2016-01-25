@@ -12,3 +12,10 @@ gulp.task( 'clean', function(  )
 
 	del.sync( path.to.destination );
 } );
+
+gulp.task( 'angular-clean', function(  )
+{
+	cache.caches = {  };
+
+	del.sync( './dist' );
+} );

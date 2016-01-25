@@ -3,7 +3,7 @@ console.log("Starting app!");
 
 var appWikisonnetClient = angular.module( 'appWikisonnetClient',
 [
-	'main'
+	'home'
 ]);
 
 appWikisonnetClient.config(function($logProvider, $urlRouterProvider, $locationProvider) {

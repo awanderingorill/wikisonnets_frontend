@@ -13,3 +13,14 @@ gulp.task( 'watch', function(  )
 		gulp.watch( path.to.images.source, [ 'images' ] );
 	}
 } );
+
+
+gulp.task( 'angular-watch', function(  )
+{
+	if (!gutil.env.production) {
+		gulp.watch( './src/**/*.jade', [ 'angular-jade' ] );
+		gulp.watch( './src/**/*.scss', [ 'sass' ] );
+		gulp.watch( './src/**/*.js', [ 'angular-scripts' ] );
+		gulp.watch( './images/**/*.*', [ 'images' ] );
+	}
+} );

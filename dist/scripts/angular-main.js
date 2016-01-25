@@ -34177,39 +34177,42 @@ angular.module('ui.router.state')
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
 
-var main = angular.module( 'main',
+var home = angular.module( 'home',
 [
 	'ui.router'
 ] );
 
-main.config( ['$stateProvider', function( $stateProvider )
+home.config( ['$stateProvider', function( $stateProvider )
 {
-	$stateProvider.state( 'main',
+	$stateProvider.state( 'home',
 	{
 		url: '/',
 		views:
 		{
-			main:
-			{
-				templateUrl: 'components/main/main_template.html',
-				controller: 'MainController as main'
+			'': {
+				templateUrl: 'components/home/home_template.html',
+				controller: 'HomeController as home'
+			},
+			'header@home': {
+				templateUrl: 'components/header/header_template.html'
 			}
+
 		}
 	} );
 }] );
 
-var main = angular.module( 'main' );
+var home = angular.module( 'home' );
 
-main.controller( 'MainController', ['$rootScope', '$scope', '$state', function( $rootScope, $scope, $state) {
+home.controller( 'HomeController', ['$rootScope', '$scope', '$state', function( $rootScope, $scope, $state) {
 
-	console.log( 'MainController active!' );
+	console.log( 'HomeController active!' );
 }]);
 'use strict';
 console.log("Starting app!");
 
 var appWikisonnetClient = angular.module( 'appWikisonnetClient',
 [
-	'main'
+	'home'
 ]);
 
 appWikisonnetClient.config(['$logProvider', '$urlRouterProvider', '$locationProvider', function($logProvider, $urlRouterProvider, $locationProvider) {
