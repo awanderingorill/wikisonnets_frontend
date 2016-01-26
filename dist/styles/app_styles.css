@@ -176,3 +176,10 @@ input {
     .poem__tooltip {
       border-left: 1px solid #000000;
       padding-left: 1.25rem; } }
+
+.poem__tooltip-line {
+  background-color: #FCFADF; }
+
+.poem__tooltip-citation {
+  display: block;
+  text-align: right; }

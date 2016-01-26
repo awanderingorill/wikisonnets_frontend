@@ -69,3 +69,12 @@
       padding-left: #{20 / $base-font-size}rem;
   }
 }
+
+.poem__tooltip-line {
+  background-color: $highlight-text-color;
+}
+
+.poem__tooltip-citation {
+  display: block;
+  text-align: right;
+}

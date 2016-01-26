@@ -5,5 +5,9 @@
 			span.poem__line
 				{{ line.text }}
 			span.poem__tooltip
-				span.poem__tooltip-snippet {{ line.tooltip.snippet }}
+				span.poem__tooltip-snippet '...{{ line.tooltip.snippet | preLinePortion:line.text }}
+					span.poem__tooltip-line{{line.text}}
+					{{ line.tooltip.snippet | postLinePortion:line.text}}...'
+					span.poem__tooltip-citation —
+						a(href="{{line.tooltip.url}}" target="_blank") {{ line.tooltip.title}}
 

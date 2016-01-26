@@ -34902,7 +34902,7 @@ home.controller( 'HomeController', ['$rootScope', '$scope', '$state', function( 
 
 	console.log( 'HomeController active!' );
 }]);
-var poem = angular.module( 'poem', ['ui.router', 'Poem', 'Tooltip']);
+var poem = angular.module( 'poem', ['ui.router', 'Poem', 'Tooltip', 'snippetFilter']);
 
 poem.config( ['$stateProvider', function( $stateProvider ) {
 	$stateProvider.state( 'poem', 
@@ -34985,6 +34985,22 @@ poemFactory.factory('Poem', ['$http', '$q', function( $http, $q ) {
 
 	return poemApi;
 }]);
+var snippetFilter = angular.module('snippetFilter', []);
+
+snippetFilter.filter('preLinePortion', function() {
+	return function(snippet, line) {
+		var startIndex = snippet.indexOf(line);
+		return snippet.slice(0, startIndex);
+	};
+});
+
+snippetFilter.filter('postLinePortion', function() {
+	return function(snippet, line) {
+		var startIndex = snippet.indexOf(line);
+		var endIndex = startIndex + line.length;
+		return snippet.slice(endIndex);
+	};
+});
 'use strict';
 
 var appWikisonnetClient = angular.module( 'appWikisonnetClient',
