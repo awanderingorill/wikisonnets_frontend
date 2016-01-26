@@ -3,16 +3,14 @@ console.log("Starting app!");
 
 var appWikisonnetClient = angular.module( 'appWikisonnetClient',
 [
-	'home'
+	'home',
+	'poem'
 ]);
 
 appWikisonnetClient.config(function($logProvider, $urlRouterProvider, $locationProvider) {
   $logProvider.debugEnabled(true);
   $urlRouterProvider.otherwise( '/' );
-	$locationProvider.html5Mode({
-	  enabled: true,
-	  requireBase: false
-	});
+	$locationProvider.html5Mode(true);
 });
 
 appWikisonnetClient.run(function($log) {

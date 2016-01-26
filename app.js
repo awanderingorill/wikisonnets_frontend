@@ -42,6 +42,8 @@ app.get('/search', function (req, res) {
 });
 
 //gets information about a page
+//probably here will get all of the poems for a 
+//give page as well
 app.get('/pages/:page_id', function(req, res) {
 	var page_id = req.params['page_id'];
 	request({
@@ -141,44 +143,48 @@ app.post('/poems/:poem_id', function(req, res) {
 });
 
 app.get('/poems/:poem_id', function(req, res) {
-	var jar = request.jar();
-	if (req.cookies["session"]) {
-		var cookie = request.cookie("session="+req.cookies["session"]);
-		jar.setCookie(cookie, 'http://localhost:3000');
-	}
-
-	request({
-		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'],
-		method: 'GET',
-		jar: jar
-	},
-	function(err, response) {
-		if(err) { console.log(err); return; }
-		if (!req.cookies["session"]) {
-			var cookies = jar.getCookies('http://localhost:3000');
-			res.cookie(cookies[0]);
-		}
-		var body = JSON.parse(response.body);
-		async.parallel([
-			function(cb) {
-				fetchPoemImage(body, cb);
-			},
-			function(cb) {
-				async.forEachOf(body.lines, function(line, index, callback) {
-					fetchTooltip(line, function() {
-						callback();
-					});
-				},
-				function(err) {
-					cb();
-				});
-			}
-		],
-		function(err) {
-			res.render('poems/show', {poem: body});
-		});
-	});
+	res.render('index.jade');
 });
+
+// app.get('/poems/:poem_id', function(req, res) {
+// 	var jar = request.jar();
+// 	if (req.cookies["session"]) {
+// 		var cookie = request.cookie("session="+req.cookies["session"]);
+// 		jar.setCookie(cookie, 'http://localhost:3000');
+// 	}
+
+// 	request({
+// 		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'],
+// 		method: 'GET',
+// 		jar: jar
+// 	},
+// 	function(err, response) {
+// 		if(err) { console.log(err); return; }
+// 		if (!req.cookies["session"]) {
+// 			var cookies = jar.getCookies('http://localhost:3000');
+// 			res.cookie(cookies[0]);
+// 		}
+// 		var body = JSON.parse(response.body);
+// 		async.parallel([
+// 			function(cb) {
+// 				fetchPoemImage(body, cb);
+// 			},
+// 			function(cb) {
+// 				async.forEachOf(body.lines, function(line, index, callback) {
+// 					fetchTooltip(line, function() {
+// 						callback();
+// 					});
+// 				},
+// 				function(err) {
+// 					cb();
+// 				});
+// 			}
+// 		],
+// 		function(err) {
+// 			res.render('poems/show', {poem: body});
+// 		});
+// 	});
+// });
 
 app.post('/poems/:poem_id/lauds', function(req, res) {
 	var jar = request.jar();
