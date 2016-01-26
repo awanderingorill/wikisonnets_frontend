@@ -34871,32 +34871,6 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
-var poem = angular.module( 'poem', ['ui.router', 'Poem']);
-
-poem.config( ['$stateProvider', function( $stateProvider ) {
-	$stateProvider.state( 'poem', 
-	{
-		url: '/poems/:poemId',
-		views:
-		{
-			'': {
-				templateUrl: 'components/poems/poem_template.html',
-				controller: 'PoemController as poem'
-			},
-			'header@poem': {
-				templateUrl: 'components/header/header_template.html'
-			}
-		}
-	});
-}]);
-var poem = angular.module('poem');
-
-poem.controller( 'PoemController', ['$rootScope', '$scope', '$state', 'Poem', function($rootScope, $scope, $state, Poem) {
-	$state = 'poem';
-	Poem.get($stateParams.poemId).then(function(poem) {
-		$scope.poem = poem;
-	});
-}]);
 
 var home = angular.module( 'home',
 [
@@ -34928,7 +34902,67 @@ home.controller( 'HomeController', ['$rootScope', '$scope', '$state', function( 
 
 	console.log( 'HomeController active!' );
 }]);
-angular.module('appWikisonnetClient', []).factory('Poem', ['$http', '$q', 'appConstants', 'storageFactory', function( $http, $q, appConstants, storageFactory ) {
+var poem = angular.module( 'poem', ['ui.router', 'Poem', 'Tooltip']);
+
+poem.config( ['$stateProvider', function( $stateProvider ) {
+	$stateProvider.state( 'poem', 
+	{
+		url: '/poems/:poemId',
+		views:
+		{
+			'': {
+				templateUrl: 'components/poem/poem_template.html',
+				controller: 'PoemController as poem'
+			},
+			'header@poem': {
+				templateUrl: 'components/header/header_template.html'
+			}
+		}
+	});
+}]);
+var poem = angular.module('poem');
+
+poem.controller( 'PoemController', ['$rootScope', '$scope', '$stateParams', '$state', 'Poem', 'Tooltip', function($rootScope, $scope, $stateParams, $state, Poem, Tooltip) {
+	Poem.get($stateParams.poemId).then(function(poem) {
+		$scope.poem = poem;
+		poem.lines.forEach(function(line, index) {
+			Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
+				$scope.poem.lines[index].tooltip = tooltip;
+			});
+		});
+	});
+}]);
+var tooltipFactory = angular.module('Tooltip', []);
+
+tooltipFactory.factory('Tooltip', ['$http', '$q', function($http, $q) {
+	var tooltipApi = { };
+
+	tooltipApi.get = function(pageId, revisionId, line) {
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+
+		$http({
+			method: 'get',
+			url: '/api/pages/' + pageId + '/tooltip',
+			params: {
+				revisionId: revisionId,
+				line: line
+			}
+		})
+		.success(function(data) {
+			deferred.resolve(data);
+		})
+		.error(function(error) {
+			deferred.reject( error );
+		});
+		return promise;
+	};
+
+	return tooltipApi;
+}]);
+var poemFactory = angular.module( 'Poem', [  ] );
+
+poemFactory.factory('Poem', ['$http', '$q', function( $http, $q ) {
   var poemApi = { };
 
 	poemApi.get = function(poemId) {
@@ -34937,7 +34971,7 @@ angular.module('appWikisonnetClient', []).factory('Poem', ['$http', '$q', 'appCo
 
 		$http({
 			method: 'get',
-			url: '/poems/' + poemId,
+			url: '/api/poems/' + poemId,
 			withCredentials: true,
 		})
 		.success(function(data) {
@@ -34952,7 +34986,6 @@ angular.module('appWikisonnetClient', []).factory('Poem', ['$http', '$q', 'appCo
 	return poemApi;
 }]);
 'use strict';
-console.log("Starting app!");
 
 var appWikisonnetClient = angular.module( 'appWikisonnetClient',
 [
@@ -34967,6 +35000,5 @@ appWikisonnetClient.config(['$logProvider', '$urlRouterProvider', '$locationProv
 }]);
 
 appWikisonnetClient.run(['$log', function($log) {
-	console.log("running client");
   $log.debug('runBlock end');
 }]);

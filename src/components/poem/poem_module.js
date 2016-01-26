@@ -1,4 +1,4 @@
-var poem = angular.module( 'poem', ['ui.router', 'Poem']);
+var poem = angular.module( 'poem', ['ui.router', 'Poem', 'Tooltip']);
 
 poem.config( function( $stateProvider ) {
 	$stateProvider.state( 'poem', 
@@ -7,7 +7,7 @@ poem.config( function( $stateProvider ) {
 		views:
 		{
 			'': {
-				templateUrl: 'components/poems/poem_template.html',
+				templateUrl: 'components/poem/poem_template.html',
 				controller: 'PoemController as poem'
 			},
 			'header@poem': {

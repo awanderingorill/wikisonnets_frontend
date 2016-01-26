@@ -146,45 +146,100 @@ app.get('/poems/:poem_id', function(req, res) {
 	res.render('index.jade');
 });
 
-// app.get('/poems/:poem_id', function(req, res) {
-// 	var jar = request.jar();
-// 	if (req.cookies["session"]) {
-// 		var cookie = request.cookie("session="+req.cookies["session"]);
-// 		jar.setCookie(cookie, 'http://localhost:3000');
-// 	}
+app.get('/api/poems/:poem_id', function(req, res) {
+	var jar = request.jar();
+	if (req.cookies["session"]) {
+		var cookie = request.cookie("session="+req.cookies["session"]);
+		jar.setCookie(cookie, 'http://localhost:3000');
+	}
 
-// 	request({
-// 		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'],
-// 		method: 'GET',
-// 		jar: jar
-// 	},
-// 	function(err, response) {
-// 		if(err) { console.log(err); return; }
-// 		if (!req.cookies["session"]) {
-// 			var cookies = jar.getCookies('http://localhost:3000');
-// 			res.cookie(cookies[0]);
-// 		}
-// 		var body = JSON.parse(response.body);
-// 		async.parallel([
-// 			function(cb) {
-// 				fetchPoemImage(body, cb);
-// 			},
-// 			function(cb) {
-// 				async.forEachOf(body.lines, function(line, index, callback) {
-// 					fetchTooltip(line, function() {
-// 						callback();
-// 					});
-// 				},
-// 				function(err) {
-// 					cb();
-// 				});
-// 			}
-// 		],
-// 		function(err) {
-// 			res.render('poems/show', {poem: body});
-// 		});
-// 	});
-// });
+	request({
+		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'],
+		method: 'GET',
+		jar: jar
+	},
+	function(err, response) {
+		if(err) { console.log(err); return; }
+		if (!req.cookies["session"]) {
+			var cookies = jar.getCookies('http://localhost:3000');
+			res.cookie(cookies[0]);
+		}
+		var body = JSON.parse(response.body);
+		res.json(body);
+		// async.parallel([
+		// 	function(cb) {
+		// 		fetchPoemImage(body, cb);
+		// 	},
+		// 	function(cb) {
+		// 		async.forEachOf(body.lines, function(line, index, callback) {
+		// 			fetchTooltip(line, function() {
+		// 				callback();
+		// 			});
+		// 		},
+		// 		function(err) {
+		// 			cb();
+		// 		});
+		// 	}
+		// ],
+		// function(err) {
+		// 	res.json(body);
+		// });
+	});
+});
+
+app.get('/api/pages/:page_id/tooltip', function(req, res) {
+	var revisionId = req.query.revisionId || 1;
+	var line = req.query.line;
+	var pageId = req.params.page_id;
+
+	request({
+		url: "https://en.wikipedia.org/w/api.php",
+		method: 'GET',
+		qs: {
+			action: "parse",
+			format: "json",
+			pageid: pageId,
+			prop: "text",
+			oldid: revisionId
+		}
+	},
+	function(err, wikiResponse) {
+		var body = JSON.parse(wikiResponse.body);
+		if (body.error) { res.json({}); }
+		
+		var htmlText = body.parse.text["*"];
+		var parsed = htmlToText.fromString(htmlText, {wordwrap: null});
+		parsed = parsed.replace(/\[\/wiki\/.*?\]/g, "");
+		parsed = parsed.replace(/\[\/\/upload.*?\]/g, "");
+		parsed = parsed.replace(/\[\/\/en.*?\]/g, "");
+		parsed = parsed.replace(/\[\s\d*?\s\]/g, "");
+		parsed = parsed.replace(/\[\sEDIT.*?\s\]/g, "");
+		parsed = parsed.replace(/\[http\:\/\/.*?\]/g, "");
+		parsed = parsed.replace(/\[\#.*?\]/g, "");
+		parsed = parsed.replace(/ +\./g, ".");
+		parsed = parsed.replace(/ +\,/g, ",");
+		parsed = parsed.replace(/  +/g, " ");
+		parsed = parsed.replace(/\n\n\n+/g, "\n\n");
+		var start = parsed.indexOf(line);
+
+		var tooltip = {};
+		if (start != -1) {
+			var snippet = parsed.substring(start-225, start + 225).split(" ");
+			if (start > 225) {
+				snippet.shift();
+			}
+			snippet.pop();
+			snippet = snippet.join(" ");
+			tooltip.snippet = snippet;
+		}
+		else {
+			tooltip.snippet = "";
+		}
+		tooltip.title = body.parse.title;
+		tooltip.url = "https://en.wikipedia.org/wiki/" + tooltip.title.replace(" ", "_");
+		res.json(tooltip);
+	});
+});
 
 app.post('/poems/:poem_id/lauds', function(req, res) {
 	var jar = request.jar();

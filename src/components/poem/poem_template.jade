@@ -1,5 +1,9 @@
-p.poem__lines
+.header-wrapper(ui-view='header')
+p.poem__lines(ng-repeat="line in poem.lines")
 	span.poem__lines--wrapper
-		span.poem__line(ng-repeat="line in poem.lines")
+		span.poem__line
 			{{ line.text }}
+.poem__tooltips
+	p.poem__tooltip(ng-repeat="line in poem.lines")
+		{{ line.tooltip.snippet }}
 

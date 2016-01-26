@@ -1,2 +1,6 @@
 
-<p class="poem__lines"><span class="poem__lines--wrapper"><span ng-repeat="line in poem.lines" class="poem__line">{{ line.text }}</span></span></p>
+<div ui-view="header" class="header-wrapper"></div>
+<p ng-repeat="line in poem.lines" class="poem__lines"><span class="poem__lines--wrapper"><span class="poem__line">{{ line.text }}</span></span></p>
+<div class="poem__tooltips">
+  <p ng-repeat="line in poem.lines" class="poem__tooltip">{{ line.tooltip.snippet }}</p>
+</div>

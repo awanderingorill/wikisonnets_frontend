@@ -1,4 +1,6 @@
-angular.module('appWikisonnetClient', []).factory('Poem', function( $http, $q, appConstants, storageFactory ) {
+var poemFactory = angular.module( 'Poem', [  ] );
+
+poemFactory.factory('Poem', function( $http, $q ) {
   var poemApi = { };
 
 	poemApi.get = function(poemId) {
@@ -7,7 +9,7 @@ angular.module('appWikisonnetClient', []).factory('Poem', function( $http, $q, a
 
 		$http({
 			method: 'get',
-			url: '/poems/' + poemId,
+			url: '/api/poems/' + poemId,
 			withCredentials: true,
 		})
 		.success(function(data) {

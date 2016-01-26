@@ -1,5 +1,4 @@
 'use strict';
-console.log("Starting app!");
 
 var appWikisonnetClient = angular.module( 'appWikisonnetClient',
 [
@@ -14,6 +13,5 @@ appWikisonnetClient.config(function($logProvider, $urlRouterProvider, $locationP
 });
 
 appWikisonnetClient.run(function($log) {
-	console.log("running client");
   $log.debug('runBlock end');
 });
