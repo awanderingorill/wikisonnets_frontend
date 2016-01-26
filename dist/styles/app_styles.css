@@ -45,7 +45,9 @@ body, html {
   font-family: "SimSun", serif;
   color: #000000;
   background-color: #ffffff;
-  font-size: 16px; }
+  font-size: 16px;
+  height: 100%;
+  width: 100%; }
 
 h1 {
   font-size: 4.5rem; }
@@ -70,6 +72,10 @@ input {
   input[type='text'] {
     border-bottom: 1px solid #000000;
     outline: none; }
+
+.app {
+  height: 100%;
+  width: 100%; }
 
 .header {
   padding: 1.875em;
@@ -102,3 +108,71 @@ input {
       font-size: 4.5rem;
       width: 46.25rem;
       padding: 0; } }
+
+.poem {
+  width: 100%;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  position: relative; }
+  @media (min-width: 376px) {
+    .poem {
+      width: 46.25rem; } }
+
+.poem__lines {
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 1.25rem;
+  padding-left: 1.875rem;
+  padding-right: 1.875rem; }
+  @media (min-width: 376px) {
+    .poem__lines {
+      width: 50%;
+      padding-bottom: 0;
+      padding-left: 0;
+      padding-right: 0; } }
+
+.poem__line-wrapper {
+  display: block; }
+
+.poem__line {
+  display: inline-block;
+  cursor: pointer;
+  background-color: #F1F1F1; }
+  @media (min-width: 376px) {
+    .poem__line {
+      background-color: transparent; } }
+  .poem__line:hover {
+    background-color: #FCFADF; }
+    .poem__line:hover + .poem__tooltip {
+      display: block; }
+
+.poem__tooltips {
+  width: 100%;
+  padding: 1.25rem;
+  background-color: #F1F1F1;
+  display: none; }
+  @media (min-width: 376px) {
+    .poem__tooltips {
+      width: 50%;
+      padding: 0;
+      background-color: transparent; } }
+  .poem__tooltips:not(:empty) {
+    display: block; }
+
+.poem__tooltip {
+  font-size: 0.75em;
+  display: none;
+  white-space: pre-wrap;
+  position: absolute;
+  top: 0;
+  left: 50%; }
+  @media (min-width: 376px) {
+    .poem__tooltip {
+      border-left: 1px solid #000000;
+      padding-left: 1.25rem; } }
