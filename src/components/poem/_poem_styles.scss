@@ -25,14 +25,40 @@
 
 .poem__line-wrapper {
 	display: block;
+  &:nth-child(4), &:nth-child(8), &:nth-child(12) {
+    margin-bottom: #{16/$base-font-size}rem;
+  }
 }
 
-.poem__line {
+@mixin line-number($number) {
+    position: relative;
+    &:before {
+        content: "#{$number}";
+        position: absolute;
+        left: #{(-10 -$number) / $base-font-size}rem;
+        font-size: 0.75em;
+        @include breakpoint('iphone-portrait') {
+            left: #{(-20 -$number) / $base-font-size}rem;
+        }
+    }
+}
+
+.poem__line--5{
+    @include line-number(5);
+}
+
+.poem__line--10{
+    @include line-number(10);
+}
+
+.poem__line, [class^="poem__line--"], [class*=" poem__line--"] {
 	display: inline-block;
 	cursor: pointer;
 	background-color: $background-color;
+  font-size: #{14 / $base-font-size}rem;
 	@include breakpoint('iphone-portrait') {
       background-color: transparent;
+      font-size: #{16 / $base-font-size}rem;
   }
   &:hover {
       background-color: $highlight-text-color;
@@ -43,18 +69,8 @@
 }
 
 .poem__tooltips {
-	width: 100%;
-  padding: #{20 / $base-font-size}rem;
-  background-color: $background-color;
-  @include breakpoint('iphone-portrait') {
-      width: 50%;
-      padding: 0;
-      background-color: transparent;
-  }
-  display: none;
-  &:not(:empty) {
-      display: block;
-  }
+  width: 100%;
+
 }
 
 .poem__tooltip {
@@ -62,11 +78,19 @@
   display: none;
   white-space: pre-wrap;
   position: absolute;
-  top: 0;
-  left: 50%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: $background-color;
+  padding: #{20 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') {
       border-left: 1px solid $black;
       padding-left: #{20 / $base-font-size}rem;
+      top: 0;
+      left: 50%;
+      right: initial;
+      background-color: transparent;
+      padding: 0;
   }
 }
 

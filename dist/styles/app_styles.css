@@ -139,43 +139,67 @@ input {
 
 .poem__line-wrapper {
   display: block; }
+  .poem__line-wrapper:nth-child(4), .poem__line-wrapper:nth-child(8), .poem__line-wrapper:nth-child(12) {
+    margin-bottom: 1rem; }
 
-.poem__line {
+.poem__line--5 {
+  position: relative; }
+  .poem__line--5:before {
+    content: "5";
+    position: absolute;
+    left: -0.9375rem;
+    font-size: 0.75em; }
+    @media (min-width: 376px) {
+      .poem__line--5:before {
+        left: -1.5625rem; } }
+
+.poem__line--10 {
+  position: relative; }
+  .poem__line--10:before {
+    content: "10";
+    position: absolute;
+    left: -1.25rem;
+    font-size: 0.75em; }
+    @media (min-width: 376px) {
+      .poem__line--10:before {
+        left: -1.875rem; } }
+
+.poem__line, [class^="poem__line--"], [class*=" poem__line--"] {
   display: inline-block;
   cursor: pointer;
-  background-color: #F1F1F1; }
+  background-color: #F1F1F1;
+  font-size: 0.875rem; }
   @media (min-width: 376px) {
-    .poem__line {
-      background-color: transparent; } }
-  .poem__line:hover {
+    .poem__line, [class^="poem__line--"], [class*=" poem__line--"] {
+      background-color: transparent;
+      font-size: 1rem; } }
+  .poem__line:hover, [class^="poem__line--"]:hover, [class*=" poem__line--"]:hover {
     background-color: #FCFADF; }
-    .poem__line:hover + .poem__tooltip {
+    .poem__line:hover + .poem__tooltip, [class^="poem__line--"]:hover + .poem__tooltip, [class*=" poem__line--"]:hover + .poem__tooltip {
       display: block; }
 
 .poem__tooltips {
-  width: 100%;
-  padding: 1.25rem;
-  background-color: #F1F1F1;
-  display: none; }
-  @media (min-width: 376px) {
-    .poem__tooltips {
-      width: 50%;
-      padding: 0;
-      background-color: transparent; } }
-  .poem__tooltips:not(:empty) {
-    display: block; }
+  width: 100%; }
 
 .poem__tooltip {
   font-size: 0.75em;
   display: none;
   white-space: pre-wrap;
   position: absolute;
-  top: 0;
-  left: 50%; }
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #F1F1F1;
+  padding: 1.25rem; }
   @media (min-width: 376px) {
     .poem__tooltip {
       border-left: 1px solid #000000;
-      padding-left: 1.25rem; } }
+      padding-left: 1.25rem;
+      top: 0;
+      left: 50%;
+      right: initial;
+      background-color: transparent;
+      padding: 0; } }
 
 .poem__tooltip-line {
   background-color: #FCFADF; }

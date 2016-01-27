@@ -2,12 +2,13 @@
 .poem
 	p.poem__lines
 		span.poem__line-wrapper(ng-repeat="line in poem.lines")
-			span.poem__line
+			span(ng-class="{true:'poem__line--{{$index+1}}', false: 'poem__line'}[$index === 4 || $index === 9]")
 				{{ line.text }}
-			span.poem__tooltip
-				span.poem__tooltip-snippet '...{{ line.tooltip.snippet | preLinePortion:line.text }}
-					span.poem__tooltip-line{{line.text}}
-					{{ line.tooltip.snippet | postLinePortion:line.text}}...'
-					span.poem__tooltip-citation —
-						a(href="{{line.tooltip.url}}" target="_blank") {{ line.tooltip.title}}
+	.poem__tooltips
+		.poem__tooltip(ng-repeat="line in poem.lines")
+			span.poem__tooltip-snippet '...{{ line.tooltip.snippet | preLinePortion:line.text }}
+				span.poem__tooltip-line{{line.text}}
+				{{ line.tooltip.snippet | postLinePortion:line.text}}...'
+				span.poem__tooltip-citation —
+					a(href="{{line.tooltip.url}}" target="_blank") {{ line.tooltip.title}}
 
