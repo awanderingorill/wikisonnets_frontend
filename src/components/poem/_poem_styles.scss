@@ -120,5 +120,19 @@
 .poem__title-form {
   height: #{160 / $base-font-size}rem;
   width: 100%;
-  vertical-align: bottom;
+  display: flex;
+  align-items: flex-end;
+}
+
+.angucomplete-dropdown {
+  position: absolute;
+  background-color: $white;
+  z-index: 5;
+  padding: #{10 / $base-font-size}rem;
+  border: 1px solid $black;
+}
+
+.angucomplete-selected-row {
+  background-color: $background-color;
+  cursor: pointer;
 }

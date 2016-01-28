@@ -35705,6 +35705,75 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
+var tooltipFactory = angular.module('Tooltip', []);
+
+tooltipFactory.factory('Tooltip', ['$http', '$q', function($http, $q) {
+	var tooltipApi = { };
+
+	tooltipApi.get = function(pageId, revisionId, line) {
+		var deferred = $q.defer();
+		var promise = deferred.promise;
+
+		$http({
+			method: 'get',
+			url: '/api/pages/' + pageId + '/tooltip',
+			params: {
+				revisionId: revisionId,
+				line: line
+			}
+		})
+		.success(function(data) {
+			deferred.resolve(data);
+		})
+		.error(function(error) {
+			deferred.reject( error );
+		});
+		return promise;
+	};
+
+	return tooltipApi;
+}]);
+var poemFactory = angular.module( 'Poem', [  ] );
+
+poemFactory.factory('Poem', ['$http', '$q', function( $http, $q ) {
+  var poemApi = { };
+
+	poemApi.get = function(poemId) {
+		var deferred = $q.defer(  );
+		var promise = deferred.promise;
+
+		$http({
+			method: 'get',
+			url: '/api/poems/' + poemId,
+			withCredentials: true,
+		})
+		.success(function(data) {
+			deferred.resolve(data);
+		})
+		.error(function(error) {
+			deferred.reject( error );
+		});
+		return promise;
+	};
+
+	return poemApi;
+}]);
+var snippetFilter = angular.module('snippetFilter', []);
+
+snippetFilter.filter('preLinePortion', function() {
+	return function(snippet, line) {
+		var startIndex = snippet.indexOf(line);
+		return snippet.slice(0, startIndex);
+	};
+});
+
+snippetFilter.filter('postLinePortion', function() {
+	return function(snippet, line) {
+		var startIndex = snippet.indexOf(line);
+		var endIndex = startIndex + line.length;
+		return snippet.slice(endIndex);
+	};
+});
 var poem = angular.module( 'poem', ['ui.router', 'Poem', 'Tooltip', 'snippetFilter', 'angucomplete-alt']);
 
 poem.config( ['$stateProvider', function( $stateProvider ) {
@@ -35769,75 +35838,6 @@ var home = angular.module( 'home' );
 home.controller( 'HomeController', ['$rootScope', '$scope', '$state', function( $rootScope, $scope, $state) {
 
 	console.log( 'HomeController active!' );
-}]);
-var snippetFilter = angular.module('snippetFilter', []);
-
-snippetFilter.filter('preLinePortion', function() {
-	return function(snippet, line) {
-		var startIndex = snippet.indexOf(line);
-		return snippet.slice(0, startIndex);
-	};
-});
-
-snippetFilter.filter('postLinePortion', function() {
-	return function(snippet, line) {
-		var startIndex = snippet.indexOf(line);
-		var endIndex = startIndex + line.length;
-		return snippet.slice(endIndex);
-	};
-});
-var tooltipFactory = angular.module('Tooltip', []);
-
-tooltipFactory.factory('Tooltip', ['$http', '$q', function($http, $q) {
-	var tooltipApi = { };
-
-	tooltipApi.get = function(pageId, revisionId, line) {
-		var deferred = $q.defer();
-		var promise = deferred.promise;
-
-		$http({
-			method: 'get',
-			url: '/api/pages/' + pageId + '/tooltip',
-			params: {
-				revisionId: revisionId,
-				line: line
-			}
-		})
-		.success(function(data) {
-			deferred.resolve(data);
-		})
-		.error(function(error) {
-			deferred.reject( error );
-		});
-		return promise;
-	};
-
-	return tooltipApi;
-}]);
-var poemFactory = angular.module( 'Poem', [  ] );
-
-poemFactory.factory('Poem', ['$http', '$q', function( $http, $q ) {
-  var poemApi = { };
-
-	poemApi.get = function(poemId) {
-		var deferred = $q.defer(  );
-		var promise = deferred.promise;
-
-		$http({
-			method: 'get',
-			url: '/api/poems/' + poemId,
-			withCredentials: true,
-		})
-		.success(function(data) {
-			deferred.resolve(data);
-		})
-		.error(function(error) {
-			deferred.reject( error );
-		});
-		return promise;
-	};
-
-	return poemApi;
 }]);
 'use strict';
 

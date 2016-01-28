@@ -223,4 +223,22 @@ input {
 .poem__title-form {
   height: 10rem;
   width: 100%;
-  vertical-align: bottom; }
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: end;
+  -webkit-align-items: flex-end;
+      -ms-flex-align: end;
+          align-items: flex-end; }
+
+.angucomplete-dropdown {
+  position: absolute;
+  background-color: #ffffff;
+  z-index: 5;
+  padding: 0.625rem;
+  border: 1px solid #000000; }
+
+.angucomplete-selected-row {
+  background-color: #F1F1F1;
+  cursor: pointer; }
