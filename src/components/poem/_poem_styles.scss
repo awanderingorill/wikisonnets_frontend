@@ -109,6 +109,7 @@
   width: 100%;
   text-align: center;
   z-index: -1;
+  opacity: 0.23;
   @include breakpoint('iphone-portrait') {
     display: block;
     position: absolute;
@@ -122,6 +123,17 @@
   width: 100%;
   display: flex;
   align-items: flex-end;
+  padding-bottom: #{30 / $base-font-size}rem;
+}
+
+.poem__title {
+  font-family: "Andale Mono", monospace;
+  font-size: #{18 / $base-font-size}rem;
+  background-color: transparent;
+  @include breakpoint('iphone-portrait') {
+    font-size: #{30 / $base-font-size}rem;
+    width: #{460 / $base-font-size}rem;
+  }
 }
 
 .angucomplete-dropdown {

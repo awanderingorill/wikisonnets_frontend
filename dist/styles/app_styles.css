@@ -212,7 +212,8 @@ input {
   display: none;
   width: 100%;
   text-align: center;
-  z-index: -1; }
+  z-index: -1;
+  opacity: 0.23; }
   @media (min-width: 376px) {
     .poem__image-wrapper {
       display: block;
@@ -230,7 +231,17 @@ input {
   -webkit-box-align: end;
   -webkit-align-items: flex-end;
       -ms-flex-align: end;
-          align-items: flex-end; }
+          align-items: flex-end;
+  padding-bottom: 1.875rem; }
+
+.poem__title {
+  font-family: "Andale Mono", monospace;
+  font-size: 1.125rem;
+  background-color: transparent; }
+  @media (min-width: 376px) {
+    .poem__title {
+      font-size: 1.875rem;
+      width: 28.75rem; } }
 
 .angucomplete-dropdown {
   position: absolute;
