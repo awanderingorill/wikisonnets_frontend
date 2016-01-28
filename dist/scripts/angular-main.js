@@ -34871,6 +34871,36 @@ angular.module('ui.router.state')
   .filter('isState', $IsStateFilter)
   .filter('includedByState', $IncludedByStateFilter);
 })(window, window.angular);
+var poem = angular.module( 'poem', ['ui.router', 'Poem', 'Tooltip', 'snippetFilter']);
+
+poem.config( ['$stateProvider', function( $stateProvider ) {
+	$stateProvider.state( 'poem', 
+	{
+		url: '/poems/:poemId',
+		views:
+		{
+			'': {
+				templateUrl: 'components/poem/poem_template.html',
+				controller: 'PoemController as poem'
+			},
+			'header@poem': {
+				templateUrl: 'components/header/header_template.html'
+			}
+		}
+	});
+}]);
+var poem = angular.module('poem');
+
+poem.controller( 'PoemController', ['$rootScope', '$scope', '$stateParams', '$state', 'Poem', 'Tooltip', function($rootScope, $scope, $stateParams, $state, Poem, Tooltip) {
+	Poem.get($stateParams.poemId).then(function(poem) {
+		$scope.poem = poem;
+		poem.lines.forEach(function(line, index) {
+			Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
+				$scope.poem.lines[index].tooltip = tooltip;
+			});
+		});
+	});
+}]);
 var tooltipFactory = angular.module('Tooltip', []);
 
 tooltipFactory.factory('Tooltip', ['$http', '$q', function($http, $q) {
@@ -34923,36 +34953,6 @@ poemFactory.factory('Poem', ['$http', '$q', function( $http, $q ) {
 	};
 
 	return poemApi;
-}]);
-var poem = angular.module( 'poem', ['ui.router', 'Poem', 'Tooltip', 'snippetFilter']);
-
-poem.config( ['$stateProvider', function( $stateProvider ) {
-	$stateProvider.state( 'poem', 
-	{
-		url: '/poems/:poemId',
-		views:
-		{
-			'': {
-				templateUrl: 'components/poem/poem_template.html',
-				controller: 'PoemController as poem'
-			},
-			'header@poem': {
-				templateUrl: 'components/header/header_template.html'
-			}
-		}
-	});
-}]);
-var poem = angular.module('poem');
-
-poem.controller( 'PoemController', ['$rootScope', '$scope', '$stateParams', '$state', 'Poem', 'Tooltip', function($rootScope, $scope, $stateParams, $state, Poem, Tooltip) {
-	Poem.get($stateParams.poemId).then(function(poem) {
-		$scope.poem = poem;
-		poem.lines.forEach(function(line, index) {
-			Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
-				$scope.poem.lines[index].tooltip = tooltip;
-			});
-		});
-	});
 }]);
 
 var home = angular.module( 'home',
