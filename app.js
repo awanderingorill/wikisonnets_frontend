@@ -44,7 +44,7 @@ app.get('/search', function (req, res) {
 //gets information about a page
 //probably here will get all of the poems for a 
 //give page as well
-app.get('/pages/:page_id', function(req, res) {
+app.get('/api/pages/:page_id/image', function(req, res) {
 	var page_id = req.params['page_id'];
 	request({
 		url: "https://en.wikipedia.org/w/api.php",
@@ -66,7 +66,7 @@ app.get('/pages/:page_id', function(req, res) {
 		else {
 			var imageUrl = "";
 		}
-		res.json({page_id: page_id, imageUrl: imageUrl});
+		res.json(imageUrl);
 	});
 });
 
@@ -165,7 +165,10 @@ app.get('/api/poems/:poem_id', function(req, res) {
 			res.cookie(cookies[0]);
 		}
 		var body = JSON.parse(response.body);
-		res.json(body);
+		fetchPoemImage(body.starting_page, function(imageUrl) {
+			body.imageUrl = imageUrl;
+			res.json(body);
+		});
 		// async.parallel([
 		// 	function(cb) {
 		// 		fetchPoemImage(body, cb);
@@ -285,8 +288,8 @@ app.delete('/poems/:poem_id/lauds', function(req, res) {
 
 });
 
-function fetchPoemImage(poem, callback) {
-	var page_id = poem.starting_page;
+function fetchPoemImage(pageId, callback) {
+	var page_id = pageId;
 	request({
 		url: "https://en.wikipedia.org/w/api.php",
 		method: 'GET',
@@ -307,8 +310,7 @@ function fetchPoemImage(poem, callback) {
 		else {
 			var imageUrl = "";
 		}
-		poem.imageUrl = imageUrl;
-		callback();
+		callback(imageUrl);
 	});
 }
 

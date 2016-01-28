@@ -34901,6 +34901,53 @@ poem.controller( 'PoemController', ['$rootScope', '$scope', '$stateParams', '$st
 		});
 	});
 }]);
+
+var home = angular.module( 'home',
+[
+	'ui.router'
+] );
+
+home.config( ['$stateProvider', function( $stateProvider )
+{
+	$stateProvider.state( 'home',
+	{
+		url: '/',
+		views:
+		{
+			'': {
+				templateUrl: 'components/home/home_template.html',
+				controller: 'HomeController as home'
+			},
+			'header@home': {
+				templateUrl: 'components/header/header_template.html'
+			}
+
+		}
+	} );
+}] );
+
+var home = angular.module( 'home' );
+
+home.controller( 'HomeController', ['$rootScope', '$scope', '$state', function( $rootScope, $scope, $state) {
+
+	console.log( 'HomeController active!' );
+}]);
+var snippetFilter = angular.module('snippetFilter', []);
+
+snippetFilter.filter('preLinePortion', function() {
+	return function(snippet, line) {
+		var startIndex = snippet.indexOf(line);
+		return snippet.slice(0, startIndex);
+	};
+});
+
+snippetFilter.filter('postLinePortion', function() {
+	return function(snippet, line) {
+		var startIndex = snippet.indexOf(line);
+		var endIndex = startIndex + line.length;
+		return snippet.slice(endIndex);
+	};
+});
 var tooltipFactory = angular.module('Tooltip', []);
 
 tooltipFactory.factory('Tooltip', ['$http', '$q', function($http, $q) {
@@ -34954,53 +35001,6 @@ poemFactory.factory('Poem', ['$http', '$q', function( $http, $q ) {
 
 	return poemApi;
 }]);
-
-var home = angular.module( 'home',
-[
-	'ui.router'
-] );
-
-home.config( ['$stateProvider', function( $stateProvider )
-{
-	$stateProvider.state( 'home',
-	{
-		url: '/',
-		views:
-		{
-			'': {
-				templateUrl: 'components/home/home_template.html',
-				controller: 'HomeController as home'
-			},
-			'header@home': {
-				templateUrl: 'components/header/header_template.html'
-			}
-
-		}
-	} );
-}] );
-
-var home = angular.module( 'home' );
-
-home.controller( 'HomeController', ['$rootScope', '$scope', '$state', function( $rootScope, $scope, $state) {
-
-	console.log( 'HomeController active!' );
-}]);
-var snippetFilter = angular.module('snippetFilter', []);
-
-snippetFilter.filter('preLinePortion', function() {
-	return function(snippet, line) {
-		var startIndex = snippet.indexOf(line);
-		return snippet.slice(0, startIndex);
-	};
-});
-
-snippetFilter.filter('postLinePortion', function() {
-	return function(snippet, line) {
-		var startIndex = snippet.indexOf(line);
-		var endIndex = startIndex + line.length;
-		return snippet.slice(endIndex);
-	};
-});
 'use strict';
 
 var appWikisonnetClient = angular.module( 'appWikisonnetClient',

@@ -87,7 +87,7 @@
       border-left: 1px solid $black;
       padding: 0;
       padding-left: #{20 / $base-font-size}rem;
-      top: 0;
+      top: #{160 / $base-font-size}rem;
       left: 50%;
       right: initial;
       bottom: initial;
@@ -102,4 +102,22 @@
 .poem__tooltip-citation {
   display: block;
   text-align: right;
+}
+
+.poem__image-wrapper {
+  display: none;
+  width: 100%;
+  text-align: center;
+  z-index: -1;
+  @include breakpoint('iphone-portrait') {
+    display: block;
+    position: absolute;
+    top: 0;
+    height: #{150 / $base-font-size}rem;
+  }
+}
+
+.poem__title-form {
+  height: #{160 / $base-font-size}rem;
+  width: 100%;
 }

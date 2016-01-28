@@ -44,7 +44,6 @@ input {
 body, html {
   font-family: "SimSun", serif;
   color: #000000;
-  background-color: #ffffff;
   font-size: 16px;
   height: 100%;
   width: 100%; }
@@ -196,7 +195,7 @@ input {
       border-left: 1px solid #000000;
       padding: 0;
       padding-left: 1.25rem;
-      top: 0;
+      top: 10rem;
       left: 50%;
       right: initial;
       bottom: initial;
@@ -208,3 +207,19 @@ input {
 .poem__tooltip-citation {
   display: block;
   text-align: right; }
+
+.poem__image-wrapper {
+  display: none;
+  width: 100%;
+  text-align: center;
+  z-index: -1; }
+  @media (min-width: 376px) {
+    .poem__image-wrapper {
+      display: block;
+      position: absolute;
+      top: 0;
+      height: 9.375rem; } }
+
+.poem__title-form {
+  height: 10rem;
+  width: 100%; }

@@ -1,5 +1,9 @@
 .header-wrapper(ui-view='header')
 .poem
+	.poem__image-wrapper
+		img.poem__image(src="{{poem.imageUrl}}")
+	.poem__title-form
+		input(placeholder="Enter a Wikipedia article")
 	p.poem__lines
 		span.poem__line-wrapper(ng-repeat="line in poem.lines")
 			span(ng-class="{true:'poem__line--{{$index+1}}', false: 'poem__line'}[$index === 4 || $index === 9]")
