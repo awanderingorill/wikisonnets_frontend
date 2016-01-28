@@ -24,6 +24,7 @@
   "dependencies": {
     "angular": "~1.4.9",
     "angular-ui-router": "~0.2.16",
-    "angular-resource": "~1.4.9"
+    "angular-resource": "~1.4.9",
+    "angucomplete-alt": "~2.2.0"
   }
 }

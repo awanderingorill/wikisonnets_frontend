@@ -9,4 +9,8 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 			});
 		});
 	});
+
+	$scope.fetchPoem = function(data) {
+		console.log(data);
+	}
 });

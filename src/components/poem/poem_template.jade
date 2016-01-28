@@ -3,7 +3,7 @@
 	.poem__image-wrapper
 		img.poem__image(src="{{poem.imageUrl}}")
 	.poem__title-form
-		input(placeholder="Enter a Wikipedia article")
+		angucomplete-alt(placeholder="Enter a Wikipedia article" value="{{poem.title}}" id="poem-title" pause="100" remote-url="/api/search?q=" input-class="poem__title" selected-object="fetchPoem" minlength="1" title-field="title")
 	p.poem__lines
 		span.poem__line-wrapper(ng-repeat="line in poem.lines")
 			span(ng-class="{true:'poem__line--{{$index+1}}', false: 'poem__line'}[$index === 4 || $index === 9]")

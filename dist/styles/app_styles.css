@@ -222,4 +222,5 @@ input {
 
 .poem__title-form {
   height: 10rem;
-  width: 100%; }
+  width: 100%;
+  vertical-align: bottom; }

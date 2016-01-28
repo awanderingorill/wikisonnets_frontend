@@ -24,7 +24,7 @@ app.get('/', function (req, res) {
   res.render('index.jade');
 });
 
-app.get('/search', function (req, res) {
+app.get('/api/search', function (req, res) {
 	request({
 		url: "https://en.wikipedia.org/w/api.php",
 		method: 'GET',
@@ -37,7 +37,9 @@ app.get('/search', function (req, res) {
 	},
 	function(err, response, body) {
 			if(err) { console.log(err); return; }
-			res.json(JSON.parse(response.body)[1]);
+			res.json(JSON.parse(response.body)[1].map(function(title) {
+				return {title: title}
+			}));
 	});
 });
 
