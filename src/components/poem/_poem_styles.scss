@@ -134,6 +134,10 @@
     font-size: #{30 / $base-font-size}rem;
     width: #{460 / $base-font-size}rem;
   }
+  outline: none;
+  border: none;
+  resize: none;
+  border-bottom: 1px solid black;
 }
 
 .angucomplete-dropdown {

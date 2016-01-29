@@ -237,7 +237,11 @@ input {
 .poem__title {
   font-family: "Andale Mono", monospace;
   font-size: 1.125rem;
-  background-color: transparent; }
+  background-color: transparent;
+  outline: none;
+  border: none;
+  resize: none;
+  border-bottom: 1px solid black; }
   @media (min-width: 376px) {
     .poem__title {
       font-size: 1.875rem;
