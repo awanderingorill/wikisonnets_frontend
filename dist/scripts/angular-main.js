@@ -44837,6 +44837,7 @@ snippetFilter.filter('postLinePortion', function() {
 		return snippet.slice(endIndex);
 	};
 });
+//http://stackoverflow.com/questions/17772260/textarea-auto-height
 var elastic = angular.module('elastic', []);
 
 elastic.directive('elastic', ['$timeout', function($timeout) {
@@ -44848,7 +44849,7 @@ elastic.directive('elastic', ['$timeout', function($timeout) {
                     element[0].style.height = $scope.initialHeight;
                     element[0].style.height = "" + element[0].scrollHeight + "px";
                 };
-                element.on("input change", resize);
+                element.on("input blur keyup change", resize);
                 $timeout(resize, 0);
             }
         };
