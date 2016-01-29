@@ -21,5 +21,26 @@ poemFactory.factory('Poem', function( $http, $q ) {
 		return promise;
 	};
 
+	poemApi.create = function(poemTitle) {
+		var deferred = $q.defer(  );
+		var promise = deferred.promise;
+
+		$http({
+			method: 'post',
+			url: '/api/poems',
+			withCredentials: true,
+			data: {
+				poemTitle: poemTitle
+			}
+		})
+		.success(function(data) {
+			deferred.resolve(data);
+		})
+		.error(function(error) {
+			deferred.reject(error);
+		});
+		return promise;
+	}
+
 	return poemApi;
 });

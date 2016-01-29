@@ -72,7 +72,7 @@ app.get('/api/pages/:page_id/image', function(req, res) {
 	});
 });
 
-app.post('/poems', function(req, res) {
+app.post('/api/poems', function(req, res) {
 	var jar = request.jar();
 	if (req.cookies["session"]) {
 		var cookie = request.cookie("session="+req.cookies["session"]);
