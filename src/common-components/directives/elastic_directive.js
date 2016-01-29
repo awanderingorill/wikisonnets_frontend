@@ -1,3 +1,4 @@
+//http://stackoverflow.com/questions/17772260/textarea-auto-height
 var elastic = angular.module('elastic', []);
 
 elastic.directive('elastic', [
