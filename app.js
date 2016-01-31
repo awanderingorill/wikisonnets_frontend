@@ -79,6 +79,7 @@ app.post('/api/poems', function(req, res) {
 		jar.setCookie(cookie, 'http://localhost:3000');
 	}
 
+	console.log(req.body.poemTitle);
 	request({
 		url: "http://localhost:8000/api/v2/poems",
 		method: 'POST',

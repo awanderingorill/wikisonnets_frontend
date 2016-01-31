@@ -3,7 +3,7 @@
 <div class="poem">
   <div class="poem__image-wrapper"><img src="{{poem.imageUrl}}" class="poem__image"/></div>
   <div class="poem__title-form">
-    <angucomplete-alt placeholder="Enter a Wikipedia article" id="poem-title" pause="100" remote-url="/api/search?q=" input-class="poem__title" selected-object="createPoem" minlength="1" title-field="title"></angucomplete-alt>
+    <angucomplete-alt placeholder="Enter a Wikipedia article" id="poem-title" pause="100" remote-url="/api/search?q=" input-class="poem__title" selected-object="createPoem" minlength="1" title-field="title" initial-value="poem.title"></angucomplete-alt>
   </div>
   <p class="poem__lines"><span ng-repeat="line in poem.lines" class="poem__line-wrapper"><span ng-class="{true:'poem__line--{{$index+1}}', false: 'poem__line'}[$index === 4 || $index === 9]">{{ line.text }}</span><span class="poem__tooltip"><span class="poem__tooltip-snippet">'...{{ line.tooltip.snippet | preLinePortion:line.text }}<span class="poem__tooltip-line">{{line.text}}</span>{{ line.tooltip.snippet | postLinePortion:line.text}}...'<span class="poem__tooltip-citation">—<a href="{{line.tooltip.url}}" target="_blank">{{ line.tooltip.title}}</a></span></span></span></span></p>
 </div>
