@@ -44724,14 +44724,6 @@ poem.config( ['$stateProvider', function( $stateProvider ) {
 var poem = angular.module('poem');
 
 poem.controller( 'PoemController', ['$rootScope', '$scope', '$stateParams', '$state', '$timeout', 'Poem', 'Tooltip', function($rootScope, $scope, $stateParams, $state, $timeout, Poem, Tooltip) {
-	// Poem.get($stateParams.poemId).then(function(poem) {
-	// 	$scope.poem = poem;
-	// 	poem.lines.forEach(function(line, index) {
-	// 		Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
-	// 			$scope.poem.lines[index].tooltip = tooltip;
-	// 		});
-	// 	});
-	// });
 
 	$scope.createPoem = function(data) {
 		console.log(data);
@@ -44741,9 +44733,11 @@ poem.controller( 'PoemController', ['$rootScope', '$scope', '$stateParams', '$st
 			$state.go('poem', {poemId: poem.id});
 			if (poem.lines) {
 				poem.lines.forEach(function(line, index) {
-					Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
-						$scope.poem.lines[index].tooltip = tooltip;
-					});
+					if (!$scope.poem.lines[index].tooltip) {
+						Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
+							$scope.poem.lines[index].tooltip = tooltip;
+						});
+					}
 				});
 			}
 			if (!poem.complete) {
@@ -44759,9 +44753,11 @@ poem.controller( 'PoemController', ['$rootScope', '$scope', '$stateParams', '$st
 	    $scope.$broadcast('angucomplete-alt:changeInput', 'poem-title', poem.title);
 			if (poem.lines) {
 				poem.lines.forEach(function(line, index) {
-					Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
-						$scope.poem.lines[index].tooltip = tooltip;
-					});
+					if (!$scope.poem.lines[index].tooltip) {
+						Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
+							$scope.poem.lines[index].tooltip = tooltip;
+						});
+					}
 				});
 			}
 			if (!poem.complete) {
@@ -44773,6 +44769,38 @@ poem.controller( 'PoemController', ['$rootScope', '$scope', '$stateParams', '$st
 
 	$scope.fetchPoem($stateParams.poemId);
 
+}]);
+
+var home = angular.module( 'home',
+[
+	'ui.router'
+] );
+
+home.config( ['$stateProvider', function( $stateProvider )
+{
+	$stateProvider.state( 'home',
+	{
+		url: '/',
+		views:
+		{
+			'': {
+				templateUrl: 'components/home/home_template.html',
+				controller: 'HomeController as home'
+			},
+			'header@home': {
+				templateUrl: 'components/header/header_template.html'
+			}
+
+		}
+	} );
+}] );
+
+var home = angular.module( 'home' );
+
+home.controller( 'HomeController', ['$rootScope', '$scope', '$state', function( $rootScope, $scope, $state) {
+
+	//do stuff here to get latest poem
+	$state.go('poem', {poemId: 1});
 }]);
 var tooltipFactory = angular.module('Tooltip', []);
 
@@ -44847,37 +44875,6 @@ poemFactory.factory('Poem', ['$http', '$q', function( $http, $q ) {
 	}
 
 	return poemApi;
-}]);
-
-var home = angular.module( 'home',
-[
-	'ui.router'
-] );
-
-home.config( ['$stateProvider', function( $stateProvider )
-{
-	$stateProvider.state( 'home',
-	{
-		url: '/',
-		views:
-		{
-			'': {
-				templateUrl: 'components/home/home_template.html',
-				controller: 'HomeController as home'
-			},
-			'header@home': {
-				templateUrl: 'components/header/header_template.html'
-			}
-
-		}
-	} );
-}] );
-
-var home = angular.module( 'home' );
-
-home.controller( 'HomeController', ['$rootScope', '$scope', '$state', function( $rootScope, $scope, $state) {
-
-	console.log( 'HomeController active!' );
 }]);
 var snippetFilter = angular.module('snippetFilter', []);
 

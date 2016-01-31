@@ -1,14 +1,6 @@
 var poem = angular.module('poem');
 
 poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $state, $timeout, Poem, Tooltip) {
-	// Poem.get($stateParams.poemId).then(function(poem) {
-	// 	$scope.poem = poem;
-	// 	poem.lines.forEach(function(line, index) {
-	// 		Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
-	// 			$scope.poem.lines[index].tooltip = tooltip;
-	// 		});
-	// 	});
-	// });
 
 	$scope.createPoem = function(data) {
 		console.log(data);
@@ -18,9 +10,11 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 			$state.go('poem', {poemId: poem.id});
 			if (poem.lines) {
 				poem.lines.forEach(function(line, index) {
-					Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
-						$scope.poem.lines[index].tooltip = tooltip;
-					});
+					if (!$scope.poem.lines[index].tooltip) {
+						Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
+							$scope.poem.lines[index].tooltip = tooltip;
+						});
+					}
 				});
 			}
 			if (!poem.complete) {
@@ -36,9 +30,11 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 	    $scope.$broadcast('angucomplete-alt:changeInput', 'poem-title', poem.title);
 			if (poem.lines) {
 				poem.lines.forEach(function(line, index) {
-					Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
-						$scope.poem.lines[index].tooltip = tooltip;
-					});
+					if (!$scope.poem.lines[index].tooltip) {
+						Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
+							$scope.poem.lines[index].tooltip = tooltip;
+						});
+					}
 				});
 			}
 			if (!poem.complete) {
