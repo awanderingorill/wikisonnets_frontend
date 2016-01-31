@@ -8,53 +8,35 @@ var requireDir  = require( 'require-dir' );
 requireDir( './gulp/tasks', { recurse: true } );
 
 
-// Commonly used tasks defined here.
-// gulp.task( 'default', function(  )
-// {
-// 	runSequence(
-// 		'clean',
-// 		'jade-client',
-// 		[
-// 			'sass',
-// 			'scripts',
-// 			'images',
-// 			'favicon'
-// 		],
-// 		'inject',
-// 		'watch',
-// 		'start'
-// 	);
-// } );
-
 gulp.task( 'default', function(  )
 {
 	runSequence(
-		'angular-clean',
+		'clean',
 		[
-			'angular-jade',
+			'jade',
 			'sass',
-			'angular-scripts',
+			'scripts',
 			'images',
 			'favicon'
 		],
-		'angular-inject',
-		'angular-watch',
+		'inject',
+		'watch',
 		'start'
 	);
 } );
 
 
 // Build task.
-gulp.task( 'build', function(  )
-{
-	runSequence(
-		'clean',
-		[
-			'build-images',
-			'build-scripts',
-			'build-css'
-		],
-		'build-html',
-		'connect'
-	);
-} );
+// gulp.task( 'build', function(  )
+// {
+// 	runSequence(
+// 		'clean',
+// 		[
+// 			'build-images',
+// 			'build-scripts',
+// 			'build-css'
+// 		],
+// 		'build-html',
+// 		'connect'
+// 	);
+// } );

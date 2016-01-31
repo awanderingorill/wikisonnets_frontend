@@ -55,33 +55,19 @@ gulp.task( 'eslint', function(  )
 		.pipe( eslint.format(  ) );
 } );
 
-gulp.task( 'scripts', [ 'bower', 'vendor' ], function(  )
-{
-	var b = browserify({
-    entries: './site/scripts/script.js',
-    debug: true
-  });
-
-	return b.bundle()
-		.pipe(source('main.js'))
-		.pipe(buffer())
-		.pipe(gutil.env.production ? uglify() : gutil.noop())
-		.pipe( gulp.dest( path.to.scripts.destination ) );
-} );
-
-gulp.task('angular-scripts', function( ) {
+gulp.task('scripts', function( ) {
 	return streamqueue( { objectMode: true },
 		gulp.src(mainBowerFiles(
 		{
 			paths:
 			{
-				bowerDirectory: './bower_components',
-				bowerrc: './bowerrc',
-				bowerJson: './bower.json'
+				bowerDirectory: path.to.bower.source,
+				bowerrc: path.to.bower.config,
+				bowerJson: path.to.bower.manifest
 			}
 		} ),
 		{
-			base: './bower_components'
+			base: path.to.bower.source
 		} )
 			.pipe( order(
 				[
@@ -90,7 +76,7 @@ gulp.task('angular-scripts', function( ) {
 				]
 			))
 			.pipe( filter( '**/*.js' ) ),
-		gulp.src( ['./src/*.js', './src/**/*.js'] )
+		gulp.src( path.to.scripts.source )
 			.pipe( ngAnnotate(
 			{
 				remove: true,
@@ -98,8 +84,8 @@ gulp.task('angular-scripts', function( ) {
 				single_quotes: true
 			} ) )
 			.pipe( angularFilesort(  ) ) )
-	.pipe( concat( 'angular-main.js' ) )
-	// .pipe( uglify(  ) )
-	.pipe( gulp.dest( './dist/scripts' ) );
+	.pipe( concat( path.to.main.script.file ) )
+	.pipe(gutil.env.production ? uglify() : gutil.noop())
+	.pipe( gulp.dest( path.to.scripts.destination ) );
 });
 

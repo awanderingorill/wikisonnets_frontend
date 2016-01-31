@@ -13,12 +13,6 @@ var path      = require( '../../paths.js' );
 var error     = require( '../../error-handler.js' );
 
 
-gulp.task( 'vendor-css', function( ) {
-	return gulp.src("./bower_components/jquery-ui/themes/base/jquery-ui.min.css")
-		// .pipe(gulp.dest("./build/styles/"));
-		.pipe(gulp.dest("./dist/styles/"));
-});
-
 gulp.task( 'csscomb', function (  )
 {
 	return gulp.src( path.to.sass.source )
@@ -35,16 +29,14 @@ gulp.task( 'scss-lint', [ 'csscomb' ], function(  )
 		.on( 'error', error.handler );
 } );
 
-gulp.task( 'sass', [ 'vendor-css' ], function(  )
+gulp.task( 'sass', function(  )
 {
-	// return gulp.src( path.to.sass.main )
-	return gulp.src( './src/app_styles.scss' )
-		//.pipe( cache( 'sass' ) )
+	return gulp.src( path.to.sass.main )
+		.pipe( cache( 'sass' ) )
 		.pipe( sass(  ) )
 		.on( 'error', error.handler )
 		.pipe( prefix( 'last 2 versions', { cascade: true } ) )
 		.on( 'error', error.handler )
 		.pipe(gutil.env.production ? nano() : gutil.noop())	
-		// .pipe( gulp.dest( path.to.sass.destination ) );
-		.pipe( gulp.dest( './dist/styles/' ) );
+		.pipe( gulp.dest( path.to.sass.destination ) );
 } );
