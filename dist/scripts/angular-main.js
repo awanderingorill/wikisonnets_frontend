@@ -44804,32 +44804,6 @@ home.controller( 'HomeController', ['$rootScope', '$scope', '$state', function( 
 	//do stuff here to get latest poem
 	$state.go('poem', {poemId: 1});
 }]);
-var snippetFilter = angular.module('snippetFilter', []);
-
-snippetFilter.filter('preLinePortion', function() {
-	return function(snippet, line) {
-		if (snippet && line && snippet !== "" && line !== "") {
-			var startIndex = snippet.indexOf(line);
-			return snippet.slice(0, startIndex);
-		}
-		else {
-			return "";
-		}
-	};
-});
-
-snippetFilter.filter('postLinePortion', function() {
-	return function(snippet, line) {
-		if (snippet && line && snippet !== "" && line !== "") {
-			var startIndex = snippet.indexOf(line);
-			var endIndex = startIndex + line.length;
-			return snippet.slice(endIndex);
-		}
-		else {
-			return "";
-		}
-	};
-});
 var tooltipFactory = angular.module('Tooltip', []);
 
 tooltipFactory.factory('Tooltip', ['$http', '$q', function($http, $q) {
@@ -44904,6 +44878,32 @@ poemFactory.factory('Poem', ['$http', '$q', function( $http, $q ) {
 
 	return poemApi;
 }]);
+var snippetFilter = angular.module('snippetFilter', []);
+
+snippetFilter.filter('preLinePortion', function() {
+	return function(snippet, line) {
+		if (snippet && line && snippet !== "" && line !== "") {
+			var startIndex = snippet.indexOf(line);
+			return snippet.slice(0, startIndex);
+		}
+		else {
+			return "";
+		}
+	};
+});
+
+snippetFilter.filter('postLinePortion', function() {
+	return function(snippet, line) {
+		if (snippet && line && snippet !== "" && line !== "") {
+			var startIndex = snippet.indexOf(line);
+			var endIndex = startIndex + line.length;
+			return snippet.slice(endIndex);
+		}
+		else {
+			return "";
+		}
+	};
+});
 //http://stackoverflow.com/questions/17772260/textarea-auto-height
 var elastic = angular.module('elastic', []);
 
@@ -44911,13 +44911,16 @@ elastic.directive('elastic', ['$timeout', function($timeout) {
         return {
             restrict: 'A',
             link: function($scope, element) {
+                console.log("resizing!");
+                console.log(element.value);
                 $scope.initialHeight = $scope.initialHeight || element[0].style.height;
+                console.log(element[0].scrollHeight);
                 var resize = function() {
                     element[0].style.height = $scope.initialHeight;
                     element[0].style.height = "" + element[0].scrollHeight + "px";
                 };
-                element.on("input blur keyup change", resize);
-                $timeout(resize, 0);
+                element.on("input blur keyup change propertychange", resize);
+                $timeout(resize, 500);
             }
         };
     }
