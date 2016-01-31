@@ -17,7 +17,7 @@ A web application for interacting with the [WikiSonnet API](https://github.com/s
 3. `bower install`
 4. `gulp --production`
 5. `npm install -g pm2`
-6. `pm2 app.js`
+6. `NODE_ENV=production pm2 app.js`
 
 
 
@@ -25,6 +25,7 @@ A web application for interacting with the [WikiSonnet API](https://github.com/s
 ## Stack
 
 - Node and Express
+- [Angular](https://angularjs.org/) as Front-End Framework.
 - [Jade](http://jade-lang.com/) as HTML preprocessor.
 - [Sass](http://sass-lang.com/) as CSS preprocessor.
 - [Gulp](http://gulpjs.com/) as streaming build system.
