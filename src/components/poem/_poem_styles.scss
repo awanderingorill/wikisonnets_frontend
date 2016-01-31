@@ -28,6 +28,14 @@
   &:nth-child(4), &:nth-child(8), &:nth-child(12) {
     margin-bottom: #{16/$base-font-size}rem;
   }
+  // &.active .poem__line, 
+  // &.active [class^="poem__line--"], 
+  // &.active [class*="poem__line--"] {
+  //   background-color: $highlight-text-color;
+  //   & + .poem__tooltip {
+  //     display: block;
+  //   }
+  // }
 }
 
 @mixin line-number($number) {
@@ -60,7 +68,7 @@
       background-color: transparent;
       font-size: #{16 / $base-font-size}rem;
   }
-  &:hover {
+  &.active {
       background-color: $highlight-text-color;
       & + .poem__tooltip {
       	display: block;

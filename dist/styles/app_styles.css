@@ -172,9 +172,9 @@ input {
     .poem__line, [class^="poem__line--"], [class*=" poem__line--"] {
       background-color: transparent;
       font-size: 1rem; } }
-  .poem__line:hover, [class^="poem__line--"]:hover, [class*=" poem__line--"]:hover {
+  .poem__line.active, [class^="poem__line--"].active, [class*=" poem__line--"].active {
     background-color: #FCFADF; }
-    .poem__line:hover + .poem__tooltip, [class^="poem__line--"]:hover + .poem__tooltip, [class*=" poem__line--"]:hover + .poem__tooltip {
+    .poem__line.active + .poem__tooltip, [class^="poem__line--"].active + .poem__tooltip, [class*=" poem__line--"].active + .poem__tooltip {
       display: block; }
 
 .poem__tooltips {

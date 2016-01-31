@@ -44703,7 +44703,33 @@ if ( !noGlobal ) {
 return jQuery;
 }));
 
-var poem = angular.module( 'poem', ['ui.router', 'Poem', 'Tooltip', 'snippetFilter', 'angucomplete-alt']);
+var poemLines = angular.module('poemLine', []);
+
+poemLines.directive( 'poemLine', ['$timeout', function($timeout) {
+	return {
+		restrict: 'E',
+		scope: false,
+		controller: 'PoemLineController',
+		templateUrl: 'common-components/directives/poem-line/poem-line_template.html',
+		link: function(scope, element, attr) {
+			$timeout(function () {
+				element.on('mouseenter', function(event) {
+					if (angular.element(event.target).parent().hasClass("poem__line-wrapper")) {
+						event.preventDefault();
+						angular.element(event.target).parent().parent().children().children().removeClass("active");
+						angular.element(event.target).addClass("active");
+					}
+				});
+			});
+		}
+	}
+}]);
+var poemLines = angular.module('poemLine');
+
+poemLines.controller('PoemLineController', ['$rootScope', '$scope', function($rootScope, $scope) {
+	
+}]);
+var poem = angular.module( 'poem', ['ui.router', 'Poem', 'Tooltip', 'snippetFilter', 'angucomplete-alt', 'poemLine']);
 
 poem.config( ['$stateProvider', function( $stateProvider ) {
 	$stateProvider.state( 'poem', 
@@ -44911,8 +44937,6 @@ elastic.directive('elastic', ['$timeout', function($timeout) {
         return {
             restrict: 'A',
             link: function($scope, element) {
-                console.log("resizing!");
-                console.log(element.value);
                 $scope.initialHeight = $scope.initialHeight || element[0].style.height;
                 console.log(element[0].scrollHeight);
                 var resize = function() {
