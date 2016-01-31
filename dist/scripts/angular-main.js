@@ -44723,7 +44723,7 @@ poem.config( ['$stateProvider', function( $stateProvider ) {
 }]);
 var poem = angular.module('poem');
 
-poem.controller( 'PoemController', ['$rootScope', '$scope', '$stateParams', '$state', 'Poem', 'Tooltip', function($rootScope, $scope, $stateParams, $state, Poem, Tooltip) {
+poem.controller( 'PoemController', ['$rootScope', '$scope', '$stateParams', '$state', '$timeout', 'Poem', 'Tooltip', function($rootScope, $scope, $stateParams, $state, $timeout, Poem, Tooltip) {
 	// Poem.get($stateParams.poemId).then(function(poem) {
 	// 	$scope.poem = poem;
 	// 	poem.lines.forEach(function(line, index) {
@@ -44738,6 +44738,7 @@ poem.controller( 'PoemController', ['$rootScope', '$scope', '$stateParams', '$st
 		//create a poem;
 		Poem.create(data.title).then(function(poem) {
 			$scope.poem = poem;
+			$state.go('poem', {poemId: poem.id});
 			if (poem.lines) {
 				poem.lines.forEach(function(line, index) {
 					Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
@@ -44755,6 +44756,7 @@ poem.controller( 'PoemController', ['$rootScope', '$scope', '$stateParams', '$st
 	$scope.fetchPoem = function(id) {
 		Poem.get(id).then(function(poem) {
 			$scope.poem = poem;
+	    $scope.$broadcast('angucomplete-alt:changeInput', 'poem-title', poem.title);
 			if (poem.lines) {
 				poem.lines.forEach(function(line, index) {
 					Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
@@ -44771,37 +44773,6 @@ poem.controller( 'PoemController', ['$rootScope', '$scope', '$stateParams', '$st
 
 	$scope.fetchPoem($stateParams.poemId);
 
-}]);
-
-var home = angular.module( 'home',
-[
-	'ui.router'
-] );
-
-home.config( ['$stateProvider', function( $stateProvider )
-{
-	$stateProvider.state( 'home',
-	{
-		url: '/',
-		views:
-		{
-			'': {
-				templateUrl: 'components/home/home_template.html',
-				controller: 'HomeController as home'
-			},
-			'header@home': {
-				templateUrl: 'components/header/header_template.html'
-			}
-
-		}
-	} );
-}] );
-
-var home = angular.module( 'home' );
-
-home.controller( 'HomeController', ['$rootScope', '$scope', '$state', function( $rootScope, $scope, $state) {
-
-	console.log( 'HomeController active!' );
 }]);
 var tooltipFactory = angular.module('Tooltip', []);
 
@@ -44877,20 +44848,61 @@ poemFactory.factory('Poem', ['$http', '$q', function( $http, $q ) {
 
 	return poemApi;
 }]);
+
+var home = angular.module( 'home',
+[
+	'ui.router'
+] );
+
+home.config( ['$stateProvider', function( $stateProvider )
+{
+	$stateProvider.state( 'home',
+	{
+		url: '/',
+		views:
+		{
+			'': {
+				templateUrl: 'components/home/home_template.html',
+				controller: 'HomeController as home'
+			},
+			'header@home': {
+				templateUrl: 'components/header/header_template.html'
+			}
+
+		}
+	} );
+}] );
+
+var home = angular.module( 'home' );
+
+home.controller( 'HomeController', ['$rootScope', '$scope', '$state', function( $rootScope, $scope, $state) {
+
+	console.log( 'HomeController active!' );
+}]);
 var snippetFilter = angular.module('snippetFilter', []);
 
 snippetFilter.filter('preLinePortion', function() {
 	return function(snippet, line) {
-		var startIndex = snippet.indexOf(line);
-		return snippet.slice(0, startIndex);
+		if (snippet && line && snippet !== "" && line !== "") {
+			var startIndex = snippet.indexOf(line);
+			return snippet.slice(0, startIndex);
+		}
+		else {
+			return "";
+		}
 	};
 });
 
 snippetFilter.filter('postLinePortion', function() {
 	return function(snippet, line) {
-		var startIndex = snippet.indexOf(line);
-		var endIndex = startIndex + line.length;
-		return snippet.slice(endIndex);
+		if (snippet && line && snippet !== "" && line !== "") {
+			var startIndex = snippet.indexOf(line);
+			var endIndex = startIndex + line.length;
+			return snippet.slice(endIndex);
+		}
+		else {
+			return "";
+		}
 	};
 });
 //http://stackoverflow.com/questions/17772260/textarea-auto-height

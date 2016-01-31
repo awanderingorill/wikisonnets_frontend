@@ -1,6 +1,6 @@
 var poem = angular.module('poem');
 
-poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $state, Poem, Tooltip) {
+poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $state, $timeout, Poem, Tooltip) {
 	// Poem.get($stateParams.poemId).then(function(poem) {
 	// 	$scope.poem = poem;
 	// 	poem.lines.forEach(function(line, index) {
@@ -15,6 +15,7 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 		//create a poem;
 		Poem.create(data.title).then(function(poem) {
 			$scope.poem = poem;
+			$state.go('poem', {poemId: poem.id});
 			if (poem.lines) {
 				poem.lines.forEach(function(line, index) {
 					Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
@@ -32,6 +33,7 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 	$scope.fetchPoem = function(id) {
 		Poem.get(id).then(function(poem) {
 			$scope.poem = poem;
+	    $scope.$broadcast('angucomplete-alt:changeInput', 'poem-title', poem.title);
 			if (poem.lines) {
 				poem.lines.forEach(function(line, index) {
 					Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
