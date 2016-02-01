@@ -42,5 +42,30 @@ poemFactory.factory('Poem', function( $http, $q ) {
 		return promise;
 	}
 
+	poemApi.index = function(options) {
+		// offset
+		// limit 
+		// sortby:string 'lauds' or 'date' (ascending? descending?)
+		// before:datestring(YYYY-mm-dd) inclusive
+		// after:datestring(YYYY-mm-dd) inclusive
+		var deferred = $q.defer(  );
+		var promise = deferred.promise;
+
+		options = options || {};	
+		$http({
+			method: 'get',
+			url: '/api/poems',
+			withCredentials: true,
+			params: options
+		})
+		.success(function(data) {
+			deferred.resolve(data);
+		})
+		.error(function(error) {
+			deferred.reject(error);
+		});
+		return promise;
+	}
+
 	return poemApi;
 });

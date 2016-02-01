@@ -1,0 +1,86 @@
+{
+	"IcoMoonType": "selection",
+	"icons": [
+		{
+			"icon": {
+				"paths": [
+					"M426.667 170.667q17.667 0 30.167 12.5t12.5 30.167q0 18-12.667 30.333l-225.667 225.667h665q17.667 0 30.167 12.5t12.5 30.167-12.5 30.167-30.167 12.5h-665l225.667 225.667q12.667 12.333 12.667 30.333 0 17.667-12.5 30.167t-30.167 12.5q-18 0-30.333-12.333l-298.667-298.667q-12.333-13-12.333-30.333t12.333-30.333l298.667-298.667q12.667-12.333 30.333-12.333z"
+				],
+				"attrs": [],
+				"isMulticolor": false,
+				"tags": [
+					"arrow-left"
+				],
+				"defaultCode": 57492,
+				"grid": 24
+			},
+			"attrs": [],
+			"properties": {
+				"id": 94,
+				"order": 1,
+				"prevSize": 24,
+				"code": 57492,
+				"name": "arrow-left"
+			},
+			"setIdx": 1,
+			"setId": 1,
+			"iconIdx": 94
+		},
+		{
+			"icon": {
+				"paths": [
+					"M597.333 170.667q18 0 30.333 12.333l298.667 298.667q12.333 12.333 12.333 30.333t-12.333 30.333l-298.667 298.667q-12.333 12.333-30.333 12.333-18.333 0-30.5-12.167t-12.167-30.5q0-18 12.333-30.333l226-225.667h-665q-17.667 0-30.167-12.5t-12.5-30.167 12.5-30.167 30.167-12.5h665l-226-225.667q-12.333-12.333-12.333-30.333 0-18.333 12.167-30.5t30.5-12.167z"
+				],
+				"attrs": [],
+				"isMulticolor": false,
+				"tags": [
+					"arrow-right"
+				],
+				"defaultCode": 57493,
+				"grid": 24
+			},
+			"attrs": [],
+			"properties": {
+				"id": 95,
+				"order": 2,
+				"prevSize": 24,
+				"code": 57493,
+				"name": "arrow-right"
+			},
+			"setIdx": 1,
+			"setId": 1,
+			"iconIdx": 95
+		}
+	],
+	"height": 1024,
+	"metadata": {
+		"name": "icomoon"
+	},
+	"preferences": {
+		"showGlyphs": true,
+		"showCodes": true,
+		"showQuickUse": true,
+		"showQuickUse2": true,
+		"showSVGs": true,
+		"fontPref": {
+			"prefix": "icon-",
+			"metadata": {
+				"fontFamily": "icomoon"
+			},
+			"metrics": {
+				"emSize": 1024,
+				"baseline": 6.25,
+				"whitespace": 50
+			},
+			"embed": false
+		},
+		"imagePref": {
+			"prefix": "icon-",
+			"png": true,
+			"useClassSelector": true,
+			"color": 0,
+			"bgColor": 16777215
+		},
+		"historySize": 100
+	}
+}

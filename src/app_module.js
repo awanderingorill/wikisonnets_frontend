@@ -12,6 +12,6 @@ appWikisonnetClient.config(function($logProvider, $urlRouterProvider, $locationP
 	$locationProvider.html5Mode(true);
 });
 
-appWikisonnetClient.run(function($log) {
-  $log.debug('runBlock end');
+appWikisonnetClient.run(function($log, $rootScope) {
+  $log.debug('Wikisonnet is running!');
 });

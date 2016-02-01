@@ -3,7 +3,7 @@
 	@include breakpoint('iphone-portrait') {
       width: #{740 / $base-font-size}rem;
   }
-  margin: 0 auto;
+  //margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -162,18 +162,38 @@
   }
 }
 
-// .angucomplete-dropdown {
-//   position: absolute;
-//   background-color: $white;
-//   z-index: 5;
-//   padding: #{10 / $base-font-size}rem;
-//   border: 1px solid $black;
-// }
+.poem-body {
+  display: flex;
+  flex: 1;
+}
 
-// .angucomplete-selected-row {
-//   background-color: $background-color;
-//   cursor: pointer;
-// }
+.left-sidebar, .right-sidebar {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.left-sidebar {
+  justify-content: flex-start;
+  padding-left: #{20 / $base-font-size}rem;
+}
+
+.right-sidebar {
+  justify-content: flex-end;
+  padding-right: #{20 / $base-font-size}rem;
+}
+
+.left-poem__title {
+  @include icon('arrow-left') {
+    cursor: pointer;
+  }
+}
+
+.right-poem__title {
+  @include icon('arrow-right', 'after') {
+    cursor: pointer;
+  }
+}
 
 .angucomplete-holder {
     position: relative;

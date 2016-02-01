@@ -17,3 +17,9 @@ gulp.task( 'favicon', function(  )
 	return gulp.src( path.to.favicon.source )
 		.pipe( gulp.dest( path.to.favicon.destination ) );
 } );
+
+gulp.task( 'fonts', function(  )
+{
+	return gulp.src( path.to.fonts.source )
+		.pipe( gulp.dest( path.to.fonts.destination ) );
+} );
