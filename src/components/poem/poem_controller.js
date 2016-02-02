@@ -43,13 +43,11 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 				console.log(poem);
 				setTimeout($scope.fetchPoem.bind(this, poem.id), 1000);
 			}
-			if (Poem.poems) {
-				$scope.nextPoem = Poem.poems[Poem.currentPoemIndex + 1];
-				if (currentPoemIndex > 0) {
-					$scope.previousPoem = Poem.poems[Poem.currentPoemIndex - 1];
-				}
-			}
 		});
+	}
+
+	$scope.goToPoem = function(poemId) {
+		$state.go('poem', {poemId: poemId});
 	}
 
 	$scope.fetchPoem($stateParams.poemId);

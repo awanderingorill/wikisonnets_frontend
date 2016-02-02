@@ -59,8 +59,6 @@ poemFactory.factory('Poem', function( $http, $q ) {
 			params: options
 		})
 		.success(function(data) {
-			poemApi.poems = data;
-			poemApi.currentPoemIndex = 0;
 			deferred.resolve(data);
 		})
 		.error(function(error) {
