@@ -15,6 +15,7 @@ gulp.task( 'default', function(  )
 		[
 			'jade',
 			'sass',
+			'bower',
 			'scripts',
 			'images',
 			'favicon',

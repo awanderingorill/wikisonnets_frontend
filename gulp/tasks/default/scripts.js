@@ -26,9 +26,12 @@ var concat          = require( 'gulp-concat' );
 // Scripts.
 
 gulp.task( 'bower', function( ) {
-	console.log(mainBowerFiles({ base: 'bower_components', includeDev: true }));
-	return gulp.src(mainBowerFiles({ base: 'bower_components', includeDev:true }))
-        .pipe(gulp.dest( path.to.scripts.lib_destination ))
+	// console.log(mainBowerFiles({ base: 'bower_components', includeDev: true }));
+
+	// return gulp.src(mainBowerFiles({ base: 'bower_components', includeDev:true }))
+ //        .pipe(gulp.dest( path.to.scripts.lib_destination ))
+ gulp.src('./bower_components/moment/min/moment-with-locales.min.js')
+ .pipe(gulp.dest( path.to.scripts.destination ));
 });
 
 var libs = [
