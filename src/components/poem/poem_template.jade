@@ -2,7 +2,7 @@
 .poem-body
 	.left-sidebar
 		.left-poem
-			span.left-poem__title(ng-click="goToPoem(poem.next.poem_id)") {{poem.next.page_name}}
+			span.left-poem__title(ng-click="goToPoem(poem.next.poem_id)") {{poem.next.page_name | removeUnderscores}}
 	.poem
 		.poem__image-wrapper
 			img.poem__image(src="{{poem.imageUrl}}")
@@ -12,5 +12,5 @@
 			poem-line.poem__line-wrapper(ng-repeat="line in poem.lines")
 	.right-sidebar
 		.right-poem
-			span.right-poem__title(ng-click="goToPoem(poem.previous.poem_id)") {{poem.previous.page_name}}
+			span.right-poem__title(ng-click="goToPoem(poem.previous.poem_id)") {{poem.previous.page_name | removeUnderscores}}
 
