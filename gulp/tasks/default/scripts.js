@@ -30,7 +30,7 @@ gulp.task( 'bower', function( ) {
 
 	// return gulp.src(mainBowerFiles({ base: 'bower_components', includeDev:true }))
  //        .pipe(gulp.dest( path.to.scripts.lib_destination ))
- gulp.src('./bower_components/moment/min/moment-with-locales.min.js')
+ gulp.src('./bower_components/moment/min/moment.min.js')
  .pipe(gulp.dest( path.to.scripts.destination ));
 });
 

@@ -43,9 +43,16 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 				console.log(poem);
 				setTimeout($scope.fetchPoem.bind(this, poem.id), 1000);
 			}
+			if (Poem.poems) {
+				$scope.nextPoem = Poem.poems[Poem.currentPoemIndex + 1];
+				if (currentPoemIndex > 0) {
+					$scope.previousPoem = Poem.poems[Poem.currentPoemIndex - 1];
+				}
+			}
 		});
 	}
 
 	$scope.fetchPoem($stateParams.poemId);
+	//get five poems before and five poems after
 
 });

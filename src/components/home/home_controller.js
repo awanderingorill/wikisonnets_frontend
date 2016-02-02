@@ -1,9 +1,15 @@
 
 var home = angular.module( 'home' );
 
-home.controller( 'HomeController', function( $rootScope, $scope, $state) {
+home.controller( 'HomeController', function( $rootScope, $scope, $state, Poem) {
 
-	
-	//do stuff here to get latest poem
-	$state.go('poem', {poemId: 1});
+	//may need to be careful with utc times and stuff
+	var dateString = moment.utc().format("YYYY-MM-DD");
+	var options = {
+		limit: 10
+	}
+	Poem.index(options).then(function(poems) {
+		$state.go('poem', {poemId: poems[Poem.currentPoemIndex].id});
+	});
+
 });

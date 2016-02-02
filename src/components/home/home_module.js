@@ -1,7 +1,8 @@
 
 var home = angular.module( 'home',
 [
-	'ui.router'
+	'ui.router',
+	'Poem'
 ] );
 
 home.config( function( $stateProvider )

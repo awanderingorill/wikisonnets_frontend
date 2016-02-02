@@ -106,6 +106,25 @@ app.post('/api/poems', function(req, res) {
 	});
 });
 
+app.get('/api/poems', function(req, res) {
+	var jar = request.jar();
+	if (req.cookies["session"]) {
+		var cookie = request.cookie("session="+req.cookies["session"]);
+		jar.setCookie(cookie, 'http://localhost:3000');
+	}
+	console.log(req.query);
+	request({
+		url: "http://localhost:8000/api/v2/poems",
+		method: 'GET',
+		jar: jar,
+		qs: req.query
+	},
+	function(err, response) {
+		var body = JSON.parse(response.body);
+		res.json(body.poems);
+	});
+});
+
 app.post('/poems/:poem_id', function(req, res) {
 	var oldPoem = req.body.poem;
 	var jar = request.jar();

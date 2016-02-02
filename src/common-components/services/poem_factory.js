@@ -46,8 +46,8 @@ poemFactory.factory('Poem', function( $http, $q ) {
 		// offset
 		// limit 
 		// sortby:string 'lauds' or 'date' (ascending? descending?)
-		// before:datestring(YYYY-mm-dd) inclusive
-		// after:datestring(YYYY-mm-dd) inclusive
+		// before:datestring(YYYY-mm-dd) exclusive
+		// after:datestring(YYYY-mm-dd) exclusive
 		var deferred = $q.defer(  );
 		var promise = deferred.promise;
 
@@ -59,6 +59,8 @@ poemFactory.factory('Poem', function( $http, $q ) {
 			params: options
 		})
 		.success(function(data) {
+			poemApi.poems = data;
+			poemApi.currentPoemIndex = 0;
 			deferred.resolve(data);
 		})
 		.error(function(error) {

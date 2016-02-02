@@ -184,14 +184,18 @@
 }
 
 .left-poem__title {
+  cursor: pointer;
   @include icon('arrow-left') {
-    cursor: pointer;
+    padding-right: #{10 / $base-font-size}rem;
+    vertical-align: bottom;
   }
 }
 
 .right-poem__title {
+  cursor: pointer;
   @include icon('arrow-right', 'after') {
-    cursor: pointer;
+    padding-left: #{10 / $base-font-size}rem;
+    vertical-align: bottom;
   }
 }
 
