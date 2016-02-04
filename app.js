@@ -56,7 +56,7 @@ app.get('/api/pages/:page_id/image', function(req, res) {
 			format: "json",
 			pageids: page_id,
 			prop: "pageimages",
-			pithumbsize: 150
+			pithumbsize: 300
 		}
 	}, 
 	function(error, imageResponse) {
