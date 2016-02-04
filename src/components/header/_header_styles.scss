@@ -4,26 +4,25 @@
 }
 
 .nav {
-    display: none;
-    @include breakpoint('iphone-portrait') {
-        display: block;
-    }
+    display: flex;
 }
 
 .nav__items {
-    display: flex;
-    justify-content: flex-end;
+    display: none;
+
+    @include breakpoint('iphone-portrait') {
+        display: flex;
+        justify-content: flex-end;
+  }
 }
 
 .logo {
 	text-transform: uppercase;
   font-family: "Andale Mono", monospace;
-  font-size: #{64 / $base-font-size}rem;
-  width: 100%;
-  margin: 0 auto;
+  font-size: #{40 / $base-font-size}rem;
 	@include breakpoint('iphone-portrait') {
-		font-size: #{72 / $base-font-size}rem;
 	  width: #{740 / $base-font-size}rem;
 	  padding: 0;
 	}
+  flex: 1;
 }
