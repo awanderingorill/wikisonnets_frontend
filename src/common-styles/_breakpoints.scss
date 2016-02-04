@@ -2,7 +2,7 @@
 {
     @if $breakpoint-name == 'iphone-portrait'
     {
-        @media( min-width: 376px )
+        @media( min-width: 415px )
         {
             @content;
         }
