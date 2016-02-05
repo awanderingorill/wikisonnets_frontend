@@ -11,9 +11,10 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 				if (poem.lines) {
 					poem.lines.forEach(function(line, index) {
 						if (line.text !== "" && !$scope.poem.lines[index].tooltip) {
-							Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
+							var p = Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
 								$scope.poem.lines[index].tooltip = tooltip;
 							});
+							$scope.poem.lines[index].promise = p;
 						}
 					});
 				}
@@ -28,14 +29,34 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 	$scope.fetchPoem = function(id) {
 		Poem.get(id).then(function(poem) {
 			console.log(poem);
-			$scope.poem = poem;
+			// $scope.poem = poem;
+			if (!$scope.poem || Object.keys($scope.poem).length === 0) {
+				$scope.poem = poem;
+			}
+			else if (!$scope.poem.lines) {
+				$scope.poem.lines = poem.lines;
+			}
+			else {
+				poem.lines.forEach(function(line, index) {
+					if ($scope.poem.lines[index].promise && $scope.poem.lines[index].promise.$$state.status === 0) {
+						console.log("Line at index " + index + " has a promise pending.");
+					}
+					if (!$scope.poem.lines[index].tooltip
+						&& !($scope.poem.lines[index].promise && $scope.poem.lines[index].promise.$$state.status === 0)) {
+						$scope.poem.lines[index] = line;
+					}
+				});
+			}
 	    // $scope.$broadcast('angucomplete-alt:changeInput', 'poem-title', poem.title);
 			if (poem.lines) {
 				poem.lines.forEach(function(line, index) {
-					if (line.text !== "" && !$scope.poem.lines[index].tooltip) {
-						Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
+					if (line.text !== "" && !$scope.poem.lines[index].tooltip 
+							&& !($scope.poem.lines[index].promise && $scope.poem.lines[index].promise.$$state.status === 0)) {
+						console.log("Line at index " + index + " is being requested.");
+						var p = Tooltip.get(line.page_id, line.revision, line.text).then(function(tooltip) {
 							$scope.poem.lines[index].tooltip = tooltip;
 						});
+						$scope.poem.lines[index].promise = p;
 					}
 				});
 			}
