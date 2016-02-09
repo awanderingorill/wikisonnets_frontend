@@ -16,8 +16,8 @@
 	display: inline-block;
 	width: 100%;
   padding-bottom: #{20 / $base-font-size}rem;
-  padding-left: #{40 / $base-font-size}rem;
-  padding-right: #{40 / $base-font-size}rem;
+  padding-left: #{30 / $base-font-size}rem;
+  padding-right: #{30 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') {
       width: 50%;
       padding-bottom: 0;
@@ -66,10 +66,12 @@
 	display: inline-block;
 	cursor: pointer;
 	background-color: $background-color;
-  font-size: #{14 / $base-font-size}rem;
+  font-size: #{13 / $base-font-size}rem;
+  margin-top: #{2 / $base-font-size}rem;
 	@include breakpoint('iphone-portrait') {
       background-color: transparent;
       font-size: #{16 / $base-font-size}rem;
+      margin-top: 0;
   }
   &.active {
       background-color: $highlight-text-color;
@@ -208,6 +210,7 @@
   cursor: pointer;
   display: none;
   width: auto;
+  font-family: "Andale Mono", monospace;
   max-width: #{150 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') {
     display: inline-block;
@@ -217,14 +220,13 @@
 .left-poem {
   position: absolute;
   left: 0;
-  top: 50%;
+  top: 0;
   z-index: 10;
   cursor: pointer;
   @include icon('arrow-left') {
     cursor: pointer;
     display: block;
     top: 50%;
-    transform: translateY(-50%);
     left: #{-30 / $base-font-size}rem;
     font-size: #{12 / $base-font-size}rem;
     color: $white;
@@ -236,6 +238,7 @@
       color: $black;
       background-color: transparent;
       padding: 0;
+      transform: translateY(-50%);
     }
   }
   @include breakpoint('iphone-portrait') { 
@@ -247,14 +250,13 @@
 .right-poem {
   position: absolute;
   right: 0;
-  top: 50%;
+  top: 0;
   z-index: 10;
   cursor: pointer;
   @include icon('arrow-right', 'after') {
     cursor: pointer;
     display: block;
     top: 50%;
-    transform: translateY(-50%);
     right: #{-30 / $base-font-size}rem;
     font-size: #{12 / $base-font-size}rem;
     color: $white;
@@ -266,6 +268,7 @@
       color: $black;
       background-color: transparent;
       padding: 0;
+      transform: translateY(-50%);
     }
   }
   @include breakpoint('iphone-portrait') { 
