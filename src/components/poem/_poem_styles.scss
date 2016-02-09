@@ -16,8 +16,8 @@
 	display: inline-block;
 	width: 100%;
   padding-bottom: #{20 / $base-font-size}rem;
-  padding-left: #{30 / $base-font-size}rem;
-  padding-right: #{30 / $base-font-size}rem;
+  padding-left: #{40 / $base-font-size}rem;
+  padding-right: #{40 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') {
       width: 50%;
       padding-bottom: 0;
@@ -177,55 +177,100 @@
 }
 
 .left-sidebar, .right-sidebar {
-  flex: 1;
   align-items: center;
-  display: none;
+  flex: 0;
+  display: flex;
   @include breakpoint('iphone-portrait') {
-    display: flex;
+    flex: 1;
   }
 }
 
 .left-sidebar {
   justify-content: flex-start;
-  padding-left: #{40 / $base-font-size}rem;
   font-size: #{16 / $base-font-size}rem;
+  padding: 0;
+  @include breakpoint('iphone-portrait') {
+    padding-left: #{40 / $base-font-size}rem;
+  }
 }
 
 .right-sidebar {
   justify-content: flex-end;
-  padding-right: #{40 / $base-font-size}rem;
   font-size: #{16 / $base-font-size}rem;
+  padding: 0;
+  @include breakpoint('iphone-portrait') {
+    padding-right: #{40 / $base-font-size}rem;
+  }
 }
 
 
 .left-poem__title, .right-poem__title {
   cursor: pointer;
-  display: inline-block;
+  display: none;
   width: auto;
   max-width: #{150 / $base-font-size}rem;
+  @include breakpoint('iphone-portrait') {
+    display: inline-block;
+  }
 }
 
 .left-poem {
-  display: inline-block;
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  z-index: 10;
+  cursor: pointer;
   @include icon('arrow-left') {
-    position: absolute;
+    cursor: pointer;
     display: block;
     top: 50%;
     transform: translateY(-50%);
-    left: #{-20 / $base-font-size}rem;
+    left: #{-30 / $base-font-size}rem;
+    font-size: #{12 / $base-font-size}rem;
+    color: $white;
+    background-color: $black;
+    padding: #{7 / $base-font-size}rem;
+    @include breakpoint('iphone-portrait') {
+      position: absolute;
+      font-size: #{14 / $base-font-size}rem;
+      color: $black;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+  @include breakpoint('iphone-portrait') { 
+    display: inline-block;
+    position: relative;
   }
 }
 
 .right-poem {
-  display: inline-block;
-  position: relative;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  z-index: 10;
+  cursor: pointer;
   @include icon('arrow-right', 'after') {
-    position: absolute;
+    cursor: pointer;
     display: block;
     top: 50%;
     transform: translateY(-50%);
-    right: #{-20 / $base-font-size}rem;
+    right: #{-30 / $base-font-size}rem;
+    font-size: #{12 / $base-font-size}rem;
+    color: $white;
+    background-color: $black;
+    padding: #{7 / $base-font-size}rem;
+    @include breakpoint('iphone-portrait') {
+      position: absolute;
+      font-size: #{14 / $base-font-size}rem;
+      color: $black;
+      background-color: transparent;
+      padding: 0;
+    }
+  }
+  @include breakpoint('iphone-portrait') { 
+    display: inline-block;
+    position: relative;
   }
 }
 
