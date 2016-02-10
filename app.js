@@ -230,11 +230,15 @@ app.get('/api/pages/:page_id/tooltip', function(req, res) {
 	},
 	function(err, wikiResponse) {
 		var body = JSON.parse(wikiResponse.body);
-		if (body.error) { res.json({}); }
+		if (body.error || !body.parse) { 
+			res.json({}); 
+			return;
+		}
 		
 		var htmlText = body.parse.text["*"];
 		var parsed = htmlToText.fromString(htmlText, {wordwrap: null});
 		parsed = parsed.replace(/\[\/wiki\/.*?\]/g, "");
+		parsed = parsed.replace(/\[\/w\/.*?\]/g, "");
 		parsed = parsed.replace(/\[\/\/upload.*?\]/g, "");
 		parsed = parsed.replace(/\[\/\/en.*?\]/g, "");
 		parsed = parsed.replace(/\[\s\d*?\s\]/g, "");
