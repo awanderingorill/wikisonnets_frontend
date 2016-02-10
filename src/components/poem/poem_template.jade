@@ -13,4 +13,7 @@
 	.right-sidebar
 		.right-poem(ng-show="poem.previous" ng-click="goToPoem(poem.previous.poem_id)")
 			span.right-poem__title {{poem.previous.page_name | removeUnderscores}}
+footer.poem__footer
+	a.poem__random Random
+
 

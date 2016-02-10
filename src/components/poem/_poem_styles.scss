@@ -229,7 +229,7 @@
     top: 50%;
     left: #{-30 / $base-font-size}rem;
     font-size: #{12 / $base-font-size}rem;
-    padding: #{10 / $base-font-size}rem;
+    padding: #{20 / $base-font-size}rem;
     @include breakpoint('iphone-portrait') {
       position: absolute;
       font-size: #{14 / $base-font-size}rem;
@@ -255,7 +255,7 @@
     top: 50%;
     right: #{-30 / $base-font-size}rem;
     font-size: #{12 / $base-font-size}rem;
-    padding: #{10 / $base-font-size}rem;
+    padding: #{20 / $base-font-size}rem;
     @include breakpoint('iphone-portrait') {
       position: absolute;
       font-size: #{14 / $base-font-size}rem;
@@ -266,6 +266,25 @@
   @include breakpoint('iphone-portrait') { 
     display: inline-block;
     position: relative;
+  }
+}
+
+.poem__footer {
+  display: flex;
+  justify-content: center;
+  order: -1;
+  padding: #{20 / $base-font-size}rem;
+  @include breakpoint('iphone-portrait') { 
+    order: 0;
+  }
+}
+
+.poem__random {
+  color: $black;
+  text-decoration: none;
+  &:hover {
+    color: $black;
+    text-decoration: none;
   }
 }
 
