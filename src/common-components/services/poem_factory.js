@@ -21,6 +21,24 @@ poemFactory.factory('Poem', function( $http, $q ) {
 		return promise;
 	};
 
+	poemApi.getRandom = function() {
+		var deferred = $q.defer(  );
+		var promise = deferred.promise;
+
+		$http({
+			method: 'get',
+			url: '/api/poems/random',
+			withCredentials: true,
+		})
+		.success(function(data) {
+			deferred.resolve(data);
+		})
+		.error(function(error) {
+			deferred.reject( error );
+		});
+		return promise;
+	};
+
 	poemApi.create = function(poemTitle) {
 		var deferred = $q.defer(  );
 		var promise = deferred.promise;

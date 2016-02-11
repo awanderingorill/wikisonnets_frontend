@@ -279,6 +279,7 @@
   padding: #{20 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') { 
     order: 0;
+    padding: #{60 / $base-font-size}rem;
   }
 }
 
