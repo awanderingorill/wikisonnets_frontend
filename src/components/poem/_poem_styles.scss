@@ -280,10 +280,14 @@
   @include breakpoint('iphone-portrait') { 
     order: 0;
     padding: #{60 / $base-font-size}rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
   }
 }
 
 .poem__random {
+  font-family: 'Andale Mono', monospace;
   color: $black;
   text-decoration: none;
   &:hover {
