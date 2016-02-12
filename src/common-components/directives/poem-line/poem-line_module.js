@@ -1,4 +1,4 @@
-var poemLines = angular.module('poemLine', []);
+var poemLines = angular.module('poemLine', ['Tooltip']);
 
 poemLines.directive( 'poemLine', function($timeout) {
 	return {
