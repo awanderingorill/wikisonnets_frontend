@@ -250,12 +250,12 @@ app.get('/api/pages/:page_id/tooltip', function(req, res) {
 		parsed = parsed.replace(/  +/g, " ");
 		parsed = parsed.replace(/\n +/g, "\n");
 		parsed = parsed.replace(/\n\n\n+/g, "\n\n");
+		
 		var start = parsed.indexOf(line);
-
 		var tooltip = {};
 		if (start != -1) {
-			var snippet = parsed.substring(start-225, start + 225).split(" ");
-			if (start > 225) {
+			var snippet = parsed.substring(start-200, start + 225).split(" ");
+			if (start > 200) {
 				snippet.shift();
 			}
 			snippet.pop();
@@ -264,6 +264,19 @@ app.get('/api/pages/:page_id/tooltip', function(req, res) {
 		}
 		else {
 			tooltip.snippet = "";
+		}
+
+		if (start != -1) {
+			var mobileSnippet = parsed.substring(start-80, start + 120).split(" ");
+			if (start > 80) {
+				mobileSnippet.shift();
+			}
+			mobileSnippet.pop();
+			mobileSnippet = mobileSnippet.join(" ");
+			tooltip.mobileSnippet = mobileSnippet;
+		}
+		else {
+			tooltip.mobileSnippet = "";
 		}
 		tooltip.title = body.parse.title;
 		tooltip.url = "https://en.wikipedia.org/wiki/" + tooltip.title.replace(" ", "_");
