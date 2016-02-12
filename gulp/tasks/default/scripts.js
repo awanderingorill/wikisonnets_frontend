@@ -28,10 +28,12 @@ var concat          = require( 'gulp-concat' );
 gulp.task( 'bower', function( ) {
 	// console.log(mainBowerFiles({ base: 'bower_components', includeDev: true }));
 
-	// return gulp.src(mainBowerFiles({ base: 'bower_components', includeDev:true }))
- //        .pipe(gulp.dest( path.to.scripts.lib_destination ))
- gulp.src('./bower_components/moment/min/moment.min.js')
- .pipe(gulp.dest( path.to.scripts.destination ));
+	return gulp.src(mainBowerFiles({ base: 'bower_components', includeDev:true }))
+        .pipe(filter('*jquery*'))
+        .pipe(gutil.env.production ? uglify() : gutil.noop())
+        .pipe(gulp.dest( path.to.scripts.destination ));
+ // gulp.src('./bower_components/moment/min/moment.min.js')
+ // .pipe(gulp.dest( path.to.scripts.destination ));
 });
 
 var libs = [

@@ -7,16 +7,11 @@ poemLines.directive( 'poemLine', function($timeout) {
 		controller: 'PoemLineController',
 		templateUrl: 'common-components/directives/poem-line/poem-line_template.html',
 		link: function(scope, element, attr) {
-			$timeout(function () {
-				element.on('mouseenter', function(event) {
-					if (angular.element(event.target).parent().hasClass("poem__line-wrapper")) {
-						event.preventDefault();
-						angular.element(event.target).parent().parent().children().children().removeClass("active");
-						angular.element(event.target).addClass("active");
-
-						angular.element(event.target).parent().children()[1].scrollIntoView();
-					}
-				});
+			$(".poem").on('mouseenter', '.poem__line, [class^="poem__line--"], [class*=" poem__line--"]', function(event) {
+				$('.poem__line, [class^="poem__line--"], [class*=" poem__line--"]').removeClass("active");
+				$(event.target).addClass("active");
+				$('html, body').stop().animate({ scrollTop: $(document).height() }, 700);
+				return false;
 			});
 		}
 	}

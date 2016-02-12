@@ -98,6 +98,9 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 
 	$scope.goToPoem = function(poemId) {
 		$state.go('poem', {poemId: poemId});
+		// Poem.get(poemId).then(function(poem) {
+		// 	$state.go('poem', {poemId: poemId, poem: poem});
+		// });
 	}
 
 	$scope.goToRandomPoem = function() {
