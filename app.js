@@ -254,8 +254,8 @@ app.get('/api/pages/:page_id/tooltip', function(req, res) {
 		var start = parsed.indexOf(line);
 		var tooltip = {};
 		if (start != -1) {
-			var snippet = parsed.substring(start-200, start + 225).split(" ");
-			if (start > 200) {
+			var snippet = parsed.substring(start-180, start + 200).split(" ");
+			if (start > 180) {
 				snippet.shift();
 			}
 			snippet.pop();
