@@ -31,7 +31,8 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 		}
 		else {
 			poem.lines.forEach(function(line, index) {
-				if (!$scope.poem.lines[index].tooltip) {
+				var scopeLine = $scope.poem.lines[index];
+				if (!scopeLine.tooltip && !scopeLine.promise) {
 					$scope.poem.lines[index] = line;
 				}
 			});
