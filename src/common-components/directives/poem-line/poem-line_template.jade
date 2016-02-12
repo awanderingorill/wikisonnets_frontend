@@ -1,6 +1,6 @@
 span(ng-class="{true:'poem__line--{{$index+1}}', false: 'poem__line'}[$index === 4 || $index === 9]")
 	{{ line.text }}
-span.poem__tooltip
+span.poem__tooltip(id="poem__tooltip-{{$index+1}}")
 	span.poem__tooltip-snippet '...{{ line.tooltip.snippet | preLinePortion:line.text }}
 		span.poem__tooltip-line{{line.text}}
 		{{ line.tooltip.snippet | postLinePortion:line.text}}...'

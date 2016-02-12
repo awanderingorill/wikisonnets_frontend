@@ -13,6 +13,8 @@ poemLines.directive( 'poemLine', function($timeout) {
 						event.preventDefault();
 						angular.element(event.target).parent().parent().children().children().removeClass("active");
 						angular.element(event.target).addClass("active");
+
+						angular.element(event.target).parent().children()[1].scrollIntoView();
 					}
 				});
 			});
