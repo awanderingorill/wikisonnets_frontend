@@ -3,7 +3,8 @@
 var appWikisonnetClient = angular.module( 'appWikisonnetClient',
 [
 	'home',
-	'poem'
+	'poem',
+	'about'
 ]);
 
 appWikisonnetClient.config(function($logProvider, $urlRouterProvider, $locationProvider) {

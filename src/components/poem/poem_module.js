@@ -1,4 +1,4 @@
-var poem = angular.module( 'poem', ['ui.router', 'Poem', 'Tooltip', 'snippetFilter', 'angucomplete-alt', 'poemLine', 'underscoreFilter']);
+var poem = angular.module( 'poem', ['ui.router', 'Poem', 'Tooltip', 'snippetFilter', 'angucomplete-alt', 'poemLine', 'underscoreFilter', 'header']);
 
 poem.config( function( $stateProvider ) {
 	$stateProvider.state( 'poem', 
@@ -11,7 +11,8 @@ poem.config( function( $stateProvider ) {
 				controller: 'PoemController as poem'
 			},
 			'header@poem': {
-				templateUrl: 'components/header/header_template.html'
+				templateUrl: 'components/header/header_template.html',
+				controller: 'HeaderController as header'
 			}
 		}
 	});

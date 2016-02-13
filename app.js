@@ -24,6 +24,10 @@ app.get('/', function (req, res) {
   res.render('index.jade');
 });
 
+app.get('/about', function (req, res) {
+  res.render('index.jade');
+});
+
 app.get('/api/search', function (req, res) {
 	request({
 		url: "https://en.wikipedia.org/w/api.php",
@@ -267,8 +271,8 @@ app.get('/api/pages/:page_id/tooltip', function(req, res) {
 		}
 
 		if (start != -1) {
-			var mobileSnippet = parsed.substring(start-80, start + 120).split(" ");
-			if (start > 80) {
+			var mobileSnippet = parsed.substring(start-60, start + 90).split(" ");
+			if (start > 60) {
 				mobileSnippet.shift();
 			}
 			mobileSnippet.pop();

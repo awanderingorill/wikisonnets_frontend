@@ -1,0 +1,9 @@
+.about-body {
+	padding: #{20 / $base-font-size}rem;
+	width: 100%;
+	@include breakpoint('iphone-portrait') {
+		margin: 0 auto;
+		width: auto;
+		max-width: #{740 / $base-font-size}rem; 
+	}
+}
