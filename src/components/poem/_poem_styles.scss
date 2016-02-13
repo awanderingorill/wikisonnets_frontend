@@ -158,9 +158,11 @@
   font-size: #{18 / $base-font-size}rem;
   background-color: transparent;
   width: 100%;
+  min-height: #{24 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') {
     font-size: #{30 / $base-font-size}rem;
     width: #{460 / $base-font-size}rem;
+    min-height: #{38 / $base-font-size}rem;
   }
   outline: none;
   border: none;
@@ -179,6 +181,11 @@
 .poem-body {
   display: flex;
   width: 100%;
+  opacity: 0;
+  transition: all linear 1.0s;
+  &.ng-not-empty {
+    opacity: 1;
+  }
 }
 
 .left-sidebar, .right-sidebar {
@@ -187,6 +194,7 @@
   display: flex;
   @include breakpoint('iphone-portrait') {
     flex: 1;
+    min-height: #{544/$base-font-size}rem;
   }
 }
 

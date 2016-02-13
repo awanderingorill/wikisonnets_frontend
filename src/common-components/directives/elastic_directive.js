@@ -13,8 +13,17 @@ elastic.directive('elastic', [
                     element[0].style.height = $scope.initialHeight;
                     element[0].style.height = "" + element[0].scrollHeight + "px";
                 };
-                element.on("input blur keyup change propertychange", resize);
-                $timeout(resize, 500);
+                // element.on("blur keyup change", resize);
+                $timeout(resize, 700);
+                $(element).change(resize);
+                $(element).keyup(resize);
+                $(element).blur(resize);
+                // var scope = $scope.$parent;
+                // scope.$watch('poem.title', function(newValue, oldValue) {
+                //     if(newValue) {
+                //         resize();
+                //     }
+                // });
             }
         };
     }

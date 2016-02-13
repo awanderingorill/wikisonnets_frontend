@@ -1,5 +1,5 @@
 .header-wrapper(ui-view='header')
-.poem-body
+.poem-body(ng-model="poem")
 	.left-sidebar
 		.left-poem(ng-show="poem.next" ng-click="goToPoem(poem.next.poem_id)")
 			span.left-poem__title {{poem.next.page_name | removeUnderscores}}
@@ -7,7 +7,7 @@
 		.poem__image-wrapper
 			img.poem__image(src="{{poem.imageUrl}}")
 		.poem__title-form
-			angucomplete-alt(placeholder="Enter a Wikipedia article" id="poem-title" pause="100" remote-url="/api/search?q=" input-class="poem__title" selected-object="createPoem" minlength="1" title-field="title" initial-value="poem.title")
+			angucomplete-alt(placeholder="Enter a Wikipedia article" id="poem-title" pause="100" remote-url="/api/search?q=" input-class="poem__title" selected-object="createPoem" minlength="1" title-field="title" initial-value="poem.title" ng-show="poem.title")
 		p.poem__lines
 			poem-line.poem__line-wrapper(ng-repeat="line in poem.lines")
 	.right-sidebar

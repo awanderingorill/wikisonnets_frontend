@@ -1,7 +1,6 @@
 var poem = angular.module('poem');
 
 poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $state, $timeout, Poem, Tooltip) {
-
 	$scope.createPoem = function(data) {
 		//create a poem;
 		if (data && data.title) {

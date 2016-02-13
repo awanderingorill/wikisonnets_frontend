@@ -29,7 +29,8 @@ gulp.task( 'bower', function( ) {
 	// console.log(mainBowerFiles({ base: 'bower_components', includeDev: true }));
 
 	return gulp.src(mainBowerFiles({ base: 'bower_components', includeDev:true }))
-        .pipe(filter('*jquery*'))
+        .pipe(filter('*jquery*.js'))
+        .pipe(concat('vendor.js'))
         .pipe(gutil.env.production ? uglify() : gutil.noop())
         .pipe(gulp.dest( path.to.scripts.destination ));
  // gulp.src('./bower_components/moment/min/moment.min.js')
