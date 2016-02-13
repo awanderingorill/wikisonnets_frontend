@@ -9,6 +9,7 @@
 
 .nav__items {
     display: none;
+    font-family: "Andale Mono", monospace;
 
     @include breakpoint('iphone-portrait') {
         display: flex;
