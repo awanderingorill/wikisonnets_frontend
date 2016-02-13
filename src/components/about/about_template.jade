@@ -1,14 +1,14 @@
 .header-wrapper(ui-view='header')
 .about-body
-	p Wikisonnet was created by Ana Giraldo-Wingler, Cassie Tarakajian, and Sam Tarakajian. You can check out the source 
+	p Wikisonnet was created by Ana Giraldo-Wingler, Cassie Tarakajian, and Sam Tarakajian. To generate these sonnets, we have scanned all of Wikipedia, and found every single line that a contributor has written that is in iambic pentameter. We then have written an algorithm to create sonnets given a starting Wikipedia article. You can check out the source code 
 		a(href="https://github.com/starakaj/wikisonnet") here
 		, 
 		a(href="https://github.com/awanderingorill/wikisonnets_frontend") here
 		, and  
 		a(href="https://github.com/catarak/wikisonnet-bot") here
-		| . You can also follow our twitter bot, which will tweet sonnets to you for any Wikipedia Article you specify, at 
+		| . You can also follow our twitter bot, which generates sonnets when you tweet at it, at 
 		a(href="https://twitter.com/wikisonnet") @wikisonnet
 		| .
 
 	p
-		a(ui-sref="home") Home
+		a.about__home(ui-sref="home") Home
