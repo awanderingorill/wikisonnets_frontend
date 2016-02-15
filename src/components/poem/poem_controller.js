@@ -62,4 +62,9 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 		$scope.fetchPoem($stateParams.poemId);
 	}
 
+	//my b for this, but idk where to put this
+	$timeout(function () {
+    $("#poem-title_value").focus();
+  }, 500);
+
 });

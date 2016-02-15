@@ -75,6 +75,7 @@
     "num2fraction": "~1.2.2",
     "path-is-absolute": "~1.0.0",
     "readdirp": "~2.0.0",
+    "serve-favicon": "^2.3.0",
     "streamqueue": "^1.1.1",
     "vinyl-sourcemaps-apply": "~0.2.1",
     "wtf_wikipedia": "^0.2.0"

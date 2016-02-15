@@ -34,23 +34,25 @@ p
 
 a
 {
-    color: #0f6ad4;
+    color: $black;
+    padding-bottom: #{2 / $base-font-size}rem;
+    border-bottom: 1px solid $black;
+    text-decoration: none;
 
     &:hover
     {
-        color: #5da8ff;
-        text-decoration: underline;
+        color: $black;
         cursor: pointer;
     }
 
     &:active
     {
-        color: #0e62c2;
+        color: $black;
     }
 
     &:visited
     {
-        color: #e79952;
+        color: $black;
     }
 }
 

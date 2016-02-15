@@ -1,11 +1,14 @@
 .poem__tooltip-snippet {
+	user-select: none;
 	display: none;
+	width: 100%;
 	@include breakpoint('iphone-portrait') {
 		display: inline-block;
 	}
 }
 
 .poem__tooltip-snippet-mobile {
+	user-select: none;
 	display: inline-block;
 	width: 100%;
 	@include breakpoint('iphone-portrait') {

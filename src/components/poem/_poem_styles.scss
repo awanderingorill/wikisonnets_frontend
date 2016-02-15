@@ -143,7 +143,7 @@
   width: 100%;
   display: flex;
   align-items: flex-end;
-  padding-bottom: #{30 / $base-font-size}rem;
+  padding-bottom: #{15 / $base-font-size}rem;
   padding-left: #{20 / $base-font-size}rem;
   padding-right: #{20 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') {
@@ -160,9 +160,9 @@
   width: 100%;
   min-height: #{24 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') {
-    font-size: #{30 / $base-font-size}rem;
-    width: #{460 / $base-font-size}rem;
-    min-height: #{38 / $base-font-size}rem;
+    font-size: #{24 / $base-font-size}rem;
+    width: #{370 / $base-font-size}rem;
+    min-height: #{30 / $base-font-size}rem;
   }
   outline: none;
   border: none;
@@ -203,7 +203,7 @@
   font-size: #{16 / $base-font-size}rem;
   padding: 0;
   @include breakpoint('iphone-portrait') {
-    padding-left: #{40 / $base-font-size}rem;
+    padding-left: #{60 / $base-font-size}rem;
   }
 }
 
@@ -212,7 +212,7 @@
   font-size: #{16 / $base-font-size}rem;
   padding: 0;
   @include breakpoint('iphone-portrait') {
-    padding-right: #{40 / $base-font-size}rem;
+    padding-right: #{60 / $base-font-size}rem;
   }
 }
 
@@ -223,6 +223,7 @@
   width: auto;
   font-family: "Andale Mono", monospace;
   max-width: #{150 / $base-font-size}rem;
+  font-size: #{14 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') {
     display: inline-block;
   }
@@ -237,8 +238,8 @@
   @include icon('arrow-left') {
     cursor: pointer;
     display: block;
-    top: 50%;
-    left: #{-30 / $base-font-size}rem;
+    top: 59%;
+    left: #{-50 / $base-font-size}rem;
     font-size: #{12 / $base-font-size}rem;
     padding: #{20 / $base-font-size}rem;
     @include breakpoint('iphone-portrait') {
@@ -246,11 +247,15 @@
       font-size: #{14 / $base-font-size}rem;
       padding: 0;
       transform: translateY(-50%);
+      transition: left 0.7s ease;
     }
   }
   @include breakpoint('iphone-portrait') { 
     display: inline-block;
     position: relative;
+    &:hover:before {
+      left: #{-60 /$base-font-size}rem;
+    }
   }
 }
 
@@ -263,8 +268,8 @@
   @include icon('arrow-right', 'after') {
     cursor: pointer;
     display: block;
-    top: 50%;
-    right: #{-30 / $base-font-size}rem;
+    top: 59%;
+    right: #{-50 / $base-font-size}rem;
     font-size: #{12 / $base-font-size}rem;
     padding: #{20 / $base-font-size}rem;
     @include breakpoint('iphone-portrait') {
@@ -272,13 +277,18 @@
       font-size: #{14 / $base-font-size}rem;
       padding: 0;
       transform: translateY(-50%);
+      transition: right 0.7s ease;
     }
   }
   @include breakpoint('iphone-portrait') { 
     display: inline-block;
     position: relative;
+    &:hover:after {
+      right: #{-60 /$base-font-size}rem;
+    }
   }
 }
+
 
 .poem__footer {
   display: flex;
@@ -287,7 +297,6 @@
   padding: #{20 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') { 
     order: 0;
-    padding: #{60 / $base-font-size}rem;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -296,80 +305,10 @@
 
 .poem__random {
   font-family: 'Andale Mono', monospace;
-  color: $black;
-  text-decoration: none;
+  font-size: #{14 / $base-font-size}rem;
+  border-bottom: none;
+  text-transform: uppercase;
   &:hover {
-    color: $black;
-    text-decoration: none;
+    border-bottom: none;
   }
-}
-
-.angucomplete-holder {
-    position: relative;
-}
-
-.angucomplete-dropdown {
-    // border-color: #ececec;
-    border-color: #000000;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 2px;
-    width: 250px;
-    padding: 6px;
-    cursor: pointer;
-    z-index: 9999;
-    position: absolute;
-    /*top: 32px;
-    left: 0px;
-    */
-    margin-top: -4px;
-    background-color: #ffffff;
-}
-
-.angucomplete-searching {
-    color: #acacac;
-    font-size: 14px;
-}
-
-.angucomplete-description {
-    font-size: 14px;
-}
-
-.angucomplete-row {
-    padding: 5px;
-    color: #000000;
-    margin-bottom: 4px;
-    clear: both;
-}
-
-.angucomplete-selected-row {
-    // background-color: lightblue;
-    background-color: $background-color;
-    // color: #ffffff;
-}
-
-.angucomplete-image-holder {
-    padding-top: 2px;
-    float: left;
-    margin-right: 10px;
-    margin-left: 5px;
-}
-
-.angucomplete-image {
-    height: 34px;
-    width: 34px;
-    border-radius: 50%;
-    border-color: #ececec;
-    border-style: solid;
-    border-width: 1px;
-}
-
-.angucomplete-image-default {
-    /* Add your own default image here
-     background-image: url('/assets/default.png');
-    */
-    background-position: center;
-    background-size: contain;
-    height: 34px;
-    width: 34px;
 }

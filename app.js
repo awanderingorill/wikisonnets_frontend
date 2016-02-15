@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var async = require('async');
 var htmlToText = require('html-to-text');
 var bodyParser = require('body-parser');
+var favicon = require('serve-favicon');
 
 var app = express();
 app.use(cookieParser());
@@ -12,6 +13,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 })); 
+
+app.use(favicon(path.join(__dirname,'/dist/images/favicon.ico')));
 
 // app.set('views', path.join(__dirname, 'site/pages'));
 app.set('views', path.join(__dirname, './src'));
@@ -258,8 +261,8 @@ app.get('/api/pages/:page_id/tooltip', function(req, res) {
 		var start = parsed.indexOf(line);
 		var tooltip = {};
 		if (start != -1) {
-			var snippet = parsed.substring(start-180, start + 200).split(" ");
-			if (start > 180) {
+			var snippet = parsed.substring(start-110, start + 130).split(" ");
+			if (start > 110) {
 				snippet.shift();
 			}
 			snippet.pop();

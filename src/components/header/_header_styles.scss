@@ -5,25 +5,46 @@
 
 .nav {
     display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
 }
 
 .nav__items {
     display: none;
     font-family: "Andale Mono", monospace;
-
+    font-size: #{14 / $base-font-size}rem;
+    text-transform: uppercase;
     @include breakpoint('iphone-portrait') {
         display: flex;
         justify-content: flex-end;
+        flex: 1;
+  }
+}
+
+.nav__about {
+  border-bottom: none;
+  color: rgba(0,0,0,0.4);
+  &:hover {
+    color: rgba(0,0,0,0.4);
   }
 }
 
 .logo {
 	text-transform: uppercase;
   font-family: "Andale Mono", monospace;
-  font-size: #{40 / $base-font-size}rem;
+  font-size: #{24 / $base-font-size}rem;
+  align-self: flex-start;
+  flex: 1;
 	@include breakpoint('iphone-portrait') {
-	  width: #{740 / $base-font-size}rem;
+	  // width: #{740 / $base-font-size}rem;
 	  padding: 0;
 	}
-  flex: 1;
+}
+
+.nav__poem-sorting {
+  font-size: #{14 / $base-font-size}rem;
+  align-self: center;
+  font-family: "Andale Mono", monospace;
+  text-transform: uppercase;     
 }
