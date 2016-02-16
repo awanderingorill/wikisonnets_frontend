@@ -8,8 +8,10 @@
 			img.poem__image(src="{{poem.imageUrl}}")
 		.poem__title-form
 			angucomplete-alt(placeholder="Enter a Wikipedia article" id="poem-title" pause="100" remote-url="/api/search?q=" input-class="poem__title" selected-object="createPoem" minlength="1" title-field="title" initial-value="poem.title" ng-show="poem.title")
-		p.poem__lines
+		p.poem__lines(ng-show="poem.lines")
 			poem-line.poem__line-wrapper(ng-repeat="line in poem.lines")
+		p.poem__loader(ng-hide="poem.lines")
+			| Fetching poem
 	.right-sidebar
 		.right-poem(ng-show="poem.previous" ng-click="goToPoem(poem.previous.poem_id)")
 			span.right-poem__title {{poem.previous.page_name | removeUnderscores}}
