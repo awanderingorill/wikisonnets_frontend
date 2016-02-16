@@ -9,16 +9,16 @@
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'SimSun';
-    src:    url('../fonts/SimSun/SimSun.eot');
-    src:    url('../fonts/SimSun/SimSun.eot') format('embedded-opentype'),
-        url('../fonts/SimSun/SimSun.ttf') format('truetype'),
-        url('../fonts/SimSun/SimSun.woff') format('woff'),
-        url('../fonts/SimSun/SimSun.svg') format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
+// @font-face {
+//     font-family: 'SimSun';
+//     src:    url('../fonts/SimSun/SimSun.eot');
+//     src:    url('../fonts/SimSun/SimSun.eot') format('embedded-opentype'),
+//         url('../fonts/SimSun/SimSun.ttf') format('truetype'),
+//         url('../fonts/SimSun/SimSun.woff') format('woff'),
+//         url('../fonts/SimSun/SimSun.svg') format('svg');
+//     font-weight: normal;
+//     font-style: normal;
+// }
 
 $icons: (
 	arrow-left: "\e901",
