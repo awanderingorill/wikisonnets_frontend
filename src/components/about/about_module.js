@@ -10,7 +10,7 @@ about.config( function($stateProvider) {
 				controller: 'AboutController as about'
 			},
 			'header@about': {
-				templateUrl: 'components/header/header_template.html',
+				templateUrl: 'components/header/header-about_template.html',
 				controller: 'HeaderController as header'
 			}
 		}
