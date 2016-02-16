@@ -12,6 +12,9 @@ elastic.directive('elastic', [
                 var resize = function() {
                     element[0].style.height = $scope.initialHeight;
                     element[0].style.height = "" + element[0].scrollHeight + "px";
+
+                    // var parentHeight = element[0].scrollHeight + 18;
+                    // element.parent().parent().parent()[0].style.height = "" + parentHeight + "px";
                 };
                 // element.on("blur keyup change", resize);
                 $timeout(resize, 700);
