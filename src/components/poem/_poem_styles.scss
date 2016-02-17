@@ -315,7 +315,8 @@
 }
 
 .poem__loader {
-  animation-duration: 0.25s;
+  padding: 0 #{20 / $base-font-size}rem;
+  animation-duration: 0.5s;
   animation-name: fadein;
   animation-iteration-count: infinite;
   animation-direction: alternate;

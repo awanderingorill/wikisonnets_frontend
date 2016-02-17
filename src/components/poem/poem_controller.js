@@ -4,6 +4,8 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 	$scope.createPoem = function(data) {
 		//create a poem;
 		if (data && data.title) {
+			$scope.poem.lines = undefined;
+			$scope.poem.imageUrl = undefined;
 			Poem.create(data.title).then(function(poem) {
 				$scope.poem = poem;
 				$state.go('poem', {poemId: poem.id, poem: poem});
