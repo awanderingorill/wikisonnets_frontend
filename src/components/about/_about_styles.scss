@@ -14,7 +14,7 @@
 .about__home {
 	color: $black;
 	border-bottom: none;
-	font-family: "Andale Mono", monospace;
+	font-family: $monospace-font;
 	&:hover, &:visited {
 		color: $black;
 		border-bottom: none;

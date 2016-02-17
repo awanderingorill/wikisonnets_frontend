@@ -155,7 +155,7 @@
 }
 
 .poem__title {
-  font-family: "Andale Mono", monospace;
+  font-family: $monospace-font;
   font-size: #{18 / $base-font-size}rem;
   background-color: transparent;
   width: 100%;
@@ -222,7 +222,7 @@
   cursor: pointer;
   display: none;
   width: auto;
-  font-family: "Andale Mono", monospace;
+  font-family: $monospace-font;
   max-width: #{150 / $base-font-size}rem;
   font-size: #{14 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') {
@@ -305,7 +305,7 @@
 }
 
 .poem__random {
-  font-family: 'Andale Mono', monospace;
+  font-family: $monospace-font;
   font-size: #{14 / $base-font-size}rem;
   border-bottom: none;
   text-transform: uppercase;
@@ -316,6 +316,9 @@
 
 .poem__loader {
   padding: 0 #{20 / $base-font-size}rem;
+  @include breakpoint('iphone-portrait') { 
+    padding: 0;
+  }
   animation-duration: 0.5s;
   animation-name: fadein;
   animation-iteration-count: infinite;

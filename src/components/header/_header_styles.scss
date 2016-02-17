@@ -12,7 +12,7 @@
 
 .nav__items {
     display: none;
-    font-family: "Andale Mono", monospace;
+    font-family: $monospace-font;
     font-size: #{14 / $base-font-size}rem;
     text-transform: uppercase;
     @include breakpoint('iphone-portrait') {
@@ -32,10 +32,11 @@
 
 .logo {
 	text-transform: uppercase;
-  font-family: "Andale Mono", monospace;
+  font-family: $monospace-font;
   font-size: #{24 / $base-font-size}rem;
   align-self: flex-start;
   flex: 1;
+  cursor: pointer;
 	@include breakpoint('iphone-portrait') {
 	  // width: #{740 / $base-font-size}rem;
 	  padding: 0;
@@ -45,7 +46,7 @@
 .nav__poem-sorting {
   font-size: #{14 / $base-font-size}rem;
   align-self: center;
-  font-family: "Andale Mono", monospace;
+  font-family: $monospace-font;
   text-transform: uppercase;   
   display: none; 
   @include breakpoint('iphone-portrait') {
