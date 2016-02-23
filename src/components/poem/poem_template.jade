@@ -12,6 +12,7 @@
 			poem-line.poem__line-wrapper(ng-repeat="line in poem.lines")
 		p.poem__loader(ng-hide="poem.lines")
 			| Fetching poem
+		share-buttons
 	.right-sidebar
 		.right-poem(ng-show="poem.previous" ng-click="goToPoem(poem.previous.poem_id)")
 			span.right-poem__title {{poem.previous.page_name | removeUnderscores}}

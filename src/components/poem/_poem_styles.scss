@@ -316,6 +316,7 @@
 
 .poem__loader {
   padding: 0 #{20 / $base-font-size}rem;
+  font-family: $monospace-font;
   @include breakpoint('iphone-portrait') { 
     padding: 0;
   }

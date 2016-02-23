@@ -65,6 +65,10 @@ input
     }
 }
 
+img[src=""] {
+   display: none;
+}
+
 .app {
     width: 100%;
     display: flex;

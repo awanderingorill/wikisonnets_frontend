@@ -1,0 +1,17 @@
+.share-buttons {
+	display: flex;
+	& > * + * {
+		margin-left: 5px;
+	}
+}
+
+.share-button {
+	font-family: $monospace-font;
+	border-bottom: none;
+	& + .share-buttons {
+		display: none;
+	}
+	&.active + .share-buttons {
+		display: flex;
+	}
+}

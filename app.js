@@ -132,45 +132,6 @@ app.get('/api/poems', function(req, res) {
 	});
 });
 
-app.post('/poems/:poem_id', function(req, res) {
-	var oldPoem = req.body.poem;
-	var jar = request.jar();
-	if (req.cookies["session"]) {
-		var cookie = request.cookie("session="+req.cookies["session"]);
-		jar.setCookie(cookie, 'http://localhost:3000');
-	}
-
-	request({
-		url: "http://localhost:8000/api/v2/poems/" + req.params["poem_id"],
-		method: 'GET',
-		jar: jar
-	},
-	function(err, poemResponse) {
-		if (err) {console.log(err); return; }
-		if (!req.cookies["session"]) {
-			var cookies = jar.getCookies('http://localhost:3000');
-			res.cookie(cookies[0]);
-		}
-		var body = JSON.parse(poemResponse.body);
-		//combine body with old poem;
-		async.forEachOf(body.lines, function(line, index, callback) {
-			if (oldPoem.lines && parseInt(oldPoem.lines[index].page_id) !== 0) {
-				line.tooltip = oldPoem.lines[index].tooltip;
-				callback();
-			}
-			else {
-				fetchTooltip(line, function() {
-					callback();
-				});
-			}
-		},
-		function(err) {
-			res.json(body);
-		});
-	});
-
-});
-
 app.get('/poems/:poem_id', function(req, res) {
 	res.render('index.jade');
 });
@@ -198,24 +159,6 @@ app.get('/api/poems/:poem_id', function(req, res) {
 			body.imageUrl = imageUrl;
 			res.json(body);
 		});
-		// async.parallel([
-		// 	function(cb) {
-		// 		fetchPoemImage(body, cb);
-		// 	},
-		// 	function(cb) {
-		// 		async.forEachOf(body.lines, function(line, index, callback) {
-		// 			fetchTooltip(line, function() {
-		// 				callback();
-		// 			});
-		// 		},
-		// 		function(err) {
-		// 			cb();
-		// 		});
-		// 	}
-		// ],
-		// function(err) {
-		// 	res.json(body);
-		// });
 	});
 });
 
@@ -335,6 +278,16 @@ app.delete('/poems/:poem_id/lauds', function(req, res) {
 
 });
 
+// Handle 404
+app.use(function(req, res) {
+	res.status(404).send('404: Page not Found');
+});
+
+// Handle 500
+app.use(function(error, req, res, next) {
+	res.status(500).send('500: Internal Server Error');
+});
+
 function fetchPoemImage(pageId, callback) {
 	var page_id = pageId;
 	request({
@@ -359,72 +312,6 @@ function fetchPoemImage(pageId, callback) {
 		}
 		callback(imageUrl);
 	});
-}
-
-function fetchTooltip(line, callback) {
-	console.log(line);
-	if (parseInt(line.page_id) !== 0) {
-		request({
-			url: "https://en.wikipedia.org/w/api.php",
-			method: 'GET',
-			qs: {
-				action: "parse",
-				format: "json",
-				pageid: line.page_id,
-				prop: "text",
-				oldid: line.revision || 1
-			}
-		},
-		function(err, wikiResponse) {
-			var body = JSON.parse(wikiResponse.body);
-			if (body.error) {
-				line.tooltip = {};
-				line.tooltip.snippet = "";
-				line.tooltip.url = "";
-				line.tooltip.title = "";
-				callback();
-				return;
-			}
-			var htmlText = body.parse.text["*"];
-			var parsed = htmlToText.fromString(htmlText, {wordwrap: null});
-			parsed = parsed.replace(/\[\/wiki\/.*?\]/g, "");
-			parsed = parsed.replace(/\[\/\/upload.*?\]/g, "");
-			parsed = parsed.replace(/\[\/\/en.*?\]/g, "");
-			parsed = parsed.replace(/\[\s\d*?\s\]/g, "");
-			parsed = parsed.replace(/\[\sEDIT.*?\s\]/g, "");
-			parsed = parsed.replace(/\[http\:\/\/.*?\]/g, "");
-			parsed = parsed.replace(/\[\#.*?\]/g, "");
-			parsed = parsed.replace(/ +\./g, ".");
-			parsed = parsed.replace(/ +\,/g, ",");
-			parsed = parsed.replace(/  +/g, " ");
-			parsed = parsed.replace(/\n\n\n+/g, "\n\n");
-			var start = parsed.indexOf(line.text);
-			line.tooltip = {};
-			if (start != -1) {
-				//only want to do this if it doesn't pass the beginning or end
-				var snippet = parsed.substring(start-225, start + 225).split(" ");
-				if (start > 225) {
-					snippet.shift();
-				}
-				snippet.pop();
-				snippet = snippet.join(" ");
-				line.tooltip.snippet = snippet;
-			}
-			else {
-				line.tooltip.snippet = "";
-			}
-			line.tooltip.title = body.parse.title;
-			line.tooltip.url = "https://en.wikipedia.org/wiki/" + line.tooltip.title.replace(" ", "_");
-			callback();	
-		});		
-	} 
-	else {
-		line.tooltip = {};
-		line.tooltip.snippet = "";
-		line.tooltip.url = "";
-		line.tooltip.title = "";
-		callback();
-	}	
 }
 
 var server = app.listen(3000, function () {
