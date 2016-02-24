@@ -43,13 +43,32 @@
 	}
 }
 
+.nav__poem-sorting-wrapper {
+  display: none;
+  @include breakpoint('iphone-portrait') {
+    display: inline-block;
+  }
+  position: relative;
+  @include icon('chevron-small-down', 'after') {
+    position: absolute;
+    top: 2px;
+    right: 0;
+    z-index: -1;
+  }
+}
+
 .nav__poem-sorting {
   font-size: #{14 / $base-font-size}rem;
   align-self: center;
   font-family: $monospace-font;
   text-transform: uppercase;   
-  display: none; 
-  @include breakpoint('iphone-portrait') {
-    display: inline-block;
-  } 
+  border: none;
+  background-color: transparent;
+  appearance: none;
+  outline: none;
+  width: #{115 / $base-font-size}rem;
+}
+
+.nav__poem-sorting-item {
+  background-color: $white;
 }

@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:    url('../fonts/icomoon/icomoon.eot?42kc8n');
-    src:    url('../fonts/icomoon/icomoon.eot?42kc8n#iefix') format('embedded-opentype'),
-        url('../fonts/icomoon/icomoon.ttf?42kc8n') format('truetype'),
-        url('../fonts/icomoon/icomoon.woff?42kc8n') format('woff'),
-        url('../fonts/icomoon/icomoon.svg?42kc8n#icomoon') format('svg');
+    src:    url('../fonts/icomoon/icomoon.eot?1kbt0h');
+    src:    url('../fonts/icomoon/icomoon.eot?1kbt0h#iefix') format('embedded-opentype'),
+        url('../fonts/icomoon/icomoon.ttf?1kbt0h') format('truetype'),
+        url('../fonts/icomoon/icomoon.woff?1kbt0h') format('woff'),
+        url('../fonts/icomoon/icomoon.svg?1kbt0h#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -22,7 +22,9 @@
 
 $icons: (
 	arrow-left: "\e901",
-	arrow-right: "\e900"
+	arrow-right: "\e900",
+  chevron-thin-down: "\e902",
+  chevron-small-down: "\e903"
 );
 
 @mixin icon($icon: false, $position: before, $styles: true, $replace: false) {
