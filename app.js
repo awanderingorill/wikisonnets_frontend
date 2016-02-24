@@ -146,7 +146,8 @@ app.get('/api/poems/:poem_id', function(req, res) {
 	request({
 		url: "http://localhost:8000/api/v2/poems/" + req.params['poem_id'],
 		method: 'GET',
-		jar: jar
+		jar: jar,
+		qs: req.query
 	},
 	function(err, response) {
 		if(err) { console.log(err); return; }

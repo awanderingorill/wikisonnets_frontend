@@ -14,7 +14,7 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 	};
 
 	$scope.fetchPoem = function(id) {
-		Poem.get(id).then(function(poem) {
+		Poem.get(id, $rootScope.sortOrder).then(function(poem) {
 			console.log(poem);
 			if (!poem.complete) {
 				setTimeout($scope.fetchPoem, 1000, poem.id);
@@ -51,6 +51,41 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 		Poem.getRandom().then(function(poem) {
 			$state.go('poem', {poemId: poem.id, poem: poem});
 		});
+	}
+
+	//idk why i have to do this but angular is being dumb
+	$scope.onSelectChange = function() {
+		$rootScope.sortOrder = this.sortOrder;
+		if ($rootScope.sortOrder === 'featured') {
+			if ($scope.poem.featured) {
+				var poemId = $scope.poem.id;
+				$scope.poem = null;
+				Poem.get(poemId, $rootScope.sortOrder).then(function(poem) {
+					console.log(poem);
+					$scope.poem = poem;
+					$scope.fetchPoemTooltips(poem);
+				});
+			}
+			else {
+				$scope.poem = null;
+				Poem.index({limit: 1, featured: 1}).then(function(poems) {
+					$state.go('poem', {poemId: poems[0].id})
+				});
+			}
+		}
+		else {
+			var poemId = $scope.poem.id;
+			$scope.poem = null;
+			Poem.get(poemId, $rootScope.sortOrder).then(function(poem) {
+				console.log(poem);
+				$scope.poem = poem;
+				$scope.fetchPoemTooltips(poem);
+			});
+		}
+	}
+
+	if (!$rootScope.sortOrder) {
+		$rootScope.sortOrder = 'mostRecent';
 	}
 
 	if ($stateParams.poem && $stateParams.poem.complete) {

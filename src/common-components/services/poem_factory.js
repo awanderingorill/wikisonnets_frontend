@@ -3,14 +3,21 @@ var poemFactory = angular.module( 'Poem', [  ] );
 poemFactory.factory('Poem', function( $http, $q ) {
   var poemApi = { };
 
-	poemApi.get = function(poemId) {
+	poemApi.get = function(poemId, sortOrder) {
 		var deferred = $q.defer(  );
 		var promise = deferred.promise;
+
+		var options = {};
+
+		if (sortOrder === 'featured') {
+			options.featured = 1;
+		}
 
 		$http({
 			method: 'get',
 			url: '/api/poems/' + poemId,
 			withCredentials: true,
+			params: options
 		})
 		.success(function(data) {
 			deferred.resolve(data);

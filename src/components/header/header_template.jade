@@ -2,8 +2,8 @@ header.header
 	nav.nav
 		.logo(ui-sref="home") WikiSonnet
 		.nav__poem-sorting-wrapper
-			select.nav__poem-sorting 
-				option.nav__poem-sorting-item(value="mostRecent" selected="true") Most Recent
+			select.nav__poem-sorting(ng-model="$root.sortOrder" ng-change="onSelectChange()")
+				option.nav__poem-sorting-item(value="mostRecent") Most Recent
 				option.nav__poem-sorting-item(value="featured") Featured
 		ul.nav__items
 			li
