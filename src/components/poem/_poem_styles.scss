@@ -131,7 +131,7 @@
     display: block;
     position: absolute;
     top: 0;
-    height: #{150 / $base-font-size}rem;
+    height: #{120 / $base-font-size}rem;
   }
 }
 
@@ -150,7 +150,7 @@
   @include breakpoint('iphone-portrait') {
     padding-left: 0;
     padding-right: 0;
-    height: #{160 / $base-font-size}rem;
+    height: #{130 / $base-font-size}rem;
   }
 }
 

@@ -1,17 +1,31 @@
 .share-buttons {
+	padding: #{10 / $base-font-size}rem 0;
 	display: flex;
 	& > * + * {
 		margin-left: 5px;
 	}
+	position: absolute;
 }
 
 .share-button {
 	font-family: $monospace-font;
 	border-bottom: none;
+	text-transform: uppercase;
+	user-select: none; 
 	& + .share-buttons {
-		display: none;
+		transition: opacity 1s;
+		opacity: 0;
 	}
 	&.active + .share-buttons {
-		display: flex;
+		opacity: 1;
+	}
+}
+
+.share-buttons-wrapper {
+	padding-top: #{20 / $base-font-size}rem;
+	position: relative;
+	display: none;
+	@include breakpoint('iphone-portrait') {
+		display: block;
 	}
 }
