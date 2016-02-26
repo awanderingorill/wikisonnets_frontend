@@ -1,10 +1,11 @@
 .share-buttons {
-	padding: #{10 / $base-font-size}rem 0;
+	// padding: #{10 / $base-font-size}rem 0;
 	display: flex;
 	& > * + * {
 		margin-left: 5px;
 	}
-	position: absolute;
+	// position: absolute;
+	display: inline-block;
 }
 
 .share-button {
@@ -13,7 +14,7 @@
 	text-transform: uppercase;
 	user-select: none; 
 	& + .share-buttons {
-		transition: opacity 1s;
+		transition: opacity 0.5s ease-in-out;
 		opacity: 0;
 	}
 	&.active + .share-buttons {
@@ -28,4 +29,19 @@
 	@include breakpoint('iphone-portrait') {
 		display: block;
 	}
+}
+
+.twitter-share-button {
+	@include icon('twitter');
+	border-bottom: none;
+}
+
+.fb-share-button {
+	@include icon('facebook');
+	border-bottom: none;
+}
+
+.tumblr-share-button {
+	@include icon('tumblr');
+	border-bottom: none;
 }

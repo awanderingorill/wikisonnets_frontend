@@ -183,7 +183,7 @@
   display: flex;
   width: 100%;
   opacity: 0;
-  transition: all linear 1.0s;
+  transition: all ease-in-out 1.0s;
   &.ng-not-empty {
     opacity: 1;
   }

@@ -1,4 +1,4 @@
-var shareButtons = angular.module('shareButtons', []);
+var shareButtons = angular.module('shareButtons', ['720kb.socialshare']);
 
 shareButtons.directive('shareButtons', function() {
 	return {
@@ -9,6 +9,12 @@ shareButtons.directive('shareButtons', function() {
 			$(".share-button").click(function(event) {
 				$(this).toggleClass("active");
 			});
+
+			// scope.$watch('poem.id', function(oldValue, newValue) {
+			// 	if (newValue !== oldValue) {
+			// 		scope.$digest();
+			// 	}
+			// }, true);
 		}
 	}
 });

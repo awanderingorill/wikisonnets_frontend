@@ -180,6 +180,10 @@ app.get('/api/pages/:page_id/tooltip', function(req, res) {
 		}
 	},
 	function(err, wikiResponse) {
+		if (err) {
+			res.json({});
+			return;
+		}
 		var body = JSON.parse(wikiResponse.body);
 		if (body.error || !body.parse) { 
 			res.json({}); 
