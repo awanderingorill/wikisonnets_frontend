@@ -15,7 +15,7 @@
 	text-transform: uppercase;
 	user-select: none; 
 	& + .share-buttons {
-		transition: opacity 0.3s ease-in-out;
+		transition: opacity 0.1s ease-in-out;
 		opacity: 0;
 	}
 	&.active + .share-buttons {
