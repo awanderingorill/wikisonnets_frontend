@@ -1,4 +1,4 @@
-var poem = angular.module( 'poem', ['ui.router', 'Poem', 'Tooltip', 'snippetFilter', 'angucomplete-alt', 'poemLine', 'underscoreFilter', 'header', 'shareButtons']);
+var poem = angular.module( 'poem', ['ui.router', 'Poem', 'Tooltip', 'snippetFilter', 'angucomplete-alt', 'poemLine', 'underscoreFilter', 'header', 'shareButtons', 'wikipediaLinkFilter']);
 
 poem.config( function( $stateProvider ) {
 	$stateProvider.state( 'poem', 

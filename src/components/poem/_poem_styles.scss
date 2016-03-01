@@ -147,6 +147,7 @@
   padding-bottom: #{15 / $base-font-size}rem;
   padding-left: #{20 / $base-font-size}rem;
   padding-right: #{20 / $base-font-size}rem;
+  position: relative;
   @include breakpoint('iphone-portrait') {
     padding-left: 0;
     padding-right: 0;
@@ -176,6 +177,21 @@
   width: 100%;
   @include breakpoint('iphone-portrait') {
     width: auto;
+  }
+}
+
+.poem__title-link {
+  border-bottom: none;
+  padding-bottom: 0;
+  @include icon('link') {
+    font-size: #{14 / $base-font-size}rem;
+  }
+  position: absolute;
+  left: #{-20 / $base-font-size}rem;
+  bottom: #{23 / $base-font-size}rem;
+  display: none;
+  @include breakpoint('iphone-portrait') {
+    display: inline-block;
   }
 }
 
