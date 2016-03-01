@@ -37,9 +37,11 @@
   align-self: flex-start;
   flex: 1;
   cursor: pointer;
+  text-align: center;
 	@include breakpoint('iphone-portrait') {
 	  // width: #{740 / $base-font-size}rem;
 	  padding: 0;
+    text-align: left;
 	}
 }
 

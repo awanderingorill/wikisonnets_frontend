@@ -243,6 +243,7 @@
     left: #{-50 / $base-font-size}rem;
     font-size: #{12 / $base-font-size}rem;
     padding: #{20 / $base-font-size}rem;
+    padding-top: #{27 / $base-font-size}rem;
     @include breakpoint('iphone-portrait') {
       position: absolute;
       font-size: #{14 / $base-font-size}rem;
@@ -273,6 +274,7 @@
     right: #{-50 / $base-font-size}rem;
     font-size: #{12 / $base-font-size}rem;
     padding: #{20 / $base-font-size}rem;
+    padding-top: #{27 / $base-font-size}rem;
     @include breakpoint('iphone-portrait') {
       position: absolute;
       font-size: #{14 / $base-font-size}rem;
@@ -294,7 +296,7 @@
 .poem__footer {
   display: flex;
   justify-content: center;
-  order: -1;
+  display: none;
   padding: #{20 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') { 
     order: 0;
