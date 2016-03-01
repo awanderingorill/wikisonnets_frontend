@@ -13,13 +13,13 @@
 }
 
 .poem__lines {
-  position: relative;
 	display: inline-block;
 	width: 100%;
   padding-bottom: #{20 / $base-font-size}rem;
   padding-left: #{30 / $base-font-size}rem;
   padding-right: #{30 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') {
+      position: relative;
       width: 50%;
       padding-bottom: 0;
       padding-left: 0;
