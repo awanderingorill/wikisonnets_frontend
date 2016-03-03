@@ -10,13 +10,3 @@
 		padding-top: #{20 / $base-font-size}rem;
 	}
 }
-
-.about__home {
-	color: $black;
-	border-bottom: none;
-	font-family: $monospace-font;
-	&:hover, &:visited {
-		color: $black;
-		border-bottom: none;
-	}
-}
