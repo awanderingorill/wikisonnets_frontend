@@ -6,6 +6,7 @@ var async = require('async');
 var htmlToText = require('html-to-text');
 var bodyParser = require('body-parser');
 var favicon = require('serve-favicon');
+var url = require("url");
 
 var app = express();
 app.use(cookieParser());
@@ -126,7 +127,12 @@ app.get('/api/poems', function(req, res) {
 });
 
 app.get('/poems/:poem_id', function(req, res) {
-	res.render('index.jade');
+	if (req.query.status === "404") {
+		res.status(404).render('index.jade');
+	}
+	else {
+		res.render('index.jade');
+	}
 });
 
 app.get('/api/poems/:poem_id', function(req, res) {
@@ -282,7 +288,8 @@ app.delete('/poems/:poem_id/lauds', function(req, res) {
 
 // Handle 404
 app.use(function(req, res) {
-	res.status(404).send('404: Page not Found');
+	res.redirect('/poems/538?status=404');
+	// res.status(404).send('404: Page not Found');
 });
 
 // Handle 500

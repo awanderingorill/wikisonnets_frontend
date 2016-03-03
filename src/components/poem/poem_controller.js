@@ -88,6 +88,8 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 		}
 	}
 
+	$location.search('status', null);
+
 	if (!$rootScope.sortOrder) {
 		$rootScope.sortOrder = 'mostRecent';
 	}
