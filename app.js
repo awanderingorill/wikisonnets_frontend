@@ -102,14 +102,7 @@ app.post('/api/poems', function(req, res) {
 			res.cookie(cookies[0]);
 		}
 		var body = JSON.parse(poemResponse.body);
-		async.each(body.lines, function(line, callback) {
-			fetchTooltip(line, function() {
-				callback();
-			});
-		},
-		function(err) {
-			res.json(body);
-		});
+		res.json(body);
 	});
 });
 
