@@ -151,6 +151,10 @@ app.get('/api/poems/:poem_id', function(req, res) {
 	},
 	function(err, response) {
 		if(err) { console.log(err); return; }
+		if (response.statusCode === 404) {
+			res.status(404).send('Not found');
+			return;
+		}
 		if (!req.cookies["session"]) {
 			var cookies = jar.getCookies('http://localhost:3000');
 			res.cookie(cookies[0]);
