@@ -260,7 +260,7 @@
 .left-poem {
   position: absolute;
   left: 0;
-  top: 0;
+  top: #{42 / $base-font-size}rem;
   z-index: 10;
   cursor: pointer;
   @include icon('arrow-left') {
@@ -270,7 +270,7 @@
     left: #{-50 / $base-font-size}rem;
     font-size: #{12 / $base-font-size}rem;
     padding: #{20 / $base-font-size}rem;
-    padding-top: #{27 / $base-font-size}rem;
+    padding-top: #{32 / $base-font-size}rem;
     @include breakpoint('iphone-portrait') {
       position: absolute;
       font-size: #{14 / $base-font-size}rem;
@@ -291,7 +291,7 @@
 .right-poem {
   position: absolute;
   right: 0;
-  top: 0;
+  top: #{42 / $base-font-size}rem;
   z-index: 10;
   cursor: pointer;
   @include icon('arrow-right', 'after') {

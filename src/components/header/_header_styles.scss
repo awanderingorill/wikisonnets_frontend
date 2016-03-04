@@ -8,10 +8,10 @@
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .nav__items {
-    display: none;
     font-family: $monospace-font;
     font-size: #{14 / $base-font-size}rem;
     text-transform: uppercase;
@@ -35,18 +35,17 @@
   font-family: $monospace-font;
   font-size: #{24 / $base-font-size}rem;
   align-self: flex-start;
-  flex: 1;
   cursor: pointer;
   text-align: center;
 	@include breakpoint('iphone-portrait') {
 	  // width: #{740 / $base-font-size}rem;
 	  padding: 0;
     text-align: left;
+    flex: 1;
 	}
 }
 
-.nav__poem-sorting-wrapper {
-  display: none;
+.nav__poem-sorting-container {
   @include breakpoint('iphone-portrait') {
     display: inline-block;
   }
@@ -73,4 +72,17 @@
 
 .nav__poem-sorting-item {
   background-color: $white;
+}
+
+.nav__poem-sorting-wrapper {
+  min-width: 100%;
+  order: 2;
+  display: flex;
+  justify-content: center;
+  padding-top: #{20 / $base-font-size}rem;
+  @include breakpoint('iphone-portrait') {
+    order: initial;
+    min-width: auto;
+    padding: 0;
+  }
 }
