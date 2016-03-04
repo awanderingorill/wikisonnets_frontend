@@ -28,6 +28,7 @@
   &:hover {
     color: rgba(0,0,0,0.4);
   }
+  flex: 0 0 auto;
 }
 
 .logo {
@@ -37,6 +38,7 @@
   align-self: flex-start;
   cursor: pointer;
   text-align: center;
+  flex: 0 0 auto;
 	@include breakpoint('iphone-portrait') {
 	  // width: #{740 / $base-font-size}rem;
 	  padding: 0;
@@ -76,13 +78,15 @@
 
 .nav__poem-sorting-wrapper {
   min-width: 100%;
+  flex: 1 0 100%;
   order: 2;
   display: flex;
   justify-content: center;
   padding-top: #{20 / $base-font-size}rem;
   @include breakpoint('iphone-portrait') {
     order: initial;
-    min-width: auto;
+    min-width: initial;
     padding: 0;
+    flex: 0 1 auto;
   }
 }
