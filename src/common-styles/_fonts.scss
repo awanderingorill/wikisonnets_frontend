@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'icomoon';
-    src:    url('../fonts/icomoon/icomoon.eot?agyjnr');
-    src:    url('../fonts/icomoon/icomoon.eot?agyjnr#iefix') format('embedded-opentype'),
-        url('../fonts/icomoon/icomoon.ttf?agyjnr') format('truetype'),
-        url('../fonts/icomoon/icomoon.woff?agyjnr') format('woff'),
-        url('../fonts/icomoon/icomoon.svg?agyjnr#icomoon') format('svg');
+    src:    url('../fonts/icomoon/icomoon.eot?eko7df');
+    src:    url('../fonts/icomoon/icomoon.eot?eko7df#iefix') format('embedded-opentype'),
+        url('../fonts/icomoon/icomoon.ttf?eko7df') format('truetype'),
+        url('../fonts/icomoon/icomoon.woff?eko7df') format('woff'),
+        url('../fonts/icomoon/icomoon.svg?eko7df#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -28,7 +28,8 @@ $icons: (
   facebook: "\e904",
   twitter: "\e905",
   tumblr: "\e906",
-  link: "\e005"
+  link: "\e005",
+  edit: "\e907"
 );
 
 @mixin icon($icon: false, $position: before, $styles: true, $replace: false) {

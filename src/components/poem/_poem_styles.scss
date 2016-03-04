@@ -175,8 +175,19 @@
 
 #poem-title {
   width: 100%;
+  position: relative;
   @include breakpoint('iphone-portrait') {
     width: auto;
+  }
+  @include icon('edit', 'after') {
+    position: absolute;
+    right: 0;
+    bottom: #{6 / $base-font-size}rem;
+    color: rgba(0,0,0,0.3);
+    z-index: -1;
+    @include breakpoint('iphone-portrait') {
+      display: none;
+    }
   }
 }
 
