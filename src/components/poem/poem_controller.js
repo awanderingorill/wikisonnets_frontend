@@ -57,6 +57,10 @@ poem.controller( 'PoemController', function($rootScope, $scope, $stateParams, $s
 		});
 	}
 
+	$scope.printPoem = function() {
+		window.print();
+	}
+
 	//idk why i have to do this but angular is being dumb
 	$scope.onSelectChange = function() {
 		$rootScope.sortOrder = this.sortOrder;

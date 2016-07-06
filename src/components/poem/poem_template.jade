@@ -13,7 +13,8 @@
 			poem-line.poem__line-wrapper(ng-repeat="line in poem.lines")
 		p.poem__loader(ng-hide="poem.lines")
 			| {{poem.queue_length | loaderText}}
-		share-buttons.share-buttons-wrapper(ng-show="poem.lines")
+		//- share-buttons.share-buttons-wrapper(ng-show="poem.lines")
+		button.poem__print(ng-click="printPoem()") Print 
 	.right-sidebar
 		.right-poem(ng-show="poem.previous" ng-click="goToPoem(poem.previous.poem_id)")
 			span.right-poem__title {{poem.previous.page_name | removeUnderscores}}

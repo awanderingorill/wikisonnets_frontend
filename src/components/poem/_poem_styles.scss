@@ -366,3 +366,16 @@
     opacity: 0;
   }
 }
+
+.poem__print {
+  font-family: "Andale Mono", "Lucida Console", Monaco, Menlo-Regular, monospace;
+  text-transform: uppercase;
+  border: 0;
+  background-color: white;
+  cursor: pointer;
+  font-size: #{24 / $base-font-size}rem;
+  width: #{42 / $base-font-size}rem;
+  padding: 0;
+  margin-top: #{20 / $base-font-size}rem;
+  outline: none;
+}

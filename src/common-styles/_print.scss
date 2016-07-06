@@ -1,0 +1,37 @@
+@media print {
+  header {
+    display: none;
+  }
+
+  footer.poem__footer {
+    display: none;
+  }
+
+  [class^='poem__tooltip-'], div[class*=' poem__tooltip-']{
+    display: none;
+  }
+
+  .right-sidebar, .left-sidebar {
+    display: none;
+  }
+
+  .poem__print {
+    display: none;
+  }
+
+  .poem__title-link {
+    display: none;
+  }
+
+  .poem__image-wrapper {
+    display: none;
+  }
+
+  .poem {
+    padding-left: 175px;
+  }
+
+  .poem__lines {
+    width: 100%;
+  }
+}
