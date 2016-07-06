@@ -368,6 +368,7 @@
 }
 
 .poem__print {
+  display: none;
   font-family: "Andale Mono", "Lucida Console", Monaco, Menlo-Regular, monospace;
   text-transform: uppercase;
   border: 0;
@@ -378,4 +379,7 @@
   padding: 0;
   margin-top: #{20 / $base-font-size}rem;
   outline: none;
+  @include breakpoint('iphone-portrait') { 
+    display: block;
+  }
 }
