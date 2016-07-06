@@ -5,7 +5,8 @@ span.poem__tooltip(id="poem__tooltip-{{$index+1}}")
 		span.poem__tooltip-line{{line.text}}
 		{{ line.tooltip.snippet | postLinePortion:line.text}}...'
 		span.poem__tooltip-citation —
-			a(href="{{line.tooltip.url}}" target="_blank") {{ line.tooltip.title}}
+			//- a(href="{{line.tooltip.url}}" target="_blank") {{ line.tooltip.title}}
+			a(href="") {{ line.tooltip.title}}
 	span.poem__tooltip-snippet-mobile '...{{ line.tooltip.mobileSnippet | preLinePortion:line.text }}
 		span.poem__tooltip-line{{line.text}}
 		{{ line.tooltip.mobileSnippet | postLinePortion:line.text}}...'

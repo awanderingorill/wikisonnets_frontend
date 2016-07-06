@@ -7,7 +7,7 @@
 		.poem__image-wrapper
 			img.poem__image(src="{{poem.imageUrl}}")
 		.poem__title-form
-			a.poem__title-link(href="{{poem.title | wikipediaLink}}" ng-show="poem.title" target="_blank")
+			//- a.poem__title-link(href="{{poem.title | wikipediaLink}}" ng-show="poem.title" target="_blank")
 			angucomplete-alt(placeholder="Enter a Wikipedia article" id="poem-title" pause="100" remote-url="/api/search?q=" input-class="poem__title" selected-object="createPoem" minlength="1" title-field="title" initial-value="poem.title" ng-show="poem.title")
 		p.poem__lines(ng-show="poem.lines")
 			poem-line.poem__line-wrapper(ng-repeat="line in poem.lines")
