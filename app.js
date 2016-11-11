@@ -311,16 +311,19 @@ function fetchPoemImage(pageId, callback) {
 		}
 	}, 
 	function(error, imageResponse) {
-		console.log(error);
-		var body = JSON.parse(imageResponse.body);
-		var key = Object.keys(body.query.pages)[0]
-		if (body.query.pages[key].thumbnail) {
-			var imageUrl = body.query.pages[key].thumbnail.source;
+		if (error) {
+			callback("");
+		} else {
+			var body = JSON.parse(imageResponse.body);
+			var key = Object.keys(body.query.pages)[0]
+			if (body.query.pages[key].thumbnail) {
+				var imageUrl = body.query.pages[key].thumbnail.source;
+			}
+			else {
+				var imageUrl = "";
+			}
+			callback(imageUrl);
 		}
-		else {
-			var imageUrl = "";
-		}
-		callback(imageUrl);
 	});
 }
 
