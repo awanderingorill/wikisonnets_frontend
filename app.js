@@ -299,6 +299,7 @@ app.use(function(error, req, res, next) {
 
 function fetchPoemImage(pageId, callback) {
 	var page_id = pageId;
+	console.log(page_id);
 	request({
 		url: "https://en.wikipedia.org/w/api.php",
 		method: 'GET',
