@@ -121,8 +121,6 @@ app.get('/api/poems', function(req, res) {
 		qs: req.query
 	},
 	function(err, response) {
-		console.log(err);
-		console.log(response);
 		var body = JSON.parse(response.body);
 		res.json(body.poems);
 	});
@@ -313,6 +311,7 @@ function fetchPoemImage(pageId, callback) {
 		}
 	}, 
 	function(error, imageResponse) {
+		console.log(error);
 		var body = JSON.parse(imageResponse.body);
 		var key = Object.keys(body.query.pages)[0]
 		if (body.query.pages[key].thumbnail) {
