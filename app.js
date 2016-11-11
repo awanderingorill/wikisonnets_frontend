@@ -313,6 +313,7 @@ function fetchPoemImage(pageId, callback) {
 	}, 
 	function(error, imageResponse) {
 		if (error) {
+			console.log(error);
 			callback("");
 		} else {
 			var body = JSON.parse(imageResponse.body);
