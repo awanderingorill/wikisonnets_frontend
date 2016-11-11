@@ -121,6 +121,7 @@ app.get('/api/poems', function(req, res) {
 		qs: req.query
 	},
 	function(err, response) {
+		console.log(err);
 		var body = JSON.parse(response.body);
 		res.json(body.poems);
 	});
