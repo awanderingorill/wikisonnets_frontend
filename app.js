@@ -177,7 +177,6 @@ app.get('/api/pages/:page_id/tooltip', function(req, res) {
 		qs: {
 			action: "parse",
 			format: "json",
-			pageid: pageId,
 			prop: "text",
 			oldid: revisionId
 		}
